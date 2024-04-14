@@ -1,6 +1,6 @@
-# AFAZERES
-* Resolver /etc/secureboot
-* Backup /etc/key (copiar para ~/.config/sops/age)
+> [!IMPORTANT]
+>* Resolver /etc/secureboot
+>* Backup /etc/key (copiar para ~/.config/sops/age)
 
 # Bem Vindo!
 
