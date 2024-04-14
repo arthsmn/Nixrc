@@ -15,6 +15,7 @@
         fd
         ktorrent
         libqalculate
+        markdown-oxide
         nil
         nix-init
         nix-your-shell
