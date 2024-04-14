@@ -24,12 +24,12 @@ Sou um membro semi-ativo da comunidade Nix em geral, você pode me contatar por 
 * hosts/${hostname}/homeManager/
   * Minha configuração da home. Apenas utilizo com um dos usuários da minha máquina, então não tenho necessidade de declarar casas para outros usuários.
   * *Atenção:* Essas configurações tem algumas partes pessoais e segredos. Leia e modifique de acordo antes de utilizar.
-* nixosModules|homeManagerModules/
+* nixosModules/, homeManagerModules/
   * Meus módulos. Aqui é onde ficam as minhas funções especiais, que configuram partes do sistema que o NixOS/Home-Manager não configura ou que simplifica a declaração de alguma configuração.
 * overlays/
   * Aqui ficam minhas modificações de pacotes do nixpkgs que não foram levadas para o nixpkgs ou não podem. Também pode haver algum pacote com versão mais antiga caso seja necessário manter a versão.
 * overlays/pkgs/
   * Aqui encontram-se alguns pacotes que eu ainda não tentei levar para o nixpkgs ou que não podem entrar lá por algum motivo.
-* hosts/secrets.yaml .sops.yaml
+* hosts/secrets.yaml, .sops.yaml
   * Meus segredos. São partes da configuração que não podem ser disponibilizadas publicamente.
   * *Atenção:* Se for utilizar os segredos, não esqueça de adaptar para a sua chave age/pgp e usar o seu arquivo de segredos.
