@@ -19,7 +19,7 @@
         nix-init
         nix-your-shell
         ocrmypdf
-        # TODO: use normal python when this version becomes default
+        # TODO: usar python padrão quando a versão for >= 3.13
         python313
         python311Packages.python-lsp-server
         ripgrep
