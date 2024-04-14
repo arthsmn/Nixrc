@@ -1,0 +1,3 @@
+{
+  locales = import ./locales.nix;
+}
