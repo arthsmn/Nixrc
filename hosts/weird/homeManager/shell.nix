@@ -111,7 +111,6 @@ in
 
       sessionVariables = {
         CDPATH = ".:~/Repositórios/:~/Mídia";
-        FLAKE = "/home/arthur/Nixrc";
         MANPAGER = "sh -c 'col -bx | ${lib.getExe pkgs.bat} --paging always -l man -p'";
         MANROFFOPT = "-c";
         RUST_SRC_PATH = "${pkgs.rust-bin.stable.latest.default}/lib/rustlib/src/rust/library";

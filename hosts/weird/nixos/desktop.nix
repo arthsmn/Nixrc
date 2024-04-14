@@ -10,7 +10,6 @@
     plasma6.excludePackages = with pkgs.kdePackages; [
       elisa
       oxygen
-      khelpcenter
       plasma-browser-integration
     ];
 
@@ -39,19 +38,10 @@
 
   fonts = {
     packages = with pkgs; [
-      noto-fonts
       sarasa-gothic
       carlito
-      (nerdfonts.override {fonts = ["NerdFontsSymbolsOnly"];})
     ];
 
-    fontconfig = {
-      subpixel.rgba = "rgb";
-      defaultFonts = {
-        serif = ["Noto Serif"];
-        sansSerif = ["Noto Sans"];
-        monospace = ["Sarasa Mono CL"];
-      };
-    };
+    fontconfig.defaultFonts.monospace = ["Sarasa Mono CL"];
   };
 }

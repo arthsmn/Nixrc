@@ -13,8 +13,6 @@
       extraGroups = ["networkmanager" "wheel" "lp" "lpadmin" "libvirtd" "input"];
       packages = with pkgs; [
         fd
-        ktorrent
-        libqalculate
         markdown-oxide
         nil
         nix-init
