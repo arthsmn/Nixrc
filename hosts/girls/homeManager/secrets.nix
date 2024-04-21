@@ -9,8 +9,12 @@
     age.keyFile = "${config.home.homeDirectory}/.config/sops/age/keys.txt";
 
     secrets = {
-      "ssh_keys/github" = {};
-      "ssh_keys/github_pub" = {};
+      "ssh_keys/github" = {
+        path = "${config.home.homeDirectory}/.ssh/github";
+      };
+      "ssh_keys/github_pub" = {
+        path = "${config.home.homeDirectory}/.ssh/github.pub";
+      };
       "certs/libera" = {};
     };
   };
