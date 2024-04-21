@@ -24,7 +24,7 @@
       ytdl-format = "bestvideo[height<=?1080]+bestaudio/best";
     };
 
-    scripts = with pkgs.mpvScripts; [sponsorblock-minimal];
+    scripts = with pkgs.mpvScripts; [sponsorblock-minimal mpris];
     scriptOpts.mpv_sponsorblock_minimal = {
       categories = "sponsor,selfpromo,interaction,intro,outro,preview,music_offtopic";
       hash = "true";

@@ -14,6 +14,8 @@
       packages = with pkgs; [
         fd
         markdown-oxide
+        nls
+        nickel
         nil
         nix-init
         nix-your-shell
