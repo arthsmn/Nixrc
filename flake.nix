@@ -4,6 +4,11 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v0.3.0";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -71,6 +76,18 @@
       weird = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = with inputs; [
+          lanzaboote.nixosModules.lanzaboote
+          sops-nix.nixosModules.sops
+          home-manager.nixosModules.home-manager
+          nix-index-database.nixosModules.nix-index
+          ./hosts/weird/nixos/default.nix
+        ];
+      };
+
+      girls = nixpkgs.lib.nixosSystem {
+        specialArgs = {inherit inputs outputs;};
+        modules = with inputs; [
+          disko.nixosModules.disko
           lanzaboote.nixosModules.lanzaboote
           sops-nix.nixosModules.sops
           home-manager.nixosModules.home-manager
