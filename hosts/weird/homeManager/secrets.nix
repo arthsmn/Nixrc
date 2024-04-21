@@ -10,10 +10,10 @@
 
     secrets = {
       "ssh_keys/github" = {
-        path = "~/.ssh/github";
+        path = "${config.home.homeDirectory}/.ssh/github";
       };
       "ssh_keys/github_pub" = {
-        path = "~/.ssh/github.pub";
+        path = "${config.home.homeDirectory}/.ssh/github.pub";
       };
       "certs/libera" = {};
     };
