@@ -4,12 +4,10 @@
     defaultSopsFile = ../../secrets.yaml;
     defaultSopsFormat = "yaml";
 
-    secrets."user_passwords/bb" = {
-      neededForUsers = true;
+    secrets = {
+      "user_passwords/bb" = {neededForUsers = true;};
+      "user_passwords/arthur" = {neededForUsers = true;};
+      "nextdnsID" = {};
     };
-    secrets."user_passwords/arthur" = {
-      neededForUsers = true;
-    };
-    secrets."nextdnsID" = {};
   };
 }

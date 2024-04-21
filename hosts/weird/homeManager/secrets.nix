@@ -8,16 +8,10 @@
     defaultSopsFormat = osConfig.sops.defaultSopsFormat;
     age.keyFile = "/home/arthur/.config/sops/age/keys.txt";
 
-    secrets."ssh_keys/github" = {
-      path = "${config.home.homeDirectory}/.ssh/github";
-    };
-
-    secrets."ssh_keys/github_pub" = {
-      path = "${config.home.homeDirectory}/.ssh/github.pub";
-    };
-
-    secrets."certs/libera" = {
-      path = "${config.home.homeDirectory}/.config/tiny/certs/libera.pem";
+    secrets = {
+      "ssh_keys/github" = {};
+      "ssh_keys/github_pub" = {};
+      "certs/libera" = {};
     };
   };
 

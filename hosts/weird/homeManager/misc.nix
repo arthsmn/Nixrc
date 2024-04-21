@@ -30,7 +30,7 @@
       userEmail = "arthsmn@proton.me";
       userName = "arthsmn";
       signing = {
-        key = "~/.ssh/github.pub";
+        key = config.sops.secrets."ssh_keys/github_pub".path;
         signByDefault = true;
       };
       extraConfig = {
@@ -107,7 +107,7 @@
     };
   };
 
-  home.file.".config/BraveSoftware/Brave-Browser/NativeMessagingHosts/ff2mpv.json".text = ''
+  xdg.configFile."BraveSoftware/Brave-Browser/NativeMessagingHosts/ff2mpv.json".text = ''
     {
     	"name": "ff2mpv",
     	"description": "ff2mpv's extenal manifest",
