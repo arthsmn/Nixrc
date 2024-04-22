@@ -1,19 +1,29 @@
 {pkgs, ...}: {
-  services.desktopManager.plasma6.enable = true;
+  # services.desktopManager.plasma6.enable = true;
 
-  services.displayManager.sddm = {
-    enable = true;
-    wayland.enable = true;
-  };
+  # services.displayManager.sddm = {
+  #   enable = true;
+  #   wayland.enable = true;
+  # };
+
+  services.displayManager.gdm.enable = true;
+  services.desktopManager.gnome.enable = true;
 
   environment = {
-    plasma6.excludePackages = with pkgs.kdePackages; [
-      elisa
-      oxygen
-      plasma-browser-integration
-    ];
+    # plasma6.excludePackages = with pkgs.kdePackages; [
+    #   elisa
+    #   oxygen
+    #   plasma-browser-integration
+    # ];
 
-    systemPackages = with pkgs; [xwaylandvideobridge];
+    # systemPackages = with pkgs; [xwaylandvideobridge];
+
+    gnome.excludePackages = with pkgs; [
+      gnome-tour
+      gnome-connections
+    ] ++ (with pkgs.gnome; [
+      geary
+    ]);
 
     sessionVariables = {
       NIXOS_OZONE_WL = "1";

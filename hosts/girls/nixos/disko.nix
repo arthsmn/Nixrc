@@ -1,11 +1,11 @@
 {...}: let
-  btrfsMountOptions = [ "autodefrag" "compress=zstd:1" "noatime" "commit=120" ];
+  btrfsMountOptions = [ "autodefrag" "compress=zstd:1" "noatime" ];
 in {
   disko.devices = {
     disk = {
-      nvmeXXX = {
+      nvme0n1 = {
         type = "disk";
-        device = "/dev/nvmeXXX";
+        device = "/dev/nvme0n1";
         content = {
           type = "gpt";
           partitions = {
