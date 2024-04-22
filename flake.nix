@@ -92,7 +92,7 @@
           sops-nix.nixosModules.sops
           home-manager.nixosModules.home-manager
           nix-index-database.nixosModules.nix-index
-          ./hosts/weird/nixos/default.nix
+          ./hosts/girls/nixos/default.nix
         ];
       };
     };
