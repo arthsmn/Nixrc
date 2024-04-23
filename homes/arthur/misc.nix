@@ -72,8 +72,6 @@
         window-height = 30;
         window-width = 140;
         gtk-single-instance = true;
-        gtk-adwaita = false;
-        gtk-titlebar = false;
       };
       extraConfig = ''
         palette = 0=#262626
