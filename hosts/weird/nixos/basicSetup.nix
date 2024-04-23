@@ -4,12 +4,6 @@
   config,
   ...
 }: {
-  environment.systemPackages = with pkgs; [
-    brave
-    libreoffice-qt
-    kcalc
-  ];
-
   time.timeZone = "America/Sao_Paulo";
 
   console.useXkbConfig = true;

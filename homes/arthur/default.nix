@@ -5,6 +5,7 @@
 }: {
   imports =
     [
+      ./dconf.nix
       ./helix.nix
       ./irc.nix
       ./misc.nix

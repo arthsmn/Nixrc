@@ -1,28 +1,33 @@
 {pkgs, ...}: {
-  # services.desktopManager.plasma6.enable = true;
-
-  # services.displayManager.sddm = {
-  #   enable = true;
-  #   wayland.enable = true;
-  # };
-
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
+  services.xserver.enable = true;
+  services.xserver.excludePackages = [pkgs.xterm];
+  hardware.pulseaudio.enable = false;
+  services.xserver.displayManager.autoLogin.enable = true;
+  services.xserver.displayManager.autoLogin.user = "arthur";
+  systemd.services."getty@tty1".enable = false;
+  systemd.services."autovt@tty1".enable = false;
 
   environment = {
-    # plasma6.excludePackages = with pkgs.kdePackages; [
-    #   elisa
-    #   oxygen
-    #   plasma-browser-integration
-    # ];
-
-    # systemPackages = with pkgs; [xwaylandvideobridge];
+    systemPackages = with pkgs.gnomeExtensions; [
+      hide-top-bar
+      blur-my-shell
+    ];
 
     gnome.excludePackages = with pkgs; [
       gnome-tour
       gnome-connections
     ] ++ (with pkgs.gnome; [
       geary
+      gnome-calendar
+      gnome-contacts
+      gnome-weather
+      gnome-clocks
+      gnome-maps
+      totem
+      simple-scan
+      gnome-music
     ]);
 
     sessionVariables = {

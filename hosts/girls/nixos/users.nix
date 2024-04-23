@@ -13,7 +13,6 @@
     packages = with pkgs; [
       brave
       fd
-      kcalc
       libreoffice-qt
       markdown-oxide
       nickel
@@ -31,6 +30,7 @@
       signal-desktop
       sops
       stremio
+      gnome.dconf-editor
       tesseract
       trash-cli
       tree

@@ -98,14 +98,16 @@
     };
   };
 
-  services.ssh-agent.enable = true;
-
-  dconf.settings = {
-    "org/virt-manager/virt-manager/connections" = {
-      autoconnect = ["qemu:///system"];
-      uris = ["qemu:///system"];
+  gtk = {
+    enable = true;
+    theme = {
+      name = "adw-gtk3";
+      package = pkgs.adw-gtk3;
     };
+    gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
   };
+
+  services.ssh-agent.enable = true;
 
   xdg.configFile."BraveSoftware/Brave-Browser/NativeMessagingHosts/ff2mpv.json".text = ''
     {
