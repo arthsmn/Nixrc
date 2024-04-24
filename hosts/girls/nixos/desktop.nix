@@ -1,13 +1,22 @@
 {pkgs, ...}: {
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
-  services.xserver.enable = true;
-  services.xserver.excludePackages = [pkgs.xterm];
+  services.xserver = {
+    enable = true;
+    displayManager.gdm.enable = true;
+    desktopManager.gnome.enable = true;
+    excludePackages = [pkgs.xterm];
+  };
+
+  services.displayManager.autoLogin = {
+    enable = true;
+    user = "arthur";
+  };
+
+  systemd.services = {
+    "getty@tty1".enable = false;
+    "autovt@tty1".enable = false;
+  };
+
   hardware.pulseaudio.enable = false;
-  services.xserver.displayManager.autoLogin.enable = true;
-  services.xserver.displayManager.autoLogin.user = "arthur";
-  systemd.services."getty@tty1".enable = false;
-  systemd.services."autovt@tty1".enable = false;
 
   environment = {
     systemPackages = with pkgs.gnomeExtensions; [
@@ -23,7 +32,6 @@
       gnome-calendar
       gnome-contacts
       gnome-weather
-      gnome-clocks
       gnome-maps
       totem
       simple-scan
