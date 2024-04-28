@@ -1,6 +1,5 @@
 {inputs, ...}: {
-  # additions = final: _: import ./pkgs final.pkgs;
-  additions = final: _: import ./pkgs { pkgs = final; };
+  additions = final: _: import ./pkgs final.pkgs;
 
   modifications = final: prev: {
     # example = prev.example.overrideAttrs ({});
