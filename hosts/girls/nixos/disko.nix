@@ -1,5 +1,5 @@
 {...}: let
-  btrfsMountOptions = [ "autodefrag" "compress=zstd:1" "noatime" ];
+  btrfsMountOptions = ["autodefrag" "compress=zstd:1" "noatime"];
 in {
   disko.devices = {
     disk = {
@@ -16,7 +16,7 @@ in {
                 type = "filesystem";
                 format = "vfat";
                 mountpoint = "/efi";
-                mountOptions = [ "defaults" "noexec" "nosuid" "nodev" ];
+                mountOptions = ["defaults" "noexec" "nosuid" "nodev"];
               };
             };
             luks = {
@@ -24,11 +24,11 @@ in {
               content = {
                 type = "luks";
                 name = "crypted";
-                passwordFile = "/tmp/secret.key";
+                passwordFile = "/tmp/secret.key"; # Criar arquivo com senha sempre que for instalar
                 settings.allowDiscards = true;
                 content = {
                   type = "btrfs";
-                  extraArgs = [ "-f" "--csum xxhash" ];
+                  extraArgs = ["-f" "--csum xxhash"];
                   subvolumes = {
                     "/root" = {
                       mountpoint = "/";

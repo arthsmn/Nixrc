@@ -11,6 +11,7 @@
     description = "Arthur";
     extraGroups = ["networkmanager" "wheel" "libvirtd" "input"];
     packages = with pkgs; [
+      bottles
       brave
       fd
       libreoffice-qt

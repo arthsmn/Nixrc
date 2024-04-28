@@ -24,19 +24,21 @@
       blur-my-shell
     ];
 
-    gnome.excludePackages = with pkgs; [
-      gnome-tour
-      gnome-connections
-    ] ++ (with pkgs.gnome; [
-      geary
-      gnome-calendar
-      gnome-contacts
-      gnome-weather
-      gnome-maps
-      totem
-      simple-scan
-      gnome-music
-    ]);
+    gnome.excludePackages = with pkgs;
+      [
+        gnome-tour
+        gnome-connections
+      ]
+      ++ (with pkgs.gnome; [
+        geary
+        gnome-calendar
+        gnome-contacts
+        gnome-weather
+        gnome-maps
+        totem
+        simple-scan
+        gnome-music
+      ]);
 
     sessionVariables = {
       NIXOS_OZONE_WL = "1";
