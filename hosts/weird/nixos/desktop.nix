@@ -40,6 +40,17 @@
     packages = with pkgs; [
       sarasa-gothic
       carlito
+      (iosevka.override {
+        set = "ng";
+        privateBuildPlan = {
+          family = "Iosevkang";
+
+          variants.inherits = "ss07";
+          design = ["curly-flat-boundary"];
+
+          ligations.inherits = "dlig";
+        };
+      })
     ];
 
     fontconfig.defaultFonts.monospace = ["Sarasa Mono CL"];
