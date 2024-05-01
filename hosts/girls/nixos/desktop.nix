@@ -64,6 +64,17 @@
   fonts = {
     packages = with pkgs; [
       sarasa-gothic
+      (iosevka.override {
+        set = "ng";
+        privateBuildPlan = {
+          family = "Iosevkang";
+
+          variants.inherits = "ss07";
+          design = ["curly-flat-boundary"];
+
+          ligations.inherits = "dlig";
+        };
+      })
       carlito
     ];
 
