@@ -42,6 +42,7 @@
     dbus.apparmor = lib.mkIf config.security.apparmor.enable "enabled";
     earlyoom.enable = true;
     fwupd.enable = true;
+    btrfs.autoScrub.enable = true;
   };
 
   programs = {

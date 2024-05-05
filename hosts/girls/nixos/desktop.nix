@@ -19,10 +19,7 @@
   hardware.pulseaudio.enable = false;
 
   environment = {
-    systemPackages = with pkgs.gnomeExtensions; [
-      hide-top-bar
-      blur-my-shell
-    ];
+    systemPackages = with pkgs.gnomeExtensions; [ blur-my-shell ];
 
     gnome.excludePackages = with pkgs;
       [

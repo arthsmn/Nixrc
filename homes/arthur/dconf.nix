@@ -6,10 +6,7 @@
     };
     "org/gnome/shell" = {
       disabled-user-extensions = false;
-      enabled-extensions = [
-        "blur-my-shell@aunetx"
-        "hidetopbar@mathieu.bidon.ca"
-      ];
+      enabled-extensions = [ "blur-my-shell@aunetx" ];
     };
     "org/gnome/desktop/wm/preferences" = {
       focus-mode = "sloppy";
@@ -22,10 +19,6 @@
     };
     "org/gnome/mutter" = {
       center-new-windows = true;
-    };
-    "org/gnome/shell/extensions/hidetopbar" = {
-      hot-corner = true;
-      # mouse-sensitive = true;
     };
   };
 }

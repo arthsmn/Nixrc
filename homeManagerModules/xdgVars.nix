@@ -135,7 +135,6 @@ in {
       RECOLL_CONFDIR = "${vars.config}/recoll";
       REDISCLI_HISTFILE = "${vars.data}/redis/rediscli_history";
       REDISCLI_RCFILE = "${vars.config}/redis/redisclirc";
-      RIPGREP_CONFIG_PATH = "${vars.config}/ripgrep/config";
       RLWRAP_HOME = "${vars.data}/rlwrap";
       RUFF_CACHE_DIR = "${vars.cache}/ruff";
       RUSTUP_HOME = "${vars.data}/rustup";
