@@ -87,7 +87,7 @@
           sops-nix.nixosModules.sops
           home-manager.nixosModules.home-manager
           nix-index-database.nixosModules.nix-index
-          ./hosts/girls/nixos/default.nix
+          ./hosts/girls/default.nix
         ];
       };
     };

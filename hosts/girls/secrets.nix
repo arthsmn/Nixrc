@@ -1,7 +1,7 @@
 {...}: {
   sops = {
     age.keyFile = "/etc/key/keys.txt";
-    defaultSopsFile = ../../secrets.yaml;
+    defaultSopsFile = ../secrets.yaml;
     defaultSopsFormat = "yaml";
 
     secrets = {

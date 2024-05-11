@@ -47,7 +47,7 @@
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
-    users.arthur = import ./../../../homes/arthur/home.nix;
+    users.arthur = import ./../../homes/arthur/home.nix;
     extraSpecialArgs = {inherit inputs outputs;};
   };
 }
