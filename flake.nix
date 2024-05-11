@@ -68,17 +68,6 @@
     homeManagerModules = import ./homeManagerModules;
 
     nixosConfigurations = {
-      weird = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs outputs;};
-        modules = with inputs; [
-          lanzaboote.nixosModules.lanzaboote
-          sops-nix.nixosModules.sops
-          home-manager.nixosModules.home-manager
-          nix-index-database.nixosModules.nix-index
-          ./hosts/weird/nixos/default.nix
-        ];
-      };
-
       girls = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
         modules = with inputs; [
