@@ -8,7 +8,7 @@
 
   services.printing.enable = true;
 
-  services.printing.drivers = [ pkgs.hplip ];
+  services.printing.drivers = [pkgs.hplip];
 
   services.displayManager.autoLogin = {
     enable = true;
@@ -23,7 +23,7 @@
   hardware.pulseaudio.enable = false;
 
   environment = {
-    systemPackages = with pkgs.gnomeExtensions; [ blur-my-shell appindicator ];
+    systemPackages = with pkgs.gnomeExtensions; [blur-my-shell appindicator];
 
     gnome.excludePackages = with pkgs;
       [

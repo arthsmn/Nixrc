@@ -3,13 +3,9 @@
   config,
   inputs,
   outputs,
-  pkgs,
   ...
 }: {
   nix = {
-    # TODO: remover quando o nix atualizar pra uma versão >= 2.19
-    package = pkgs.nixVersions.nix_2_19;
-
     settings = {
       experimental-features = ["nix-command" "flakes"];
       auto-optimise-store = true;
