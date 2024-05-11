@@ -7,6 +7,13 @@
       wifi.macAddress = "random";
     };
 
+    nftables.enable = true;
+
+    firewall = {
+      allowedTCPPorts = [51413];
+      allowedUDPPorts = [51413];
+    };
+
     nameservers = [
       "127.0.0.1"
       "::1"

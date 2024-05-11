@@ -6,6 +6,10 @@
     excludePackages = [pkgs.xterm];
   };
 
+  services.printing.enable = true;
+
+  services.printing.drivers = [ pkgs.hplip ];
+
   services.displayManager.autoLogin = {
     enable = true;
     user = "arthur";
@@ -19,7 +23,7 @@
   hardware.pulseaudio.enable = false;
 
   environment = {
-    systemPackages = with pkgs.gnomeExtensions; [ blur-my-shell ];
+    systemPackages = with pkgs.gnomeExtensions; [ blur-my-shell appindicator ];
 
     gnome.excludePackages = with pkgs;
       [

@@ -14,6 +14,7 @@
       bottles
       brave
       fd
+      fragments
       libreoffice-qt
       markdown-oxide
       nickel
