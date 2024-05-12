@@ -1,6 +1,5 @@
 {
   lib,
-  pkgs,
   config,
   ...
 }: {
@@ -28,16 +27,6 @@
     };
   };
 
-  virtualisation.libvirtd = {
-    enable = true;
-    qemu = {
-      swtpm.enable = true;
-      ovmf.packages = with pkgs; [OVMFFull.fd];
-    };
-  };
-
-  programs.virt-manager.enable = true;
-
   services = {
     dbus.apparmor = lib.mkIf config.security.apparmor.enable "enabled";
     earlyoom.enable = true;
@@ -49,6 +38,13 @@
     fish.enable = true;
     nix-index-database.comma.enable = true;
     command-not-found.enable = false;
+    virt-manager.enable = true;
+    steam.enable = true;
+  };
+
+  virtualisation.libvirtd = {
+    enable = true;
+    qemu.swtpm.enable = true;
   };
 
   zramSwap.enable = true;

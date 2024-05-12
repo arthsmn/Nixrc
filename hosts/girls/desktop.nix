@@ -59,7 +59,7 @@
 
   hardware.bluetooth = {
     enable = true;
-    powerOnBoot = false;
+    # powerOnBoot = false;
   };
 
   fonts = {
