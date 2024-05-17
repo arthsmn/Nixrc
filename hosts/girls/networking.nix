@@ -7,7 +7,8 @@
       wifi.macAddress = "random";
     };
 
-    nftables.enable = true;
+    # Breaks virtual networks
+    # nftables.enable = true;
 
     firewall = {
       allowedTCPPorts = [51413];
