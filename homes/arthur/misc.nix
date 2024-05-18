@@ -105,8 +105,6 @@
     gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
   };
 
-  # services.ssh-agent.enable = true;
-
   xdg.configFile."BraveSoftware/Brave-Browser/NativeMessagingHosts/ff2mpv.json".text = ''
     {
     	"name": "ff2mpv",
