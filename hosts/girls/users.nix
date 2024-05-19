@@ -34,7 +34,6 @@
       sops
       stremio
       gnome.dconf-editor
-      telegram-desktop
       tesseract
       trash-cli
       tree
