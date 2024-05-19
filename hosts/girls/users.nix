@@ -14,6 +14,7 @@
       alejandra
       bottles
       brave
+      chromatic
       fd
       fragments
       libreoffice-qt

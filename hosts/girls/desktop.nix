@@ -23,22 +23,22 @@
   hardware.pulseaudio.enable = false;
 
   environment = {
-    systemPackages = with pkgs.gnomeExtensions; [blur-my-shell appindicator];
+    systemPackages = with pkgs.gnomeExtensions; [blur-my-shell appindicator burn-my-windows];
 
     gnome.excludePackages = with pkgs;
       [
-        gnome-tour
         gnome-connections
+        gnome-tour
       ]
       ++ (with pkgs.gnome; [
         geary
         gnome-calendar
         gnome-contacts
-        gnome-weather
         gnome-maps
-        totem
-        simple-scan
         gnome-music
+        gnome-weather
+        simple-scan
+        totem
       ]);
 
     sessionVariables = {
@@ -64,8 +64,8 @@
 
   fonts = {
     packages = with pkgs; [
-      sarasa-gothic
       carlito
+      sarasa-gothic
     ];
 
     fontconfig.defaultFonts.monospace = ["Sarasa Mono CL"];
