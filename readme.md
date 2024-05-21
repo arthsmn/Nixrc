@@ -18,10 +18,10 @@ Sou um membro semi-ativo da comunidade Nix em geral, você pode me contatar por 
 ## Estrutura
 * flake.nix, flake.lock
   * Aqui declaro as dependências(inputs) e o que deve ser construído(output).
-* hosts/${hostname}/nixos/
+* hosts/${hostname}/
   * Configuração principal do meu sistema. Por enquanto tenho somente uma máquina então esse repositório não tenta servir para diversos computadores.
   * *Atenção:* Os arquivos tem muitas configurações pessoais, segredos e o hardware.nix é aquele gerado na instalação (específico da máquina). Se for utilizá-los saibam que modificações são necessárias.
-* hosts/${hostname}/homeManager/
+* homes/{username}
   * Minha configuração da home. Apenas utilizo com um dos usuários da minha máquina, então não tenho necessidade de declarar casas para outros usuários.
   * *Atenção:* Essas configurações tem algumas partes pessoais e segredos. Leia e modifique de acordo antes de utilizar.
 * nixosModules/, homeManagerModules/
