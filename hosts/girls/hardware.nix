@@ -1,4 +1,3 @@
-# Don't touch
 {
   config,
   lib,

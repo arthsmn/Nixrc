@@ -23,7 +23,7 @@
   hardware.pulseaudio.enable = false;
 
   environment = {
-    systemPackages = with pkgs.gnomeExtensions; [blur-my-shell appindicator burn-my-windows];
+    systemPackages = with pkgs.gnomeExtensions; [blur-my-shell appindicator];
 
     gnome.excludePackages = with pkgs;
       [

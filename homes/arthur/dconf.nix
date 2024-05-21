@@ -6,7 +6,7 @@
     };
     "org/gnome/shell" = {
       disabled-user-extensions = false;
-      enabled-extensions = ["blur-my-shell@aunetx" "appindicatorsupport@rgcjonas.gmail.com" "burn-my-windows@schneegans.github.com"];
+      enabled-extensions = ["blur-my-shell@aunetx" "appindicatorsupport@rgcjonas.gmail.com"];
     };
     "org/gnome/desktop/wm/preferences" = {
       focus-mode = "sloppy";
