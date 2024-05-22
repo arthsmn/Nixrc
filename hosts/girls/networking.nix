@@ -17,10 +17,10 @@
 
     nameservers = [
       # Please don't steal my DNS :)
-      "45.90.28.0#967e19.dns.nextdns.io"
-      "2a07:a8c0::#967e19.dns.nextdns.io"
-      "45.90.30.0#967e19.dns.nextdns.io"
-      "2a07:a8c1::#967e19.dns.nextdns.io"
+      "45.90.28.0#NixOS-967e19.dns.nextdns.io"
+      "2a07:a8c0::#NixOS-967e19.dns.nextdns.io"
+      "45.90.30.0#NixOS-967e19.dns.nextdns.io"
+      "2a07:a8c1::#NixOS-967e19.dns.nextdns.io"
     ];
   };
 
