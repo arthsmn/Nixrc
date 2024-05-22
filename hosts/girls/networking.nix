@@ -16,18 +16,20 @@
     };
 
     nameservers = [
-      "127.0.0.1"
-      "::1"
+      # Please don't steal my DNS :)
+      "45.90.28.0#967e19.dns.nextdns.io"
+      "2a07:a8c0::#967e19.dns.nextdns.io"
+      "45.90.30.0#967e19.dns.nextdns.io"
+      "2a07:a8c1::#967e19.dns.nextdns.io"
     ];
   };
 
   services = {
-    nextdns = {
+    resolved = {
       enable = true;
-      arguments = [
-        "-config-file"
-        "${config.sops.secrets.nextdnsID.path}"
-      ];
+      dnsovertls = "true";
+      fallbackDns = config.networking.nameservers;
+      domains = ["~."];
     };
 
     chrony = {

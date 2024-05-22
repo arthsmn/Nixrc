@@ -6,7 +6,6 @@
 
     secrets = {
       "user_passwords/arthur" = {neededForUsers = true;};
-      "nextdnsID" = {};
     };
   };
 }
