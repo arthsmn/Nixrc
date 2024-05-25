@@ -10,16 +10,6 @@
 
   services.printing.drivers = [pkgs.hplip];
 
-  services.displayManager.autoLogin = {
-    enable = true;
-    user = "arthur";
-  };
-
-  systemd.services = {
-    "getty@tty1".enable = false;
-    "autovt@tty1".enable = false;
-  };
-
   hardware.pulseaudio.enable = false;
 
   environment = {
