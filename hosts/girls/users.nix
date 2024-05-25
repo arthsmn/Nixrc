@@ -15,6 +15,7 @@
       bottles
       brave
       chromatic
+      emacs29-pgtk
       fd
       fragments
       libreoffice-qt
