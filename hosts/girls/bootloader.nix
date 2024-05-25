@@ -10,6 +10,8 @@
       efi.efiSysMountPoint = "/efi";
     };
 
+    initrd.systemd.enable = true;
+
     lanzaboote = {
       enable = true;
       pkiBundle = "/etc/secureboot";
