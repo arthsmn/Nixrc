@@ -22,12 +22,24 @@
       volume-max = 150;
       window-maximized = true;
       ytdl-format = "bestvideo[height<=?1080]+bestaudio/best";
+
+      # UOSC
+      osd-bar = false;
+      border = false;
     };
 
-    scripts = with pkgs.mpvScripts; [sponsorblock-minimal mpris];
-    scriptOpts.mpv_sponsorblock_minimal = {
-      categories = "sponsor,selfpromo,interaction,intro,outro,preview,music_offtopic";
-      hash = "true";
+    scripts = with pkgs.mpvScripts; [sponsorblock-minimal mpris uosc thumbfast];
+    scriptOpts = {
+      mpv_sponsorblock_minimal = {
+        categories = "sponsor,selfpromo,interaction,intro,outro,preview,music_offtopic";
+        hash = "true";
+      };
+      uosc = {
+        speed_step = 0.25;
+
+
+        languages = "slang,pt,br,pt-br,en";
+      };
     };
   };
 }
