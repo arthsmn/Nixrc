@@ -37,7 +37,6 @@
       uosc = {
         speed_step = 0.25;
 
-
         languages = "slang,pt,br,pt-br,en";
       };
     };

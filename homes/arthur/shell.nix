@@ -107,6 +107,7 @@ in
         ping = "ping -c 5";
         rm = "rm -ri";
         vdir = "vdir --color";
+        sbcl = "rlwrap sbcl";
       };
 
       sessionVariables = {
