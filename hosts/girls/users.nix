@@ -25,7 +25,6 @@
       nix-init
       nix-your-shell
       nls
-      libvterm
       ocrmypdf
       python311Packages.python-lsp-server
       # TODO: usar python padrão quando a versão for >= 3.13
