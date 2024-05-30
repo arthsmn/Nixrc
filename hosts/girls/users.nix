@@ -18,6 +18,10 @@
       fd
       foliate
       fragments
+      haskell-language-server
+      ghc
+      ghcid
+      heroic
       libreoffice-qt
       markdown-oxide
       nickel
@@ -30,6 +34,7 @@
       # TODO: usar python padrão quando a versão for >= 3.13
       python313
       rlwrap
+      ryujinx
       ripgrep
       rust-analyzer-unwrapped
       (rust-bin.stable.latest.default.override {extensions = ["rust-src"];})
