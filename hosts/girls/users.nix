@@ -18,11 +18,12 @@
       fd
       foliate
       fragments
-      haskell-language-server
       ghc
       ghcid
+      haskell-language-server
       heroic
       libreoffice-qt
+      lime3ds
       markdown-oxide
       nickel
       nil
@@ -33,10 +34,10 @@
       python311Packages.python-lsp-server
       # TODO: usar python padrão quando a versão for >= 3.13
       python313
-      rlwrap
-      ryujinx
       ripgrep
+      rlwrap
       rust-analyzer-unwrapped
+      ryujinx
       (rust-bin.stable.latest.default.override {extensions = ["rust-src"];})
       sbcl
       signal-desktop
