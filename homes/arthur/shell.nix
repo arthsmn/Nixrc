@@ -13,7 +13,7 @@ in
       enable = true;
       functions = {
         send-terminfo-ssh = ''
-          if set -q "$argv" ;or test -z "$argv[2]";
+          if set -q $argv; or test -z $argv[2];
             echo "You need to specify only one argument, the host"
             return 1
           end
@@ -21,6 +21,16 @@ in
         '';
         yta = mkIf config.programs.mpv.enable "mpv --ytdl-format=bestaudio ytdl://ytsearch:\"$argv\"";
         starship_transient_prompt_func = mkIf config.programs.starship.enable "starship module character";
+        nsh = ''
+          for num in (seq (count $argv))
+              switch "$argv[$num]"
+                  case "-*"
+                  case "*"
+                      set argv[$num] "nixpkgs#$argv[$num]"
+              end
+          end
+          nix shell $argv
+        '';
       };
       shellAbbrs = {
         cdpkgs = "cd nixpkgs";
