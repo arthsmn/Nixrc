@@ -16,20 +16,18 @@
       brave
       chromatic
       fd
+      file
       foliate
       fragments
       ghc
-      ghcid
       haskell-language-server
       heroic
-      libreoffice-qt
+      libreoffice
       lime3ds
       markdown-oxide
-      nickel
       nil
       nix-init
       nix-your-shell
-      nls
       ocrmypdf
       python311Packages.python-lsp-server
       # TODO: usar python padrão quando a versão for >= 3.13
@@ -39,7 +37,6 @@
       rust-analyzer-unwrapped
       ryujinx
       (rust-bin.stable.latest.default.override {extensions = ["rust-src"];})
-      sbcl
       signal-desktop
       sops
       stremio

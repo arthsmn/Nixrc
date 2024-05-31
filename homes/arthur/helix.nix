@@ -29,20 +29,20 @@
     };
     languages = {
       language = [
-        {
-          name = "nix";
-          auto-format = true;
-          formatter = {
-            command = lib.getExe pkgs.alejandra;
-            args = [];
-          };
-        }
+        # {
+        #   name = "nix";
+        #   auto-format = true;
+        #   formatter = {
+        #     command = lib.getExe pkgs.alejandra;
+        #     args = [];
+        #   };
+        # }
         {
           name = "haskell";
           auto-format = true;
           formatter = {
-            command = lib.getExe pkgs.ormolu;
-            args = [];
+            command = lib.getExe pkgs.fish;
+            args = ["-c" "${lib.getExe pkgs.haskellPackages.fourmolu} --stdin-input-file $(pwd)"];
           };
         }
       ];
