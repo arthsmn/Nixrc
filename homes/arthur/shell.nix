@@ -13,8 +13,8 @@ in
       enable = true;
       functions = {
         send-terminfo-ssh = ''
-          if set -q $argv; or test -z $argv[2];
-            echo "You need to specify only one argument, the host"
+          if ! set -q $argv; or test -z $argv[2];
+            echo "Apenas um argumento é necessário, o host..."
             return 1
           end
           infocmp -x | ssh $argv[1] -- tic -x -
@@ -22,6 +22,9 @@ in
         yta = mkIf config.programs.mpv.enable "mpv --ytdl-format=bestaudio ytdl://ytsearch:\"$argv\"";
         starship_transient_prompt_func = mkIf config.programs.starship.enable "starship module character";
         nsh = ''
+          if ! set -q argv[1]
+            echo "O comando precisa de pelo menos um argumento..." && return 1
+          end
           for num in (seq (count $argv))
               switch "$argv[$num]"
                   case "-*"
@@ -30,6 +33,12 @@ in
               end
           end
           nix shell $argv
+        '';
+        nrn = ''
+          if ! set -q argv[1]
+            echo "O comando precisa de pelo menos um argumento..." && return 1
+          end
+          nix run nixpkgs#$argv[1] $argv[2..]
         '';
       };
       shellAbbrs = {

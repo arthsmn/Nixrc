@@ -1,4 +1,8 @@
-{...}: {
+{
+  lib,
+  pkgs,
+  ...
+}: {
   programs.helix = {
     enable = true;
     defaultEditor = true;
@@ -22,6 +26,26 @@
       editor.whitespace.render.space = "all";
       editor.indent-guides.render = true;
       editor.soft-wrap.enable = true;
+    };
+    languages = {
+      language = [
+        {
+          name = "nix";
+          auto-format = true;
+          formatter = {
+            command = lib.getExe pkgs.alejandra;
+            args = [];
+          };
+        }
+        {
+          name = "haskell";
+          auto-format = true;
+          formatter = {
+            command = lib.getExe pkgs.ormolu;
+            args = [];
+          };
+        }
+      ];
     };
   };
 }
