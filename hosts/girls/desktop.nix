@@ -13,7 +13,7 @@
   hardware.pulseaudio.enable = false;
 
   environment = {
-    systemPackages = with pkgs.gnomeExtensions; [blur-my-shell appindicator];
+    systemPackages = with pkgs.gnomeExtensions; [blur-my-shell appindicator forge];
 
     gnome.excludePackages = with pkgs;
       [

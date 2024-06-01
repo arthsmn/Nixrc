@@ -40,7 +40,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    ghostty.url = "git+ssh://git@github.com/mitchellh/ghostty";
+    ghostty.url = "git+ssh://git@github.com/ghostty-org/ghostty";
     ghostty-hm-module.url = "github:clo4/ghostty-hm-module";
   };
 
