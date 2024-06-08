@@ -14,7 +14,9 @@
       alejandra
       bottles
       brave
+      ormolu
       chromatic
+      emacs-lsp-booster
       fd
       file
       foliate
@@ -25,7 +27,7 @@
       libreoffice
       lime3ds
       markdown-oxide
-      nil
+      nixd
       nix-init
       nix-your-shell
       ocrmypdf
@@ -44,6 +46,7 @@
       tesseract
       trash-cli
       tree
+      unzip
       wget
       wl-clipboard
       zls

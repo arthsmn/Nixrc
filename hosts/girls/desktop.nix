@@ -15,11 +15,11 @@
   environment = {
     systemPackages = with pkgs.gnomeExtensions; [blur-my-shell appindicator forge];
 
-    gnome.excludePackages = with pkgs;
+    gnome.excludePackages = (with pkgs;
       [
         gnome-connections
         gnome-tour
-      ]
+      ])
       ++ (with pkgs.gnome; [
         geary
         gnome-calendar

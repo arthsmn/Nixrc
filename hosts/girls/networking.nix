@@ -5,6 +5,19 @@
     networkmanager = {
       enable = true;
       wifi.macAddress = "random";
+      wifi.backend = "iwd";
+    };
+
+    wireless.iwd = {
+      enable = true;
+      settings = {
+        Network = {
+          EnableIPv6 = true;
+        };
+        Settings = {
+          AutoConnect = true;
+        };
+      };
     };
 
     # Breaks virtual networks
