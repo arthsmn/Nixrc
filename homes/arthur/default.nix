@@ -6,7 +6,7 @@
   imports =
     [
       ./dconf.nix
-      ./emacs.nix
+      ./emacs
       ./helix.nix
       ./irc.nix
       ./misc.nix
