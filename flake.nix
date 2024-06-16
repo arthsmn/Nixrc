@@ -40,6 +40,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nix-flatpak.url = "github:gmodena/nix-flatpak";
+    
     ghostty.url = "git+ssh://git@github.com/ghostty-org/ghostty";
     ghostty-hm-module.url = "github:clo4/ghostty-hm-module";
   };
@@ -76,6 +78,7 @@
           sops-nix.nixosModules.sops
           home-manager.nixosModules.home-manager
           nix-index-database.nixosModules.nix-index
+          nix-flatpak.nixosModules.nix-flatpak
           ./hosts/girls/default.nix
         ];
       };

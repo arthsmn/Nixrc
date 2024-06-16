@@ -12,6 +12,7 @@
     extraGroups = ["networkmanager" "wheel" "libvirtd" "input"];
     packages = with pkgs; [
       alejandra
+      blackbox-terminal
       bottles
       brave
       ormolu
@@ -44,6 +45,7 @@
       stremio
       gnome.dconf-editor
       tesseract
+      # texliveBasic
       trash-cli
       tree
       unzip
@@ -55,6 +57,17 @@
 
   users.defaultUserShell = pkgs.fish;
 
+  services.flatpak = {
+    enable = true;
+    packages = [
+      "io.mrarm.mcpelauncher"
+    ];
+    update.auto = {
+      enable = true;
+      onCalendar = "weekly";
+    };
+  };
+  
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;

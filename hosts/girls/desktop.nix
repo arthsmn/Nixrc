@@ -13,10 +13,15 @@
   hardware.pulseaudio.enable = false;
 
   environment = {
-    systemPackages = with pkgs.gnomeExtensions; [blur-my-shell appindicator forge];
+    systemPackages = with pkgs.gnomeExtensions; [
+      blur-my-shell
+      appindicator
+      forge
+      legacy-gtk3-theme-scheme-auto-switcher
+    ];
 
-    gnome.excludePackages = (with pkgs;
-      [
+    gnome.excludePackages =
+      (with pkgs; [
         gnome-connections
         gnome-tour
       ])
@@ -55,6 +60,7 @@
     packages = with pkgs; [
       carlito
       sarasa-gothic
+      (nerdfonts.override { fonts = ["NerdFontsSymbolsOnly"]; })
     ];
 
     fontconfig.defaultFonts.monospace = ["Sarasa Mono CL"];

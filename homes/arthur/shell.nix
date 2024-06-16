@@ -22,15 +22,15 @@ in
         yta = mkIf config.programs.mpv.enable "mpv --ytdl-format=bestaudio ytdl://ytsearch:\"$argv\"";
         starship_transient_prompt_func = mkIf config.programs.starship.enable "starship module character";
         vterm_printf = ''
-                     if begin; [  -n "$TMUX" ]  ; and  string match -q -r "screen|tmux" "$TERM"; end
-                        # tell tmux to pass the escape sequences through
-                        printf "\ePtmux;\e\e]%s\007\e\\" "$argv"
-                     else if string match -q -- "screen*" "$TERM"
-                        # GNU screen (screen, screen-256color, screen-256color-bce)
-                        printf "\eP\e]%s\007\e\\" "$argv"
-                     else
-                      printf "\e]%s\e\\" "$argv"
-                     end
+          if begin; [  -n "$TMUX" ]  ; and  string match -q -r "screen|tmux" "$TERM"; end
+             # tell tmux to pass the escape sequences through
+             printf "\ePtmux;\e\e]%s\007\e\\" "$argv"
+          else if string match -q -- "screen*" "$TERM"
+             # GNU screen (screen, screen-256color, screen-256color-bce)
+             printf "\eP\e]%s\007\e\\" "$argv"
+          else
+           printf "\e]%s\e\\" "$argv"
+          end
         '';
         nsh = ''
           if ! set -q argv[1]

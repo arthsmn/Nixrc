@@ -20,7 +20,7 @@
       watch-later-directory = "${config.home.sessionVariables.XDG_STATE_HOME}/mpv";
       volume = 86;
       volume-max = 150;
-      window-maximized = true;
+      fs = true;
       ytdl-format = "bestvideo[height<=?1080]+bestaudio/best";
 
       # UOSC

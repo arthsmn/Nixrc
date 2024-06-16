@@ -8,4 +8,5 @@ pkgs: {
   eglot-booster = pkgs.callPackage ./eglot-booster {
     inherit (pkgs.emacsPackages) trivialBuild seq jsonrpc eglot;
   };
+  mcpelauncher = pkgs.callPackage ./mcpelauncher {};
 }
