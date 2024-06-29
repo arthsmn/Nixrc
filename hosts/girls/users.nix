@@ -12,7 +12,6 @@
     extraGroups = ["networkmanager" "wheel" "libvirtd" "input"];
     packages = with pkgs; [
       alejandra
-      blackbox-terminal
       bottles
       brave
       ormolu
@@ -67,7 +66,7 @@
       onCalendar = "weekly";
     };
   };
-  
+
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
