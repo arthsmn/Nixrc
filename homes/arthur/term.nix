@@ -62,6 +62,7 @@
         update_check_interval = 0;
         cursor_shape = "beam";
         wayland_enable_ime = false;
+        hide_window_decorations = true;
       };
       theme = "Modus Vivendi";
     };

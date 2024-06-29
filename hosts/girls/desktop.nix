@@ -3,20 +3,18 @@
     enable = true;
     displayManager.gdm.enable = true;
     desktopManager.gnome.enable = true;
-    excludePackages = [pkgs.xterm];
+    excludePackages = with pkgs; [xterm];
   };
 
   services.printing.enable = true;
 
-  services.printing.drivers = [pkgs.hplip];
+  services.printing.drivers = with pkgs; [hplip];
 
   hardware.pulseaudio.enable = false;
 
   environment = {
     systemPackages = with pkgs.gnomeExtensions; [
-      blur-my-shell
       appindicator
-      forge
       legacy-gtk3-theme-scheme-auto-switcher
     ];
 
@@ -60,7 +58,7 @@
     packages = with pkgs; [
       carlito
       sarasa-gothic
-      (nerdfonts.override { fonts = ["NerdFontsSymbolsOnly"]; })
+      (nerdfonts.override {fonts = ["NerdFontsSymbolsOnly"];})
     ];
 
     fontconfig.defaultFonts.monospace = ["Sarasa Mono CL"];

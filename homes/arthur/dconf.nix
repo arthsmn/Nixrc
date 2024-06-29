@@ -6,7 +6,10 @@
     };
     "org/gnome/shell" = {
       disabled-user-extensions = false;
-      enabled-extensions = ["blur-my-shell@aunetx" "appindicatorsupport@rgcjonas.gmail.com" "forge@jmmaranan.com" "legacyschemeautoswitcher@joshimukul29.gmail.com"];
+      enabled-extensions = [
+        "appindicatorsupport@rgcjonas.gmail.com"
+        "legacyschemeautoswitcher@joshimukul29.gmail.com"
+      ];
     };
     "org/gnome/desktop/wm/preferences" = {
       focus-mode = "sloppy";
@@ -19,9 +22,6 @@
     };
     "org/gnome/mutter" = {
       center-new-windows = true;
-    };
-    "org/gnome/shell/extensions/forge/keybindings" = {
-      window-swap-last-active = ["<Control><Super>Return"];
     };
   };
 }
