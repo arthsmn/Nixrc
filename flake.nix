@@ -10,9 +10,8 @@
     };
 
     lanzaboote = {
-      url = "github:nix-community/lanzaboote/v0.3.0";
+      url = "github:nix-community/lanzaboote/v0.4.1";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.rust-overlay.follows = "rust-overlay";
     };
 
     sops-nix = {
@@ -41,7 +40,7 @@
     };
 
     nix-flatpak.url = "github:gmodena/nix-flatpak";
-    
+
     ghostty.url = "git+ssh://git@github.com/ghostty-org/ghostty";
     ghostty-hm-module.url = "github:clo4/ghostty-hm-module";
   };
