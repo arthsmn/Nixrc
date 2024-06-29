@@ -13,6 +13,7 @@
       ./mpv.nix
       ./secrets.nix
       ./shell.nix
+      ./term.nix
     ]
     ++ (builtins.attrValues outputs.homeManagerModules)
     ++ [inputs.sops-nix.homeManagerModules.sops inputs.ghostty-hm-module.homeModules.default];

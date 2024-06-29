@@ -12,46 +12,42 @@ in
     programs.fish = {
       enable = true;
       functions = {
-        send-terminfo-ssh = ''
-          if ! set -q $argv; or test -z $argv[2];
-            echo "Apenas um argumento é necessário, o host..."
-            return 1
-          end
-          infocmp -x | ssh $argv[1] -- tic -x -
-        '';
+        send-terminfo-ssh = # fish
+          ''
+            if ! set -q $argv; or test -z $argv[2];
+              echo "Apenas um argumento é necessário, o host..."
+              return 1
+            end
+            infocmp -x | ssh $argv[1] -- tic -x -
+          '';
         yta = mkIf config.programs.mpv.enable "mpv --ytdl-format=bestaudio ytdl://ytsearch:\"$argv\"";
         starship_transient_prompt_func = mkIf config.programs.starship.enable "starship module character";
-        vterm_printf = ''
-          if begin; [  -n "$TMUX" ]  ; and  string match -q -r "screen|tmux" "$TERM"; end
-             # tell tmux to pass the escape sequences through
-             printf "\ePtmux;\e\e]%s\007\e\\" "$argv"
-          else if string match -q -- "screen*" "$TERM"
-             # GNU screen (screen, screen-256color, screen-256color-bce)
-             printf "\eP\e]%s\007\e\\" "$argv"
-          else
-           printf "\e]%s\e\\" "$argv"
-          end
-        '';
-        nsh = ''
-          if ! set -q argv[1]
-            echo "O comando precisa de pelo menos um argumento..." && return 1
-          end
-          for num in (seq (count $argv))
-              switch "$argv[$num]"
-                  case "-*"
-                  case "*"
-                      set argv[$num] "nixpkgs#$argv[$num]"
-              end
-          end
-          nix shell $argv
-        '';
-        nrn = ''
-          if ! set -q argv[1]
-            echo "O comando precisa de pelo menos um argumento..." && return 1
-          end
-          nix run nixpkgs#$argv[1] $argv[2..]
-        '';
-      };
+        vterm_printf = # fish
+          ''
+            if begin; [  -n "$TMUX" ]  ; and  string match -q -r "screen|tmux" "$TERM"; end
+               # tell tmux to pass the escape sequences through
+               printf "\ePtmux;\e\e]%s\007\e\\" "$argv"
+            else if string match -q -- "screen*" "$TERM"
+               # GNU screen (screen, screen-256color, screen-256color-bce)
+               printf "\eP\e]%s\007\e\\" "$argv"
+            else
+             printf "\e]%s\e\\" "$argv"
+            end
+          '';
+        nsh = # fish
+          ''
+            if ! set -q argv[1]
+              echo "O comando precisa de pelo menos um argumento..." && return 1
+            end
+            for num in (seq (count $argv))
+                switch "$argv[$num]"
+                    case "-*"
+                    case "*"
+                        set argv[$num] "nixpkgs#$argv[$num]"
+                end
+            end
+            nix shell $argv
+          '';
       shellAbbrs = {
         cdpkgs = "cd nixpkgs";
         e = {
@@ -83,6 +79,7 @@ in
         };
         yt = mkIf config.myPrograms.ytfzf.enable "ytfzf";
         ytm = mkIf config.myPrograms.ytfzf.enable "ytfzf -m";
+        em = mkIf config.programs.emacs.enable "emacsclient";
         ga = "git add";
         gb = "git branch";
         gbd = "git branch -D";
@@ -137,7 +134,9 @@ in
         ping = "ping -c 5";
         rm = "rm -ri";
         vdir = "vdir --color";
-        sbcl = "rlwrap sbcl";
+        sbcl = mkIf (elem pkgs.sbcl osConfig.users.users.arthur.packages) "rlwrap sbcl";
+        emacs = mkIf config.programs.emacs.enable "emacs -nw";
+        emacsclient = mkIf config.services.emacs.enable "emacsclient -nw";
       };
 
       sessionVariables = {
