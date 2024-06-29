@@ -7,7 +7,7 @@
     enable = true;
     defaultEditor = true;
     settings = {
-      theme = "adwaita-dark";
+      theme = "modus_vivendi";
       editor = {
         line-number = "relative";
         cursorline = true;
