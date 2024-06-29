@@ -29,7 +29,6 @@
     };
     languages = {
       language-server = {
-        # TODO: enable when nixd 2.2.0 reaches nixpkgs-unstable
         nixd.command = lib.getExe pkgs.nixd;
       };
       language = [
@@ -43,7 +42,7 @@
           name = "haskell";
           auto-format = true;
           formatter = {
-            command = lib.getExe pkgs.fish;
+            command = lib.getExe pkgs.ormolu;
             args = [];
           };
         }
