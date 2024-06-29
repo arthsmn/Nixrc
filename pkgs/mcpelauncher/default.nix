@@ -1,17 +1,15 @@
-{ lib
-, clangStdenv
-, fetchFromGitHub
-, fetchzip
-, cmake
-
-, openssl
-, curl
-, kdePackages
-
-, pulseaudio
-, xorg
-  
-, libzip
+{
+  lib,
+  clangStdenv,
+  fetchFromGitHub,
+  fetchzip,
+  cmake,
+  openssl,
+  curl,
+  kdePackages,
+  pulseaudio,
+  xorg,
+  libzip,
 }: let
   nlohmann_json = fetchzip {
     url = "https://github.com/nlohmann/json/releases/download/v3.7.3/include.zip";
@@ -23,7 +21,7 @@
     url = "https://github.com/minecraft-linux/glfw/archive/fce9121962bc0a21c39e2d6f8e08bad30c566c72.zip";
     hash = "sha256-fV1BZtPAjrHY+eYrkTiItU3PaU7EeV/nBxQc7mxzsDo=";
   };
-  
+
   stdenv = clangStdenv;
 in rec {
   mcpelauncher-msa = stdenv.mkDerivation (finalAttrs: {
@@ -58,12 +56,12 @@ in rec {
       "-DQT_VERSION=6"
       "-DUSE_SYSTEM_CURL=ON"
     ];
-    
+
     meta = with lib; {
       description = "The manifest (main) repository for Microsoft Account login daemon";
       homepage = "https://github.com/minecraft-linux/msa-manifest";
       license = with licenses; [gpl3Only mit];
-      maintainers = with maintainers; [ arthsmn ];
+      maintainers = with maintainers; [arthsmn];
       mainProgram = "msa-ui-qt";
       platforms = platforms.all;
     };
@@ -109,12 +107,12 @@ in rec {
       "-DUSE_OWN_CURL=OFF"
       "-DMSA_DAEMON_PATH=${mcpelauncher-msa}"
     ];
-    
+
     meta = with lib; {
       description = "The manifest (main) repository for Microsoft Account login daemon";
       homepage = "https://github.com/minecraft-linux/msa-manifest";
       license = with licenses; [gpl3Only mit];
-      maintainers = with maintainers; [ arthsmn ];
+      maintainers = with maintainers; [arthsmn];
       mainProgram = "mcpelauncher-client";
       platforms = platforms.all;
     };
@@ -156,12 +154,12 @@ in rec {
       "-DFETCHCONTENT_SOURCE_DIR_GLFW3_EXT=${glfw-src}"
       "-DGAME_LAUNCHER_PATH=${mcpelauncher-client}"
     ];
-    
+
     meta = with lib; {
       description = "The manifest (main) repository for Microsoft Account login daemon";
       homepage = "https://github.com/minecraft-linux/msa-manifest";
       license = with licenses; [gpl3Only mit];
-      maintainers = with maintainers; [ arthsmn ];
+      maintainers = with maintainers; [arthsmn];
       mainProgram = "mcpelauncher-ui-qt";
       platforms = platforms.all;
     };
