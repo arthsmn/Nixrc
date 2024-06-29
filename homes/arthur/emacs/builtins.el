@@ -23,7 +23,7 @@
 
 ;; tree-sitter
 (add-hook 'tree-sitter-after-on-hook 'tree-sitter-hl-mode)
-(global-tree-sitter-mode)
+(add-hook 'after-init-hook 'global-tree-sitter-mode)
 
 ;; org-mode
 (add-hook 'org-mode-hook 'org-indent-mode)

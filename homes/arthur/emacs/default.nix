@@ -1,12 +1,11 @@
 {
   lib,
   pkgs,
+  config,
   ...
-}: let
-  configPaths = [ ./sanity.el ./builtins.el ./completion.el ./dashboard.el ./documents.el ./misc.el ./lsp.el ];
-in {
+}: {
   programs.emacs = {
-    enable = true;
+    enable = false;
     package = pkgs.emacs29-pgtk;
     extraPackages = epkgs:
       (with epkgs; [
@@ -28,6 +27,7 @@ in {
         magit
         marginalia
         markdown-mode
+        modus-themes
         nix-mode
         nov
         orderless
@@ -43,11 +43,18 @@ in {
       ++ (with pkgs; [
         #justify-kp
         eglot-booster
+        org-modern-indent
       ]);
-    extraConfig = lib.concatStringsSep "\n" (map (path: lib.readFile path) configPaths);
+    extraConfig = lib.concatStringsSep "\n" (map (path: lib.readFile path) [
+      ./sanity.el
+      ./builtins.el
+      ./completion.el
+      ./dashboard.el
+      ./documents.el
+      ./misc.el
+      ./lsp.el
+    ]);
   };
-  
-    services.emacs.enable = true;
 
-    # xdg.configFile."emacs/early-init.el".text = lib.readFile ./early-init.el;
+  services.emacs.enable = config.programs.emacs.enable;
 }

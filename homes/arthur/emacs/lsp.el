@@ -1,4 +1,4 @@
-(with-eval-after-load 'eglot (eglot-booster-mode))
+(with-eval-after-load 'eglot 'eglot-booster-mode)
 
 (setopt
  completion-category-overrides '((eglot (styles orderless))

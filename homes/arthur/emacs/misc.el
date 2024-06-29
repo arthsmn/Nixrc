@@ -1,7 +1,7 @@
 ;; auto-dark-mode
 (setopt
- auto-dark-dark-theme 'modus-vivendi
- auto-dark-light-theme 'modus-vivendi)
+ auto-dark-dark-theme 'modus-vivendi-tritanopia
+ auto-dark-light-theme 'modus-operandi)
 (auto-dark-mode)
 
 ;; aggressive-indent
@@ -23,13 +23,14 @@
  org-pretty-entities t
  org-modern-star 'replace)
 (with-eval-after-load 'org (global-org-modern-mode))
+(require 'org-modern-indent)
+(add-hook 'org-mode-hook #'org-modern-indent-mode 90)
 
 ;; empv
 (setopt empv-invidious-instance "https://vid.puffyan.us/api/v1")
 (bind-key "C-x m" empv-map)
 
 ;; nix-mode
-
 (add-to-list 'auto-mode-alist '("\\.nix\\'" . nix-mode))
 
 ;; bindings
