@@ -17,7 +17,7 @@
       hwdec = "auto-safe";
       vo = "gpu-next";
       save-position-on-quit = true;
-      watch-later-directory = "${config.home.sessionVariables.XDG_STATE_HOME}/mpv";
+      watch-later-directory = "${config.xdg.stateHome}/mpv";
       volume = 86;
       volume-max = 150;
       fs = true;

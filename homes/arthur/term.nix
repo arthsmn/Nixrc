@@ -61,6 +61,7 @@
       settings = {
         update_check_interval = 0;
         cursor_shape = "beam";
+        enable_audio_bell = false;
         wayland_enable_ime = false;
         hide_window_decorations = true;
       };
