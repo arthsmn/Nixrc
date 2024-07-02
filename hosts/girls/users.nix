@@ -9,7 +9,7 @@
     isNormalUser = true;
     hashedPasswordFile = config.sops.secrets."user_passwords/arthur".path;
     description = "Arthur";
-    extraGroups = ["networkmanager" "wheel" "libvirtd" "input"];
+    extraGroups = ["networkmanager" "wheel" "libvirtd" "input" "lp"];
     packages = with pkgs; [
       alejandra
       bottles
@@ -22,6 +22,7 @@
       foliate
       fragments
       ghc
+      gitu
       haskell-language-server
       heroic
       libreoffice
@@ -44,7 +45,6 @@
       stremio
       gnome.dconf-editor
       tesseract
-      # texliveBasic
       trash-cli
       tree
       unzip

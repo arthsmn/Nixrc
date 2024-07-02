@@ -7,7 +7,7 @@
     enable = true;
     defaultEditor = true;
     settings = {
-      theme = "modus_vivendi";
+      theme = "modus_vivendi_transparent";
       editor = {
         line-number = "relative";
         cursorline = true;
@@ -30,6 +30,7 @@
     languages = {
       language-server = {
         nixd.command = lib.getExe pkgs.nixd;
+        hyprls.command = lib.getExe pkgs.hyprls;
       };
       language = [
         {
@@ -46,7 +47,20 @@
             args = [];
           };
         }
+        {
+          name = "hyprlang";
+          language-servers = ["hyprls"];
+        }
       ];
+    };
+    themes = {
+      modus_vivendi_transparent = {
+        inherits = "modus_vivendi";
+        "ui.background" = {};
+        "ui.statusline" = {};
+        "ui.statusline.inactive" = {};
+        "ui.bufferline.background" = {};
+      };
     };
   };
 }

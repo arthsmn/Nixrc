@@ -11,6 +11,9 @@
     wireless.iwd = {
       enable = true;
       settings = {
+        General = {
+          AddressRandomization = "network";
+        };
         Network = {
           EnableIPv6 = true;
         };

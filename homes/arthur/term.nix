@@ -5,14 +5,14 @@
 }: {
   programs = {
     ghostty = {
-      enable = false;
+      enable = true;
       package = inputs.ghostty.packages.x86_64-linux.default;
       settings = {
-        font-family = "Sarasa Mono CL";
+        font-family = "Sarasa Term CL";
         font-size = 15;
         cursor-style = "bar";
-        window-height = 30;
-        window-width = 140;
+        # window-height = 30;
+        # window-width = 140;
         gtk-single-instance = true;
       };
       extraConfig = ''
@@ -38,7 +38,7 @@
     };
 
     foot = {
-      enable = false;
+      enable = true;
       server.enable = true;
       settings = {
         main = {
@@ -46,6 +46,7 @@
           pad = "5x3 center";
           include = "${pkgs.foot.themes}/share/foot/themes/modus-vivendi";
         };
+        colors.alpha = 0.0;
         cursor.style = "beam";
         mouse.hide-when-typing = true;
         csd.preferred = "none";

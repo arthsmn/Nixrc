@@ -18,7 +18,7 @@ with lib; {
           end
           infocmp -x | ssh $argv[1] -- tic -x -
         '';
-      yta = mkIf config.programs.mpv.enable "mpv --ytdl-format=bestaudio ytdl://ytsearch:\"$argv\"";
+      yta = mkIf config.programs.mpv.enable "mpv --no-resume-playback --ytdl-format=bestaudio ytdl://ytsearch:\"$argv\"";
       starship_transient_prompt_func = mkIf config.programs.starship.enable "starship module character";
       vterm_printf =
         # fish
@@ -147,11 +147,6 @@ with lib; {
       MANPAGER = "sh -c 'col -bx | ${lib.getExe pkgs.bat} --paging always -l man -p'";
       MANROFFOPT = "-c";
       RUST_SRC_PATH = "${pkgs.rust-bin.stable.latest.default}/lib/rustlib/src/rust/library";
-
-      # XDG_CACHE_HOME = "${homedir}/.cache";
-      # XDG_CONFIG_HOME = "${homedir}/.config";
-      # XDG_DATA_HOME = "${homedir}/.local/share";
-      # XDG_STATE_HOME = "${homedir}/.local/state";
     };
   };
 
@@ -173,9 +168,9 @@ with lib; {
     enableTransience = config.programs.fish.enable;
     settings = {
       character = {
-        success_symbol = "[λ](bold green)";
+        success_symbol = "[λ](bold purple)";
         error_symbol = "[λ](bold red)";
-        vicmd_symbol = "[λ](bold purple)";
+        vicmd_symbol = "[λ](bold green)";
       };
     };
   };
