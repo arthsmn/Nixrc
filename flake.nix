@@ -25,9 +25,17 @@
     };
 
     hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
-    hyprcursor-phinger = {
-      url = "github:jappie3/hyprcursor-phinger";
-      inputs.nixpkgs.follows = "nixpkgs";
+
+    ags.url = "github:Aylur/ags";
+    ags.inputs.nixpkgs.follows = "nixpkgs";
+
+    hyprcursor-phinger.url = "github:jappie3/hyprcursor-phinger";
+    hyprcursor-phinger.inputs.nixpkgs.follows = "nixpkgs";
+
+    hypr-dynamic-cursors = {
+      url = "github:VirtCode/hypr-dynamic-cursors";
+      inputs.hyprland.follows = "hyprland";
+      # inputs.nixpkgs.follows = "nixpkgs";
     };
 
     rust-overlay = {

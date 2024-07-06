@@ -5,7 +5,9 @@
       ./bootloader.nix
       ./desktop.nix
       ./disko.nix
+      ./gnome.nix
       ./hardware.nix
+      ./hyprland.nix
       ./networking.nix
       ./nix.nix
       ./secrets.nix

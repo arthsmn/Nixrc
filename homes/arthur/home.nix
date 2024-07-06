@@ -6,7 +6,7 @@ in {
   home = {
     username = "arthur";
     homeDirectory = "/home/${config.home.username}";
-    stateVersion = "23.11";
+    stateVersion = "24.05";
   };
 
   xdg.userDirs = {

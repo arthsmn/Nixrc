@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  inputs,
+  ...
+}: {
   services.printing = {
     enable = true;
     drivers = with pkgs; [hplip];
@@ -24,6 +28,14 @@
   hardware.bluetooth = {
     enable = true;
   };
+
+  # xdg.portal = {
+  #   enable = true;
+  #   extraPortals = [
+  #     pkgs.xdg-desktop-portal-gtk
+  #     inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland
+  #   ];
+  # };
 
   fonts = {
     packages = with pkgs; [

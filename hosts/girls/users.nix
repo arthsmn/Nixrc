@@ -14,6 +14,7 @@
       alejandra
       bottles
       brave
+      broot
       ormolu
       chromatic
       emacs-lsp-booster
@@ -31,6 +32,7 @@
       nixd
       nix-init
       nix-your-shell
+      nodePackages.typescript-language-server
       ocrmypdf
       python311Packages.python-lsp-server
       # TODO: usar python padrão quando a versão for >= 3.13
@@ -43,9 +45,11 @@
       signal-desktop
       sops
       stremio
+      gamescope
       gnome.dconf-editor
       tesseract
       trash-cli
+      kitty
       tree
       unzip
       wget

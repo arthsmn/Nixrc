@@ -1,7 +1,8 @@
-
-{ stdenvNoCC
-, fetchFromGitHub
-}: stdenvNoCC.mkDerivation {
+{
+  stdenvNoCC,
+  fetchFromGitHub,
+}:
+stdenvNoCC.mkDerivation {
   pname = "material-black-colors-theme";
   version = "unstable";
 

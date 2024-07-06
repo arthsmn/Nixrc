@@ -8,6 +8,7 @@
       ./dconf.nix
       ./emacs
       ./helix.nix
+      ./hyprland
       ./hyprland.nix
       ./irc.nix
       ./misc.nix
@@ -19,6 +20,8 @@
     ++ (builtins.attrValues outputs.homeManagerModules)
     ++ [
       inputs.hyprcursor-phinger.homeManagerModules.hyprcursor-phinger
-      inputs.sops-nix.homeManagerModules.sops inputs.ghostty-hm-module.homeModules.default
+      inputs.sops-nix.homeManagerModules.sops
+      inputs.ghostty-hm-module.homeModules.default
+      inputs.ags.homeManagerModules.default
     ];
 }
