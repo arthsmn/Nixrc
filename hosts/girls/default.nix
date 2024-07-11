@@ -3,11 +3,9 @@
     [
       ./basicSetup.nix
       ./bootloader.nix
-      ./desktop.nix
+      ./desktop
       ./disko.nix
-      ./gnome.nix
       ./hardware.nix
-      ./hyprland.nix
       ./networking.nix
       ./nix.nix
       ./secrets.nix
