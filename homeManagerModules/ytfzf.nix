@@ -42,16 +42,16 @@ in {
       type = with types; attrsOf nonEmptyStr;
       default = {};
       example = {
-        external_menu = ''
+        external_menu = /*sh*/ ''
           rofi -dmenu -width 1500 -p "$1"
         '';
-        video_player = ''
+        video_player = /*sh*/ ''
           case "$is_detach"
             0) vlc "$@" ;;
             1) setsid -f vlc "$@" > /dev/null 2>&1 ;;
           esac
         '';
-        on_opt_parse_c = ''
+        on_opt_parse_c = /*sh*/ ''
           arg="$1"
           case "$arg" in
             SI|S) is_loop=1 ;;

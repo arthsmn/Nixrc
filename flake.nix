@@ -1,5 +1,6 @@
+
 {
-  description = "Configuração do meu sistema";
+  description = "Minha configuração pessoal";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -12,6 +13,7 @@
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v0.4.1";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.rust-overlay.follows = "rust-overlay";
     };
 
     sops-nix = {
@@ -24,20 +26,28 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    lix-module = {
+      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.90.0.tar.gz";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    
     hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
 
-    ags.url = "github:Aylur/ags";
-    ags.inputs.nixpkgs.follows = "nixpkgs";
+    ags = {
+      url = "github:Aylur/ags";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-    hyprcursor-phinger.url = "github:jappie3/hyprcursor-phinger";
-    hyprcursor-phinger.inputs.nixpkgs.follows = "nixpkgs";
+    hyprcursor-phinger = {
+      url = "github:jappie3/hyprcursor-phinger";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     hypr-dynamic-cursors = {
       url = "github:VirtCode/hypr-dynamic-cursors";
       inputs.hyprland.follows = "hyprland";
-      # inputs.nixpkgs.follows = "nixpkgs";
     };
-
+    
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -90,6 +100,7 @@
           lanzaboote.nixosModules.lanzaboote
           sops-nix.nixosModules.sops
           home-manager.nixosModules.home-manager
+          lix-module.nixosModules.default
           nix-index-database.nixosModules.nix-index
           nix-flatpak.nixosModules.nix-flatpak
           ./hosts/girls/default.nix

@@ -17,7 +17,7 @@
     spellchecker = true;
   };
 
-  hardware.opengl.enable = true;
+  hardware.graphics.enable = true;
 
   security = {
     sudo.execWheelOnly = true;

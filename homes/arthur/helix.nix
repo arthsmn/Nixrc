@@ -7,7 +7,7 @@
     enable = true;
     defaultEditor = true;
     settings = {
-      theme = "modus_vivendi_transparent";
+      theme = "modus_vivendi_deuteranopia";
       editor = {
         line-number = "relative";
         cursorline = true;
@@ -35,7 +35,6 @@
       language = [
         {
           name = "nix";
-          # auto-format = true;
           formatter.command = lib.getExe pkgs.alejandra;
           language-servers = ["nixd"];
         }
@@ -52,15 +51,6 @@
           language-servers = ["hyprls"];
         }
       ];
-    };
-    themes = {
-      modus_vivendi_transparent = {
-        inherits = "modus_vivendi";
-        "ui.background" = {};
-        "ui.statusline" = {};
-        "ui.statusline.inactive" = {};
-        "ui.bufferline.background" = {};
-      };
     };
   };
 }
