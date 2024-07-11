@@ -14,8 +14,8 @@
       alejandra
       bottles
       brave
-      broot
       ormolu
+      clang
       chromatic
       emacs-lsp-booster
       fd
@@ -30,9 +30,11 @@
       lime3ds
       markdown-oxide
       nixd
+      nix-tree
       nix-init
+      typescript
+      typescript-language-server
       nix-your-shell
-      nodePackages.typescript-language-server
       ocrmypdf
       python311Packages.python-lsp-server
       # TODO: usar python padrão quando a versão for >= 3.13
@@ -42,11 +44,12 @@
       rust-analyzer-unwrapped
       ryujinx
       (rust-bin.stable.latest.default.override {extensions = ["rust-src"];})
+      sbcl
       signal-desktop
       sops
       stremio
       gamescope
-      gnome.dconf-editor
+      dconf-editor
       tesseract
       trash-cli
       kitty

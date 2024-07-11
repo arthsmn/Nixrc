@@ -42,11 +42,10 @@
       server.enable = true;
       settings = {
         main = {
-          font = "Sarasa Term CL:size=15, Symbols Nerd Font:size=13";
-          pad = "5x3 center";
+          font = "Sarasa Term CL:size=15, Symbols Nerd Font Mono:size=13";
+          pad = "20x12 center";
           include = "${pkgs.foot.themes}/share/foot/themes/modus-vivendi";
         };
-        colors.alpha = 0.0;
         cursor.style = "beam";
         mouse.hide-when-typing = true;
         csd.preferred = "none";

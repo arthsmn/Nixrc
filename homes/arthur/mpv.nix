@@ -14,7 +14,8 @@
     };
 
     config = {
-      hwdec = "auto-safe";
+      # hwdec = "auto-safe";
+      hwdec = "auto";
       vo = "gpu-next";
       save-position-on-quit = true;
       watch-later-directory = "${config.xdg.stateHome}/mpv";
@@ -36,8 +37,8 @@
       };
       uosc = {
         speed_step = 0.25;
-
-        languages = "slang,pt,br,pt-br,en";
+        top_bar_controls = false;
+        languages = "slang,br,pt-br,pt,en";
       };
     };
   };
