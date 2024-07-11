@@ -6,64 +6,41 @@
   ...
 }: {
   # TODO:
-  # Colors (Stylix)
-  # Hyprshade
+  # Colors
   # Light and Dark mode
   # Cycle wallpapers with light and dark variants
 
   imports = [
     ./settings.nix
+    ./hyprlock.nix
+    ./hypridle.nix
   ];
 
   wayland.windowManager.hyprland = {
     enable = true;
     plugins = [
-      # inputs.hypr-dynamic-cursors.packages.${pkgs.system}.hypr-dynamic-cursors
+      inputs.hypr-dynamic-cursors.packages.${pkgs.system}.hypr-dynamic-cursors
     ];
+    package = inputs.hyprland.packages.${pkgs.system}.hyprland;
     systemd.enableXdgAutostart = true;
   };
+
+  # xdg.portal = {
+  #   enable = true;
+  #   extraPortals = [
+  #     pkgs.xdg-desktop-portal-gtk
+  #     inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland
+  #   ];
+  # };
 
   services.hyprpaper = {
     enable = true;
     settings = {
       preload = [
-        "${config.xdg.userDirs.pictures}/Wallpapers/wall001.png"
+        "${config.xdg.userDirs.pictures}/Wallpapers/wall007.png"
       ];
-
       wallpaper = [
-        ",${config.xdg.userDirs.pictures}/Wallpapers/wall001.png"
-      ];
-    };
-  };
-
-  services.hypridle = {
-    enable = true;
-    settings = {
-      general = {
-        lock_cmd = "pidof hyprlock || hyprlock";
-        before_sleep_cmd = "loginctl lock-session";
-        after_sleep_cmd = "hyprctl dispatch dpms on";
-      };
-
-      listener = [
-        {
-          timeout = 150;
-          on-timeout = "brightnessctl -s set 10";
-          on-resume = "brightnessctl -r";
-        }
-        {
-          timeout = 300;
-          on-timeout = "loginctl lock-session";
-        }
-        {
-          timeout = 330;
-          on-timeout = "hyprctl dispatch dpms off";
-          on-resume = "hyprctl dispatch dpms on";
-        }
-        {
-          timeout = 1800;
-          on-timeout = "systemctl suspend";
-        }
+        ",${config.xdg.userDirs.pictures}/Wallpapers/wall007.png"
       ];
     };
   };
@@ -72,21 +49,44 @@
 
   services.mako = {
     enable = true;
-    font = "Sarasa Mono CL 12";
+    font = "Sarasa Mono CL 13";
     borderRadius = 5;
     defaultTimeout = 6000;
+    backgroundColor = "#000000";
+    borderColor = "#1e1e1e";
+    textColor = "#ffffff";
   };
 
-  programs.sioyek.enable = true;
+  programs.fuzzel = {
+    enable = true;
+    settings = {
+      key-bindings = {
+        cursor-right = "Right Control+f KP_Right";
+        cursor-right-word = "Control+Right Mod1+f Control+KP_Right";
+        cursor-left = "Left Control+b KP_Left";
+        cursor-left-word = "Control+Left Mod1+b Control+KP_Left";
+        prev = "Up Control+p KP_Up";
+        next = "Down Control+n KP_Down";
+      };
+      colors = {
+        background = "000000f0";
+        text = "fffffff0";
+        match = "4ae2f0f0";
+        selection = "313131ff";
+        selection-text = "ffffffff";
+        selection-match = "00eff0ff";
+        border = "1e1e1ef0";
+      };
+    };
+  };
 
   home.packages = with pkgs; [
     bluetuith
     brightnessctl
-    fuzzel
     grimblast
     udiskie
     xwaylandvideobridge
-    hyprshade
+    swww
   ];
 
   programs.ags = {

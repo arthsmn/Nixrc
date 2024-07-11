@@ -5,7 +5,7 @@
       # BACKGROUND
       background = {
         monitor = "";
-        path = "${config.xdg.userDirs.pictures}/Wallpapers/wall001.png";
+        path = "${config.xdg.userDirs.pictures}/Wallpapers/wall007.png";
         blur_passes = 3;
         contrast = 0.8916;
         brightness = 0.8172;
@@ -15,9 +15,8 @@
 
       # GENERAL
       general = {
-        no_fade_in = false;
-        grace = 0;
-        disable_loading_bar = true;
+        ignore_empty_input = true;
+        no_fade_in = true;
       };
 
       # INPUT FIELD
@@ -33,7 +32,7 @@
         font_color = "rgb(200, 200, 200)";
         fade_on_empty = false;
         font_family = "Sarasa Mono CL";
-        placeholder_text = "<i><span foreground=\"##cdd6f4\">Input Password...</span></i>";
+        placeholder_text = "<i><span foreground=\"##cdd6f4\">Digite a senha...</span></i>";
         hide_input = false;
         position = "0, -120";
         halign = "center";
@@ -54,18 +53,18 @@
           valign = "top";
         }
 
-        # USER
-        {
-          monitor = "";
-          text = "Bem vindo de volta, $USER!";
-          color = "$foreground";
-          #color = rgba(255, 255, 255, 0.6)
-          font_size = 25;
-          font_family = "Sarasa Mono CL";
-          position = "0, -40";
-          halign = "center";
-          valign = "center";
-        }
+        # # USER
+        # {
+        #   monitor = "";
+        #   text = "Bem vindo de volta, $USER!";
+        #   color = "$foreground";
+        #   #color = rgba(255, 255, 255, 0.6)
+        #   font_size = 25;
+        #   font_family = "Sarasa Mono CL";
+        #   position = "0, -40";
+        #   halign = "center";
+        #   valign = "center";
+        # }
       ];
     };
   };

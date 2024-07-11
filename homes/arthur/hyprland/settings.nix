@@ -6,12 +6,12 @@
     "$fileManager" = "nautilus";
     "$menu" = "fuzzel";
     "$webBrowser" = "brave";
+    "$editor" = "emacsclient -cc";
 
     exec-once = [
       "${pkgs.kdePackages.polkit-kde-agent-1}/libexec/polkit-kde-authentication-agent-1 &"
       "xwaylandvideobridge &"
       "udiskie --no-automount --no-notify &"
-      "dbus-update-activation-environment --systemd HYPRLAND_INSTANCE_SIGNATURE" # para o hyprshade
     ];
 
     env = [
@@ -23,38 +23,23 @@
 
     general = {
       gaps_in = 5;
-      gaps_out = 20;
+      gaps_out = 10;
 
       border_size = 2;
 
-      "col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
-      "col.inactive_border" = "rgba(595959aa)";
+      "col.active_border" = "rgba(47dfeaee) rgba(80e080ee) 45deg";
+      "col.inactive_border" = "rgba(535353aa)";
 
-      resize_on_border = false;
-
-      allow_tearing = false;
-
+      no_focus_fallback = true;
       layout = "master";
     };
+
+    master.new_status = "inherit";
 
     decoration = {
       rounding = 10;
 
-      active_opacity = 1.0;
-      inactive_opacity = 1.0;
-
-      drop_shadow = true;
-      shadow_range = 4;
-      shadow_render_power = 3;
       "col.shadow" = "rgba(1a1a1aee)";
-
-      blur = {
-        enabled = true;
-        size = 4;
-        passes = 3;
-
-        vibrancy = 0.1696;
-      };
     };
 
     animations = {
@@ -75,17 +60,16 @@
     misc = {
       force_default_wallpaper = 0;
       disable_hyprland_logo = true;
+      enable_swallow = true;
+      swallow_regex = /*regex*/ ''^(Alacritty|kitty|footclient)$'';
     };
 
     input = {
       kb_layout = "br";
       kb_options = "caps:escape,shift:both_capslock";
 
-      follow_mouse = 1;
-
-      sensitivity = 0;
-
       touchpad = {
+        disable_while_typing = false;
         natural_scroll = true;
       };
     };
@@ -94,15 +78,22 @@
       workspace_swipe = true;
     };
 
+    cursor = {
+      no_hardware_cursors = true;
+      persistent_warps = true;
+      warp_on_change_workspace = true;
+    };
+
     "$mainMod" = "Super";
 
     bind = [
       "$mainMod, Return, exec, $terminal"
       "$mainMod, F, exec, $fileManager"
       "$mainMod, W, exec, $webBrowser"
-      "$mainMod, E, exec, $menu"
+      "$mainMod, D, exec, $menu"
       "$mainMod, B, exec, $terminal bluetuith"
       "$mainMod, L, exec, hyprlock"
+      "$mainMod, E, exec, $editor"
 
       "$mainMod, Q, killactive,"
       "$mainMod, M, exit,"
@@ -125,13 +116,19 @@
       "$mainMod, KP_Right, movefocus, r"
       "$mainMod, KP_Up, movefocus, u"
       "$mainMod, KP_Down, movefocus, d"
+      
+      "$mainMod, bracketleft, workspace, -1"
+      "$mainMod, bracketright, workspace, +1"
+
+      "$mainMod Shift, bracketleft, movetoworkspace, -1"
+      "$mainMod Shift, bracketright, movetoworkspace, +1"
 
       "$mainMod, 1, workspace, -1"
       "$mainMod, 2, workspace, +1"
 
       "$mainMod Shift, 1, movetoworkspace, -1"
       "$mainMod Shift, 2, movetoworkspace, +1"
-
+      
       "SUPER, p, exec, grimblast save active"
       "SUPER SHIFT, p, exec, grimblast save area"
       # "SUPER ALT, p, exec, grimblast save output"
@@ -140,8 +137,8 @@
       "$mainMod, S, togglespecialworkspace, magic"
       "$mainMod Shift, S, movetoworkspace, special:magic"
 
-      "$mainMod, mouse_down, workspace, e+1"
-      "$mainMod, mouse_up, workspace, e-1"
+      "$mainMod, mouse_up, workspace, e+1"
+      "$mainMod, mouse_down, workspace, e-1"
     ];
 
     bindm = [
@@ -180,10 +177,10 @@
       "ignorezero, notifications"
     ];
 
-    # "plugin:dynamic-cursors" = {
-    #   enabled = true;
-    #   mode = "rotate";
-    #   thredshold = 2;
-    # };
+    "plugin:dynamic-cursors" = {
+      enabled = true;
+      mode = "stretch";
+      thredshold = 2;
+    };
   };
 }

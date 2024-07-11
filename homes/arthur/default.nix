@@ -9,7 +9,6 @@
       ./emacs
       ./helix.nix
       ./hyprland
-      ./hyprland.nix
       ./irc.nix
       ./misc.nix
       ./mpv.nix
