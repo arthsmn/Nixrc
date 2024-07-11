@@ -2,7 +2,7 @@
 (add-hook 'prog-mode-hook 'electric-pair-mode)
 
 ;; line-numbers
-(setq display-line-numbers-type 'relative)
+(setopt display-line-numbers-type 'relative)
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
 
 ;; font
@@ -31,3 +31,22 @@
 
 ;; prettify symbols
 (global-prettify-symbols-mode)
+
+;; blink cursor
+(blink-cursor-mode -1)
+
+;; auto-revert
+(setopt auto-revert-avoid-polling t
+	auto-revert-interval 5
+	auto-revert-check-vc-info t)
+(global-auto-revert-mode)
+
+;; disable customize
+(dolist (sym '(customize-option customize-browse customize-group customize-face
+				customize-rogue customize-saved customize-apropos
+				customize-changed customize-unsaved customize-variable
+				customize-set-value customize-customized customize-set-variable
+				customize-apropos-faces customize-save-variable
+				customize-apropos-groups customize-apropos-options
+				customize-changed-options customize-save-customized))
+  (put sym 'disabled "Don't use customize"))

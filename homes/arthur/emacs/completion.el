@@ -11,7 +11,7 @@
 	 ("M-y"   . consult-yank-pop)   ; orig. yank-pop
 	 ;; Searching
 	 ("M-s r" . consult-ripgrep)
-	 ("M-s f" . consult-fd)
+	 ("M-s M-f" . consult-fd)
 	 ("M-s l" . consult-line)       ; Alternative: rebind C-s to use
 	 ("M-s s" . consult-line)       ; consult-line instead of isearch, bind
 	 ("M-s L" . consult-line-multi) ; isearch to M-s s

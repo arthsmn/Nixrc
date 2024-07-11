@@ -17,5 +17,10 @@
 
 (fset #'jsonrpc--log-event #'ignore)
 
-(add-hook 'nix-mode-hook 'eglot-ensure)
-(add-hook 'haskell-mode-hook 'eglot-ensure)
+(dolist (mode-hook '(
+		     nix-mode-hook
+		     ;; haskell-mode-hook ;; Quebrado
+		     js-mode-hook
+		     rust-mode-hook
+		     ))
+  (add-hook mode-hook 'eglot-ensure))
