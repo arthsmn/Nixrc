@@ -105,18 +105,21 @@
   services.ssh-agent.enable = true;
 
   myPrograms.hyprshade = {
-    enable = false;
-    settings = {
-      shades = [
-        {
-          name = "custom-blue-light-filter";
-          start_time = "19:00:00";
-          end_time = "06:00:00";
-        }
-      ];
-    };
+    enable = true;
+    config = /*toml*/ ''
+                [[shades]]
+                name = "custom-blue-light-filter-1"
+                start_time = 18:00:00
+                end_time = 20:00:00
+
+                [[shades]]
+                name = "custom-blue-light-filter-2"
+                start_time = 20:00:01
+                end_time = 06:00:00
+    '';
     customShaders = {
-      custom-blue-light-filter = lib.replaceStrings ["2600"] ["3000"] (lib.readFile "${pkgs.hyprshade}/share/hyprshade/shaders/blue-light-filter.glsl");
+      custom-blue-light-filter-1 = lib.replaceStrings ["2600"] ["3500"] (lib.readFile "${pkgs.hyprshade}/share/hyprshade/shaders/blue-light-filter.glsl");
+      custom-blue-light-filter-2 = lib.replaceStrings ["2600"] ["3100"] (lib.readFile "${pkgs.hyprshade}/share/hyprshade/shaders/blue-light-filter.glsl");
     };
   };
 }
