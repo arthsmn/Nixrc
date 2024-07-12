@@ -89,8 +89,8 @@
     packages = forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
     formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.alejandra);
     overlays = import ./overlays {inherit inputs;};
-    nixosModules = import ./nixosModules;
-    homeManagerModules = import ./homeManagerModules;
+    nixosModules = import ./modules/nixos;
+    homeManagerModules = import ./modules/homeManager;
 
     nixosConfigurations = {
       girls = nixpkgs.lib.nixosSystem {
