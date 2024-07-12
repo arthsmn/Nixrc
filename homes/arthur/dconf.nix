@@ -8,6 +8,8 @@
       disabled-user-extensions = false;
       enabled-extensions = [
         "appindicatorsupport@rgcjonas.gmail.com"
+        "blur-my-shell@aunetx"
+        "forge@jmmaranan.com"
         "legacyschemeautoswitcher@joshimukul29.gmail.com"
       ];
     };
@@ -18,7 +20,7 @@
     "org/gnome/desktop/interface" = {
       show-battery-percentage = true;
       font-antialiasing = "rgba";
-      monospace-font-name = "Sarasa Term Slab CL 11";
+      monospace-font-name = "Sarasa Term CL 13";
     };
     "org/gnome/mutter" = {
       center-new-windows = true;

@@ -13,6 +13,8 @@ in {
     environment = {
       systemPackages = with pkgs.gnomeExtensions; [
         appindicator
+        blur-my-shell
+        forge
         legacy-gtk3-theme-scheme-auto-switcher
       ];
 

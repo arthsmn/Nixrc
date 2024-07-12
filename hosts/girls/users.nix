@@ -32,8 +32,6 @@
       nixd
       nix-tree
       nix-init
-      typescript
-      typescript-language-server
       nix-your-shell
       ocrmypdf
       python311Packages.python-lsp-server
