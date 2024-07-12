@@ -5,7 +5,6 @@
   ...
 }: {
   imports = [
-    ./ags.nix
     ./fuzzel.nix
     ./hypridle.nix
     ./hyprlock.nix

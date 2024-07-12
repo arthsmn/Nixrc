@@ -8,7 +8,7 @@
       ./dconf.nix
       ./emacs
       ./helix.nix
-      ./hyprland
+      # ./hyprland
       ./irc.nix
       ./misc.nix
       ./mpv.nix
