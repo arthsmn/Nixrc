@@ -9,7 +9,7 @@
     "$editor" = "emacsclient -cc";
 
     exec-once = [
-      "${pkgs.kdePackages.polkit-kde-agent-1}/libexec/polkit-kde-authentication-agent-1 &"
+      # "${pkgs.polkit_gnome}/libexec/polkit-kde-authentication-agent-1 &"
       "xwaylandvideobridge &"
       "udiskie --no-automount --no-notify &"
     ];
@@ -159,7 +159,7 @@
 
     windowrulev2 = [
       "suppressevent maximize, class:.*" # You'll probably like this.
-      "float,class:^(org.kde.polkit-kde-authentication-agent-1)$"
+      # "float,class:^(org.kde.polkit-kde-authentication-agent-1)$"
       "float,class:^(xdg-desktop-portal-gtk)$"
       "float,class:^(brave-nngceckbapebfimnlniiiahkandclblb-Default)$"
 

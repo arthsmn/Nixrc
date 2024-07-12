@@ -25,13 +25,17 @@
     systemd.enableXdgAutostart = true;
   };
 
-  # xdg.portal = {
-  #   enable = true;
-  #   extraPortals = [
-  #     pkgs.xdg-desktop-portal-gtk
-  #     inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland
-  #   ];
-  # };
+  xdg.portal = {
+    enable = true;
+    config.common = {
+      default = ["xdph" "gtk"];
+      "org.freedesktop.impl.portal.Secret" = [ "gnome-keyring" ];
+    };
+    extraPortals = [
+      pkgs.xdg-desktop-portal-gtk
+      inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland
+    ];
+  };
 
   services.hyprpaper = {
     enable = true;
@@ -102,7 +106,7 @@
     gtk.enable = true;
   };
 
-  services.ssh-agent.enable = true;
+  # services.ssh-agent.enable = true;
 
   myPrograms.hyprshade = {
     enable = true;
@@ -115,11 +119,17 @@
                 [[shades]]
                 name = "custom-blue-light-filter-2"
                 start_time = 20:00:01
+                end_time = 00:00:00
+
+                [[shades]]
+                name = "custom-blue-light-filter-3"
+                start_time = 00:00:01
                 end_time = 06:00:00
     '';
     customShaders = {
       custom-blue-light-filter-1 = lib.replaceStrings ["2600"] ["3500"] (lib.readFile "${pkgs.hyprshade}/share/hyprshade/shaders/blue-light-filter.glsl");
       custom-blue-light-filter-2 = lib.replaceStrings ["2600"] ["3100"] (lib.readFile "${pkgs.hyprshade}/share/hyprshade/shaders/blue-light-filter.glsl");
+      custom-blue-light-filter-3 = lib.replaceStrings ["2600"] ["2800"] (lib.readFile "${pkgs.hyprshade}/share/hyprshade/shaders/blue-light-filter.glsl");
     };
   };
 }
