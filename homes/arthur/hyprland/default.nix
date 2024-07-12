@@ -64,6 +64,15 @@
   programs.fuzzel = {
     enable = true;
     settings = {
+      main = {
+        prompt = "λ ";
+        password-character = "•";
+        terminal = "$TERMINAL";
+        width = 45;
+        horizontal-pad = 20;
+        vertical-pad = 10;
+        inner-pad = 5;
+      };
       key-bindings = {
         cursor-right = "Right Control+f KP_Right";
         cursor-right-word = "Control+Right Mod1+f Control+KP_Right";

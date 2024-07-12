@@ -19,6 +19,7 @@
       "XCURSOR_THEME,phinger-cursors-dark"
       "HYPRCURSOR_SIZE,24"
       "HYPRCURSOR_THEME,phinger-cursors-dark"
+      "TERMINAL,$terminal"
     ];
 
     general = {
