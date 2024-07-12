@@ -35,6 +35,7 @@
 (add-to-list 'auto-mode-alist '("\\.nix\\'" . nix-mode))
 
 ;; colorful-mode
+(setopt colorful-use-prefix t)
 (add-hook 'prog-mode-hook #'colorful-mode)
 
 ;; dirvish
