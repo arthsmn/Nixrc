@@ -23,10 +23,8 @@
       };
     };
 
-    # Breaks virtual networks
-    # nftables.enable = true;
-
     firewall = {
+      # Torrent
       allowedTCPPorts = [51413];
       allowedUDPPorts = [51413];
     };

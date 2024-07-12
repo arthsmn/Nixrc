@@ -4,37 +4,37 @@
   pkgs,
   ...
 }: let
+  inherit (lib) mkIf mkEnableOption mkPackageOption mkOption types mkMerge mapAttrs' getExe nameValuePair mkOrder hm;
   cfg = config.myPrograms.hyprshade;
-in
-with lib; {
+in {
   options.myPrograms.hyprshade = {
     enable = mkEnableOption "hyprland shader client";
 
     package = mkPackageOption pkgs "hyprshade" {};
 
     # settings = mkOption {
-      #   type = types.attrs;
-      #   default = {};
-      #   description = "Settings for hyprshade";
-      # };
+    #   type = types.attrs;
+    #   default = {};
+    #   description = "Settings for hyprshade";
+    # };
 
     config = mkOption {
       type = types.nonEmptyStr;
       default = "";
       description = "Configuration in toml format";
-      };
+    };
 
-      customShaders = mkOption {
-        type = with types; lazyAttrsOf nonEmptyStr;
-        default = {};
-        description = "Custom shaders for hyprshade";
-      };
+    customShaders = mkOption {
+      type = with types; lazyAttrsOf nonEmptyStr;
+      default = {};
+      description = "Custom shaders for hyprshade";
+    };
 
-      enableHyprlandIntegration = mkOption {
-        type = types.bool;
-        default = true;
-        description = "Write hyprshade integration to Hyprland's config";
-      };
+    enableHyprlandIntegration = mkOption {
+      type = types.bool;
+      default = true;
+      description = "Write hyprshade integration to Hyprland's config";
+    };
   };
 
   config = mkIf cfg.enable {
@@ -48,7 +48,7 @@ with lib; {
                                    # source = pkgs.writers.writeTOML "config.toml" cfg.settings;
                                    text = cfg.config;
                                  };
-                                    })
+                               })
     ];
 
     home.activation.hm_hyprshade_install = mkIf (cfg.config != {} || cfg.customShaders != {}) (hm.dag.entryAfter ["writeBoundary"] ''

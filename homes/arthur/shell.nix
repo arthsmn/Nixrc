@@ -4,14 +4,13 @@
   config,
   osConfig,
   ...
-}:
-with lib; {
+}:let
+  inherit (lib) mkIf elem getExe;
+in {
   programs.fish = {
     enable = true;
     functions = {
-      send-terminfo-ssh =
-        # fish
-        ''
+      send-terminfo-ssh = /*fish*/ ''
           if ! set -q $argv; or test -z $argv[2];
             echo "Apenas um argumento é necessário, o host..."
             return 1
@@ -20,9 +19,7 @@ with lib; {
         '';
       yta = mkIf config.programs.mpv.enable "mpv --no-resume-playback --ytdl-format=bestaudio ytdl://ytsearch:\"$argv\"";
       starship_transient_prompt_func = mkIf config.programs.starship.enable "starship module character";
-      vterm_printf =
-        # fish
-        ''
+      vterm_printf = /*fish*/ ''
           if begin; [  -n "$TMUX" ]  ; and  string match -q -r "screen|tmux" "$TERM"; end
              # tell tmux to pass the escape sequences through
              printf "\ePtmux;\e\e]%s\007\e\\" "$argv"
@@ -33,9 +30,7 @@ with lib; {
            printf "\e]%s\e\\" "$argv"
           end
         '';
-      nsh =
-        # fish
-        ''
+      nsh = /*fish*/ ''
           if ! set -q argv[1]
             echo "O comando precisa de pelo menos um argumento..." && return 1
           end
@@ -50,8 +45,6 @@ with lib; {
         '';
     };
     shellAbbrs = {
-      b = "broot";
-      cdpkgs = "cd nixpkgs";
       e = {
         position = "anywhere";
         expansion = "${config.home.sessionVariables.EDITOR}";
@@ -100,9 +93,7 @@ with lib; {
       gsc = "git switch --create";
       gst = "git status";
     };
-    interactiveShellInit =
-      # fish
-      ''
+    interactiveShellInit = /*fish*/  ''
         set -g fish_greeting ""
         nix-your-shell fish | source
       '';
@@ -144,8 +135,7 @@ with lib; {
     };
 
     sessionVariables = {
-      CDPATH = ".:~/Repositórios/:~/Mídia";
-      MANPAGER = "sh -c 'col -bx | ${lib.getExe pkgs.bat} --paging always -l man -p'";
+      MANPAGER = "sh -c 'col -bx | ${getExe pkgs.bat} --paging always -l man -p'";
       MANROFFOPT = "-c";
       RUST_SRC_PATH = "${pkgs.rust-bin.stable.latest.default}/lib/rustlib/src/rust/library";
       DOTNET_CLI_TELEMETRY_OPTOUT = "1";
@@ -153,17 +143,6 @@ with lib; {
   };
 
   xdg.enable = true;
-
-  xdgVars = {
-    enable = true;
-    variables = {
-      cache = config.xdg.cacheHome;
-      config = config.xdg.configHome;
-      data = config.xdg.dataHome;
-      state = config.xdg.stateHome;
-      runtime = "$XDG_RUNTIME_DIR";
-    };
-  };
 
   programs.starship = {
     enable = true;

@@ -1,4 +1,3 @@
-
 {
   description = "Minha configuração pessoal";
 

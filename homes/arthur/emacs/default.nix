@@ -52,7 +52,7 @@
         eglot-booster
         org-modern-indent
       ]);
-    extraConfig = lib.concatStringsSep "\n" (map (path: lib.readFile path) [
+    extraConfig = with lib; concatStringsSep "\n" (map (path: readFile path) [
       ./sanity.el
       ./builtins.el
       ./completion.el

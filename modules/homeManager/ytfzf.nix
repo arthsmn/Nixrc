@@ -3,24 +3,25 @@
   lib,
   pkgs,
   ...
-}:
-with lib; let
+}: let
+  inherit (lib) mapAttrsToList isString concatStringsSep mkEnableOption mkPackageOption mkOption types mkIf;
+
   cfg = config.myPrograms.ytfzf;
 
   settingsFile = let
     renderVariables = attr:
       mapAttrsToList (
         name: value:
-          if (isString value)
-          then ''${name}="${value}"''
-          else "${name}=${toString value}"
+        if (isString value)
+        then ''${name}="${value}"''
+        else "${name}=${toString value}"
       )
-      attr;
+        attr;
     renderFunctions = attr:
       mapAttrsToList (name: value: ''${name} () {\n${value}\n}'') attr;
   in
     concatStringsSep "\n"
-    ((renderVariables cfg.variables) ++ (renderFunctions cfg.functions) ++ [cfg.extraConfig]);
+      ((renderVariables cfg.variables) ++ (renderFunctions cfg.functions) ++ [cfg.extraConfig]);
 in {
   options.myPrograms.ytfzf = {
     enable = mkEnableOption "ytfzf terminal youtube client";
