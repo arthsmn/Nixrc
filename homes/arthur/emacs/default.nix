@@ -11,6 +11,7 @@
       (with epkgs; [
         ace-window
         aggressive-indent
+        auto-dark
         avy
         cape
         colorful-mode
@@ -18,7 +19,7 @@
         corfu
         corfu-terminal
         dashboard
-        dirvish
+        diff-hl
         embark
         embark-consult
         empv
@@ -30,7 +31,6 @@
         magit
         marginalia
         markdown-mode
-        modus-themes
         nix-mode
         nov
         orderless
@@ -46,28 +46,22 @@
         wgrep
         which-key
         whitespace-cleanup-mode
-      ])
-      ++ (with pkgs; [
-        # justify-kp
-        eglot-booster
-        org-modern-indent
+        ])
+        ++ (with pkgs; [
+          # justify-kp
+          eglot-booster
+          org-modern-indent
+        ]);
+      extraConfig = with lib; concatStringsSep "\n" (map (path: readFile path) [
+        ./sanity.el
+        ./builtins.el
+        ./completion.el
+        ./dashboard.el
+        ./documents.el
+        ./misc.el
+        ./lsp.el
       ]);
-    extraConfig = with lib; concatStringsSep "\n" (map (path: readFile path) [
-      ./sanity.el
-      ./builtins.el
-      ./completion.el
-      ./dashboard.el
-      ./documents.el
-      ./misc.el
-      ./lsp.el
-    ]);
   };
-  
+    
   services.emacs.enable = config.programs.emacs.enable;
-
-  home.packages = with pkgs; [ # dirvish
-    ffmpegthumbnailer
-    mediainfo
-    imagemagick
-  ];
 }

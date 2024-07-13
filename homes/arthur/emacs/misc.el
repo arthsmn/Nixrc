@@ -1,6 +1,10 @@
-;; modus-theme
-(mapc #'disable-theme custom-enabled-themes)
-(load-theme 'modus-vivendi-deuteranopia :no-confirm)
+;; auto-dark-emacs
+(use-package auto-dark
+  :custom
+  (auto-dark-dark-theme 'modus-vivendi)
+  (auto-dark-light-theme 'modus-operandi)
+  :config
+  (auto-dark-mode t))
 
 ;; aggressive-indent
 (global-aggressive-indent-mode)
@@ -38,8 +42,12 @@
 (setopt colorful-use-prefix t)
 (add-hook 'prog-mode-hook #'colorful-mode)
 
-;; dirvish
-(dirvish-override-dired-mode)
+;; diff-hl
+(global-diff-hl-mode)
+(diff-hl-flydiff-mode)
+(add-hook 'dired-mode-hook 'diff-hl-dired-mode-unless-remote)
+(add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
+(add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
 
 ;; bindings
 (bind-key "M-o" 'ace-window)
