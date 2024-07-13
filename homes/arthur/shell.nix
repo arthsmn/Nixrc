@@ -137,7 +137,6 @@ in {
     sessionVariables = {
       MANPAGER = "sh -c 'col -bx | ${getExe pkgs.bat} --paging always -l man -p'";
       MANROFFOPT = "-c";
-      RUST_SRC_PATH = "${pkgs.rust-bin.stable.latest.default}/lib/rustlib/src/rust/library";
       DOTNET_CLI_TELEMETRY_OPTOUT = "1";
     };
   };

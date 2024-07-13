@@ -39,9 +39,12 @@
       python313
       ripgrep
       rlwrap
-      rust-analyzer-unwrapped
+      rustc
+      rustfmt
+      cargo
+      clippy
+      rust-analyzer
       ryujinx
-      (rust-bin.stable.latest.default.override {extensions = ["rust-src"];})
       sbcl
       signal-desktop
       sops

@@ -23,11 +23,7 @@
   nixpkgs = {
     config.allowUnfree = true;
     overlays = (with outputs.overlays; [additions modifications])
-               ++ (with inputs; [
-                 emacs-overlay.overlays.default
-                 rust-overlay.overlays.default
-                 nix-your-shell.overlays.default
-    ]);
+               ++ (with inputs; [nix-your-shell.overlays.default]);
   };
 
   system.stateVersion = "24.11";
