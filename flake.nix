@@ -56,7 +56,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nix-flatpak.url = "github:gmodena/nix-flatpak";
+    nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=v0.4.1";
 
     ghostty.url = "git+ssh://git@github.com/ghostty-org/ghostty";
     ghostty-hm-module.url = "github:clo4/ghostty-hm-module";

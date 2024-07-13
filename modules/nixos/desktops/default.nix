@@ -22,7 +22,6 @@ in {
   config = mkIf cfg.enable {
     services.xserver = {
       enable = true;
-
       excludePackages = with pkgs; [xterm];
     };
 
