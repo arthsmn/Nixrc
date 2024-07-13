@@ -58,6 +58,7 @@
       unzip
       wget
       wl-clipboard
+      zed-editor
       zls
     ];
   };
