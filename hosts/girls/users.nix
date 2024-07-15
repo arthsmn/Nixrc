@@ -20,7 +20,6 @@
       emacs-lsp-booster
       fd
       file
-      firefox
       foliate
       fragments
       ghc
