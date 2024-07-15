@@ -27,8 +27,7 @@ in {
 
     services.printing = {
       enable = true;
-      # TODO: habilitar quando resolverem os problemas das dependências com o python 3.12
-      # drivers = with pkgs; [hplip];
+      drivers = with pkgs; [hplip];
     };
 
     environment.sessionVariables = {
@@ -36,7 +35,6 @@ in {
       MOZ_USE_XINPUT2 = "1";
     };
 
-    sound.enable = true;
     security.rtkit.enable = true;
     services.pipewire = {
       enable = true;
@@ -50,11 +48,12 @@ in {
 
     fonts = {
       packages = with pkgs; [
-        carlito
-        sarasa-gothic
         (nerdfonts.override {fonts = ["NerdFontsSymbolsOnly"];})
-        noto-fonts
+        carlito
         inter
+        iosevka-bin
+        noto-fonts
+        sarasa-gothic
       ];
 
       fontconfig = {
