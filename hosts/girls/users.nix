@@ -34,7 +34,7 @@
       nix-init
       nix-your-shell
       ocrmypdf
-      python-lsp-server
+      python312Packages.python-lsp-server
       # TODO: usar python padrão quando a versão for >= 3.13
       python313
       ripgrep
