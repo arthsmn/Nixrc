@@ -5,15 +5,6 @@
   ...
 }: {
   programs = {
-    yazi = {
-      enable = true;
-      enableFishIntegration = true;
-      settings.manager = {
-        sort_by = "natural";
-        sort_reverse = false;
-      };
-    };
-
     ssh = {
       enable = true;
       addKeysToAgent = "yes";
@@ -62,6 +53,7 @@
       };
     };
   };
+
   gtk = {
     enable = true;
     theme = {

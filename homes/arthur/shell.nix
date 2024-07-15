@@ -129,6 +129,7 @@ in {
       ping = "ping -c 5";
       rm = "rm -ri";
       vdir = "vdir --color";
+      wget = "wget --hsts-file=\"$XDG_CACHE_HOME/wget-hsts\"";
       sbcl = mkIf (elem pkgs.sbcl osConfig.users.users.arthur.packages) "rlwrap sbcl";
       emacs = mkIf config.programs.emacs.enable "emacs -nw";
       emacsclient = mkIf config.services.emacs.enable "emacsclient -nw";
@@ -138,6 +139,7 @@ in {
       MANPAGER = "sh -c 'col -bx | ${getExe pkgs.bat} --paging always -l man -p'";
       MANROFFOPT = "-c";
       DOTNET_CLI_TELEMETRY_OPTOUT = "1";
+      WGETRC = "$XDG_CONFIG_HOME/wgetrc";
     };
   };
 
