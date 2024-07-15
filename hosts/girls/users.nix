@@ -14,14 +14,16 @@
       alejandra
       bottles
       brave
-      ormolu
-      clang
+      cargo
       chromatic
-      emacs-lsp-booster
+      clang
+      clippy
+      dconf-editor
       fd
       file
       foliate
       fragments
+      gamescope
       ghc
       gitu
       haskell-language-server
@@ -30,27 +32,21 @@
       lime3ds
       markdown-oxide
       nixd
-      nix-tree
       nix-init
+      nix-tree
       nix-your-shell
       ocrmypdf
+      ormolu
       python312Packages.python-lsp-server
-      # TODO: usar python padrão quando a versão for >= 3.13
-      python313
+      python313 # TODO: usar python padrão quando a versão for >= 3.13
       ripgrep
-      rlwrap
+      rust-analyzer
       rustc
       rustfmt
-      cargo
-      clippy
-      rust-analyzer
       ryujinx
-      sbcl
       signal-desktop
       sops
       stremio
-      gamescope
-      dconf-editor
       tesseract
       trash-cli
       tree
@@ -65,7 +61,7 @@
 
   services.flatpak = {
     enable = true;
-    packages = [ # TODO: mudar para declarative-flatpak
+    packages = [
       "io.mrarm.mcpelauncher"
     ];
     update.auto = {

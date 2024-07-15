@@ -96,6 +96,7 @@
           lix-module.nixosModules.default
           nix-index-database.nixosModules.nix-index
           nix-flatpak.nixosModules.nix-flatpak
+        ] ++ [
           ./hosts/girls/default.nix
         ];
       };

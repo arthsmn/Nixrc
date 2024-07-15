@@ -49,12 +49,6 @@ in {
         position = "anywhere";
         expansion = "${config.home.sessionVariables.EDITOR}";
       };
-      flin = mkIf osConfig.services.flatpak.enable "flatpak install";
-      flist = mkIf osConfig.services.flatpak.enable "flatpak list";
-      flrm = mkIf osConfig.services.flatpak.enable "flatpak remove --delete-data";
-      flrmu = mkIf osConfig.services.flatpak.enable "flatpak remove --unused --delete-data";
-      flrun = mkIf osConfig.services.flatpak.enable "flatpak run";
-      flup = mkIf osConfig.services.flatpak.enable "flatpak update";
       l = "ls";
       nxrb = "sudo nixos-rebuild switch";
       py = "python";
@@ -130,7 +124,7 @@ in {
       rm = "rm -ri";
       vdir = "vdir --color";
       wget = "wget --hsts-file=\"$XDG_CACHE_HOME/wget-hsts\"";
-      sbcl = mkIf (elem pkgs.sbcl osConfig.users.users.arthur.packages) "rlwrap sbcl";
+      sbcl = mkIf (elem pkgs.sbcl osConfig.users.users.arthur.packages) "${getExe pkgs.rlwrap} sbcl";
       emacs = mkIf config.programs.emacs.enable "emacs -nw";
       emacsclient = mkIf config.services.emacs.enable "emacsclient -nw";
     };
