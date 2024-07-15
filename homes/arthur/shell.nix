@@ -139,7 +139,12 @@ in {
       MANPAGER = "sh -c 'col -bx | ${getExe pkgs.bat} --paging always -l man -p'";
       MANROFFOPT = "-c";
       DOTNET_CLI_TELEMETRY_OPTOUT = "1";
+
       WGETRC = "$XDG_CONFIG_HOME/wgetrc";
+      CARGO_HOME = "$XDG_DATA_HOME/cargo";
+      DOTNET_CLI_HOME = "$XDG_DATA_HOME/dotnet";
+      XCURSOR_PATH = "/usr/share/icons:$XDG_DATA_HOME/icons";
+      XCOMPOSECACHE = "$XDG_CACHE_HOME/X11/xcompose";
     };
   };
 
