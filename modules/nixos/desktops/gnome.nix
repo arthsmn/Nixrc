@@ -15,6 +15,7 @@ in {
         appindicator
         blur-my-shell
         forge
+        just-perfection
         legacy-gtk3-theme-scheme-auto-switcher
       ];
 

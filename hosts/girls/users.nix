@@ -20,6 +20,7 @@
       emacs-lsp-booster
       fd
       file
+      firefox
       foliate
       fragments
       ghc
@@ -53,12 +54,10 @@
       dconf-editor
       tesseract
       trash-cli
-      kitty
       tree
       unzip
       wget
       wl-clipboard
-      zed-editor
       zls
     ];
   };
@@ -67,7 +66,7 @@
 
   services.flatpak = {
     enable = true;
-    packages = [
+    packages = [ # TODO: mudar para declarative-flatpak
       "io.mrarm.mcpelauncher"
     ];
     update.auto = {

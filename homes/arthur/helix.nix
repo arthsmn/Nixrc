@@ -7,7 +7,7 @@
     enable = true;
     defaultEditor = true;
     settings = {
-      theme = "modus_vivendi_deuteranopia";
+      theme = "modus_vivendi";
       editor = {
         line-number = "relative";
         cursorline = true;
@@ -23,32 +23,19 @@
         left = ["mode" "spinner" "read-only-indicator" "file-modification-indicator"];
         center = ["file-name"];
       };
-      editor.whitespace.render.space = "all";
+      # editor.whitespace.render.space = "all";
       editor.indent-guides.render = true;
       editor.soft-wrap.enable = true;
     };
     languages = {
       language-server = {
         nixd.command = lib.getExe pkgs.nixd;
-        hyprls.command = lib.getExe pkgs.hyprls;
       };
       language = [
         {
           name = "nix";
           formatter.command = lib.getExe pkgs.alejandra;
           language-servers = ["nixd"];
-        }
-        {
-          name = "haskell";
-          auto-format = true;
-          formatter = {
-            command = lib.getExe pkgs.ormolu;
-            args = [];
-          };
-        }
-        {
-          name = "hyprlang";
-          language-servers = ["hyprls"];
         }
       ];
     };

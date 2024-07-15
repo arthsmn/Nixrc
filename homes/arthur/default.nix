@@ -7,7 +7,6 @@
     [
       ./dconf.nix
       ./helix.nix
-      # ./hyprland
       ./irc.nix
       ./misc.nix
       ./mpv.nix

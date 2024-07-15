@@ -10,6 +10,7 @@
         "appindicatorsupport@rgcjonas.gmail.com"
         "blur-my-shell@aunetx"
         "forge@jmmaranan.com"
+        "just-perfection-desktop@just-perfection"
         "legacyschemeautoswitcher@joshimukul29.gmail.com"
       ];
     };
