@@ -26,6 +26,7 @@
       gamescope
       ghc
       gitu
+      gnome-graphs
       haskell-language-server
       heroic
       libreoffice

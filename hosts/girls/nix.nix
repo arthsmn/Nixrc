@@ -1,17 +1,17 @@
-
 {
   inputs,
   outputs,
   ...
 }: {
-  nix.settings = {
-    experimental-features = ["nix-command" "flakes"];
-    auto-optimise-store = true;
-    allowed-users = ["@wheel"];
-    use-xdg-base-directories = true;
+  nix = {
+    channel.enable = false;
 
-    substituters = ["https://hyprland.cachix.org"];
-    trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
+    settings = {
+      experimental-features = ["nix-command" "flakes"];
+      auto-optimise-store = true;
+      allowed-users = ["@wheel"];
+      use-xdg-base-directories = true;
+    };
   };
 
   programs.nh = {
@@ -23,8 +23,9 @@
 
   nixpkgs = {
     config.allowUnfree = true;
-    overlays = (with outputs.overlays; [additions modifications])
-               ++ (with inputs; [nix-your-shell.overlays.default]);
+    overlays =
+      (with outputs.overlays; [additions modifications])
+      ++ (with inputs; [nix-your-shell.overlays.default]);
   };
 
   system.stateVersion = "24.11";
