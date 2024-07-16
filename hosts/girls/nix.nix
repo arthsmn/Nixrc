@@ -22,7 +22,6 @@
   };
 
   nixpkgs = {
-    config.allowUnfree = true;
     overlays =
       (with outputs.overlays; [additions modifications])
       ++ (with inputs; [nix-your-shell.overlays.default]);

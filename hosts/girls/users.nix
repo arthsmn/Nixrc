@@ -28,9 +28,7 @@
       gitu
       gnome-graphs
       haskell-language-server
-      heroic
       libreoffice
-      lime3ds
       markdown-oxide
       nixd
       nix-init
@@ -44,7 +42,6 @@
       rust-analyzer
       rustc
       rustfmt
-      ryujinx
       signal-desktop
       sops
       stremio

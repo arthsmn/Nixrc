@@ -38,7 +38,6 @@
     nix-index-database.comma.enable = true;
     command-not-found.enable = false;
     virt-manager.enable = true;
-    steam.enable = true;
   };
 
   virtualisation.libvirtd = {
