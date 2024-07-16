@@ -1,10 +1,7 @@
 {...}: {
   desktop = {
     enable = true;
-    environments = [
-      # "Hyprland"
-      "Gnome"
-    ];
+    environments = [ "Gnome" ];
     loginManager = "GDM";
   };
 }

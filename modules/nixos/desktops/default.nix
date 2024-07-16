@@ -5,14 +5,13 @@ let
 in {
   imports = [
     ./gnome.nix
-    ./hyprland.nix
     ./gdm.nix
   ];
 
   options.desktop = {
     enable = mkEnableOption "desktop";
     environments = mkOption {
-      type = with types; nullOr (listOf (enum ["Gnome" "Hyprland"]));
+      type = with types; nullOr (listOf (enum ["Gnome"]));
     };
     loginManager = mkOption {
       type = types.enum ["GDM"];
