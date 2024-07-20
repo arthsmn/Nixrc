@@ -1,5 +1,9 @@
-{config, lib, pkgs, ...}:
-let
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
   inherit (lib) mkIf elem;
   cfg = config.desktop.environments;
 in {
@@ -17,6 +21,7 @@ in {
         forge
         just-perfection
         legacy-gtk3-theme-scheme-auto-switcher
+        night-theme-switcher
       ];
 
       gnome.excludePackages =

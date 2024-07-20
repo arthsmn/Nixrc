@@ -41,14 +41,17 @@ in {
     home.packages = [cfg.package];
 
     xdg.configFile = mkMerge [
-      (mapAttrs' (name: value: nameValuePair "hypr/shaders/${name}.glsl" {
-        text = value;
-      }) cfg.customShaders)
-      (mkIf (cfg.config != {}) { "hypr/hyprshade.toml" =  {
-                                   # source = pkgs.writers.writeTOML "config.toml" cfg.settings;
-                                   text = cfg.config;
-                                 };
-                               })
+      (mapAttrs' (name: value:
+        nameValuePair "hypr/shaders/${name}.glsl" {
+          text = value;
+        })
+      cfg.customShaders)
+      (mkIf (cfg.config != {}) {
+        "hypr/hyprshade.toml" = {
+          # source = pkgs.writers.writeTOML "config.toml" cfg.settings;
+          text = cfg.config;
+        };
+      })
     ];
 
     home.activation.hm_hyprshade_install = mkIf (cfg.config != {} || cfg.customShaders != {}) (hm.dag.entryAfter ["writeBoundary"] ''
@@ -60,5 +63,5 @@ in {
       exec-once = dbus-update-activation-environment --systemd HYPRLAND_INSTANCE_SIGNATURE
       exec = hyprshade auto
     '');
-  };  
+  };
 }

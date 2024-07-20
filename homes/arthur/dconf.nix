@@ -12,6 +12,7 @@
         "forge@jmmaranan.com"
         "just-perfection-desktop@just-perfection"
         "legacyschemeautoswitcher@joshimukul29.gmail.com"
+        "nightthemeswitcher@romainvigier.fr"
       ];
     };
     "org/gnome/desktop/wm/preferences" = {

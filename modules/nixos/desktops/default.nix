@@ -1,5 +1,9 @@
-{config, lib, pkgs, ...}:
-let
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
   inherit (lib) mkIf mkOption mkEnableOption types;
   cfg = config.desktop;
 in {
