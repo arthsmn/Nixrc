@@ -15,7 +15,6 @@
       "ssh_keys/github_pub" = {
         path = "${config.home.homeDirectory}/.ssh/github.pub";
       };
-      "certs/libera" = {};
     };
   };
 

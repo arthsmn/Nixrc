@@ -4,33 +4,18 @@
   config,
   osConfig,
   ...
-}:let
+}: let
   inherit (lib) mkIf elem getExe;
 in {
   programs.fish = {
     enable = true;
     functions = {
-      send-terminfo-ssh = /*fish*/ ''
-          if ! set -q $argv; or test -z $argv[2];
-            echo "Apenas um argumento é necessário, o host..."
-            return 1
-          end
-          infocmp -x | ssh $argv[1] -- tic -x -
-        '';
-      yta = mkIf config.programs.mpv.enable "mpv --no-resume-playback --ytdl-format=bestaudio ytdl://ytsearch:\"$argv\"";
-      starship_transient_prompt_func = mkIf config.programs.starship.enable "starship module character";
-      vterm_printf = /*fish*/ ''
-          if begin; [  -n "$TMUX" ]  ; and  string match -q -r "screen|tmux" "$TERM"; end
-             # tell tmux to pass the escape sequences through
-             printf "\ePtmux;\e\e]%s\007\e\\" "$argv"
-          else if string match -q -- "screen*" "$TERM"
-             # GNU screen (screen, screen-256color, screen-256color-bce)
-             printf "\eP\e]%s\007\e\\" "$argv"
-          else
-           printf "\e]%s\e\\" "$argv"
-          end
-        '';
-      nsh = /*fish*/ ''
+      starship_transient_prompt_func =  "starship module character";
+      nsh =
+        /*
+        fish
+        */
+        ''
           if ! set -q argv[1]
             echo "O comando precisa de pelo menos um argumento..." && return 1
           end
@@ -43,6 +28,7 @@ in {
           end
           nix shell $argv
         '';
+      last_history_item = "echo $history[1]";
     };
     shellAbbrs = {
       e = {
@@ -51,7 +37,10 @@ in {
       };
       l = "ls";
       nxrb = "sudo nixos-rebuild switch";
-      py = "python";
+      "!!" = {
+        position = "anywhere";
+        function = "last_history_item";
+      };
       q = "exit";
       sctl = {
         position = "anywhere";
@@ -87,9 +76,15 @@ in {
       gsc = "git switch --create";
       gst = "git status";
     };
-    interactiveShellInit = /*fish*/  ''
+    interactiveShellInit =
+      /*
+      fish
+      */
+      ''
         set -g fish_greeting ""
         nix-your-shell fish | source
+        starship init fish | source && enable_transience
+        source ${pkgs.fzf}/share/fzf/key-bindings.fish && fzf_key_bindings
       '';
     plugins = [
       {
@@ -130,9 +125,10 @@ in {
     };
 
     sessionVariables = {
-      MANPAGER = "sh -c 'col -bx | ${getExe pkgs.bat} --paging always -l man -p'";
+      MANPAGER = "sh -c 'col -bx | bat --paging always -l man -p'";
       MANROFFOPT = "-c";
       DOTNET_CLI_TELEMETRY_OPTOUT = "1";
+      EDITOR = "hx";
 
       WGETRC = "$XDG_CONFIG_HOME/wgetrc";
       CARGO_HOME = "$XDG_DATA_HOME/cargo";
@@ -143,16 +139,4 @@ in {
   };
 
   xdg.enable = true;
-
-  programs.starship = {
-    enable = true;
-    enableTransience = config.programs.fish.enable;
-    settings = {
-      character = {
-        success_symbol = "[λ](bold purple)";
-        error_symbol = "[λ](bold red)";
-        vicmd_symbol = "[λ](bold green)";
-      };
-    };
-  };
 }

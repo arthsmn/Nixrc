@@ -29,37 +29,11 @@
         push.autoSetupRemote = true;
       };
     };
-
-    yt-dlp = {
-      enable = true;
-      extraConfig = "-o %(title)s.%(ext)s";
-    };
-
-    fzf.enable = true;
-
-    bat = {
-      enable = true;
-      config.theme = "ansi";
-    };
-
-    bottom = {
-      enable = true;
-      settings.flags = {
-        basic = true;
-        battery = true;
-        enable_cache_memory = true;
-        mem_as_value = true;
-        disable_advanced_kill = true;
-      };
-    };
   };
-
+    
   gtk = {
     enable = true;
-    theme = {
-      name = "adw-gtk3-dark";
-      package = pkgs.adw-gtk3;
-    };
+    theme.name = "adw-gtk3-dark";
     gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
   };
 

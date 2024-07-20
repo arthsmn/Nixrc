@@ -1,4 +1,5 @@
 {
+  lib,
   pkgs,
   config,
   inputs,
@@ -10,38 +11,37 @@
     hashedPasswordFile = config.sops.secrets."user_passwords/arthur".path;
     description = "Arthur";
     extraGroups = ["networkmanager" "wheel" "libvirtd" "input" "lp"];
-    packages = with pkgs; [
+    packages = (with pkgs; [
+      adw-gtk3
       alejandra
       bottles
       brave
-      cargo
       chromatic
       clang
-      clippy
+      clang-tools
       dconf-editor
+      emacs29-pgtk
+      emacs-lsp-booster
       fd
       file
       foliate
       fragments
+      fzf
       gamescope
-      ghc
       gitu
       gnome-graphs
-      haskell-language-server
+      kryptor
       libreoffice
+      man-pages
+      man-pages-posix
       markdown-oxide
+      moreutils
       nixd
       nix-init
       nix-tree
       nix-your-shell
       ocrmypdf
-      ormolu
-      python312Packages.python-lsp-server
-      python313 # TODO: usar python padrão quando a versão for >= 3.13
       ripgrep
-      rust-analyzer
-      rustc
-      rustfmt
       signal-desktop
       sops
       stremio
@@ -51,22 +51,23 @@
       unzip
       wget
       wl-clipboard
-      zls
+    ]) ++ [
+      (inputs.wrapper-manager.lib.build {
+        inherit pkgs;
+        modules = lib.pipe (builtins.readDir ../../wrappers) [
+          (lib.filterAttrs (name: value: value == "directory"))
+          builtins.attrNames
+          (map (n: ../../wrappers/${n}))
+        ];
+        specialArgs = {
+          inherit inputs;
+          nixcfg = config;
+        };
+      })
     ];
   };
 
   users.defaultUserShell = pkgs.fish;
-
-  services.flatpak = {
-    enable = true;
-    packages = [
-      "io.mrarm.mcpelauncher"
-    ];
-    update.auto = {
-      enable = true;
-      onCalendar = "weekly";
-    };
-  };
 
   home-manager = {
     useGlobalPkgs = true;
