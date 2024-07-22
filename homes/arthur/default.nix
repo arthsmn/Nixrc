@@ -11,7 +11,5 @@
       ./shell.nix
     ]
     ++ (builtins.attrValues outputs.homeManagerModules)
-    ++ [
-      inputs.sops-nix.homeManagerModules.sops
-    ];
+    ++ [inputs.sops-nix.homeManagerModules.sops];
 }

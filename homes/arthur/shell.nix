@@ -120,9 +120,7 @@ in {
       vdir = "vdir --color";
       wget = "wget --hsts-file=\"$XDG_CACHE_HOME/wget-hsts\"";
       sbcl = mkIf (elem pkgs.sbcl osConfig.users.users.arthur.packages) "${getExe pkgs.rlwrap} sbcl";
-      emacs = mkIf config.programs.emacs.enable "emacs -nw";
-      emacsclient = mkIf config.services.emacs.enable "emacsclient -nw";
-    };
+   };
 
     sessionVariables = {
       MANPAGER = "sh -c 'col -bx | bat --paging always -l man -p'";

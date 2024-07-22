@@ -13,10 +13,10 @@
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
 
-(setq no-littering-var-directory (expand-file-name "emacs/" (getenv "XDG_DATA_HOME"))
-      no-littering-etc-directory user-emacs-directory)
+(setq no-littering-etc-directory (expand-file-name "emacs/" (getenv "XDG_DATA_HOME"))
+      no-littering-var-directory (expand-file-name "emacs/" (getenv "XDG_CACHE_HOME")))
 
 (when (fboundp 'startup-redirect-eln-cache)
   (startup-redirect-eln-cache
    (convert-standard-filename
-    (expand-file-name  "emacs/eln-cache/" (getenv "XDG_CACHE_HOME")))))
+    (expand-file-name  "eln-cache/" no-littering-var-directory))))

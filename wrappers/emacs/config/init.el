@@ -3,18 +3,17 @@
 (use-package gcmh :ensure t
   :custom
   (gcmh-idle-delay 5)
-  (gcmh-high-cons-threshold (* 16 1024 1024)) ;; 16 MB
+  (gcmh-high-cons-threshold (* 64 1024 1024)) ;; 64 MB
   (gcmh-verbose init-file-debug)
   :hook (after-init . gcmh-mode))
 
 (use-package no-littering :ensure t :demand t
   :config
-  (let ((dir (no-littering-expand-var-file-name "lock-files/")))
+  (let ((dir (no-littering-expand-etc-file-name "lock-files/")))
     (make-directory dir t)
     (setopt lock-file-name-transforms `((".*" ,dir t))))
-  (setopt custom-file (no-littering-expand-var-file-name "custom.el"))
-  (load custom-file 'noerror)
-  :hook (after-init . (lambda () (load custom-file 'noerror))))
+  (setopt custom-file (no-littering-expand-etc-file-name "custom.el"))
+  (load custom-file 'noerror))
 
 (use-package emacs :ensure nil
   :custom
@@ -94,6 +93,14 @@
   :if (display-graphic-p)
   :config (textsize-mode))
 
+(use-package ligature :ensure t
+  :config
+  (ligature-set-ligatures 'prog-mode '("<---" "<--"  "<<-" "<-" "->" "-->" "--->" "<->" "<-->" "<--->" "<---->" "<!--"
+                                       "<==" "<===" "<=" "=>" "=>>" "==>" "===>" ">=" "<=>" "<==>" "<===>" "<====>" "<!---"
+                                       "<~~" "<~" "~>" "~~>" "::" ":::" "==" "!=" "===" "!=="
+                                       ":=" ":-" ":+" "<*" "<*>" "*>" "<|" "<|>" "|>" "+:" "-:" "=:" "<******>" "++" "+++"))
+  (global-ligature-mode t))
+
 (use-package helpful :ensure t
   :bind (("C-h f" . helpful-callable)   ;; melhor documentação
          ("C-h C-f" . helpful-callable)
@@ -143,18 +150,19 @@
   (eat-eshell-visual-command-mode))
 
 (use-package eglot
-  :hook
-  ((c-mode nix-mode) . eglot-ensure)
   :custom
   (eglot-send-changes-idle-time 0.1)
   (eglot-extend-to-xref t)
-  :config
-  (fset #'jsonrpc--log-event #'ignore))
-(use-package eglot-booster :after eglot :config (eglot-booster-mode)) ;; pacote customizado
+  :config (fset #'jsonrpc--log-event #'ignore))
+(use-package eglot-booster :after eglot :config (eglot-booster-mode)) ;; fora dos repositórios
 
 (use-package markdown-mode :ensure t)
 
-(use-package nix-mode :ensure t :mode "\\.nix\\'")
+(use-package nix-mode :ensure t
+  :mode "\\.nix\\'"
+  :hook (nix-mode . eglot-ensure))
+
+(use-package fish-mode :ensure t)
 
 ;;;
 ;;; Completar no ponto
@@ -173,7 +181,6 @@
 (setopt completion-auto-select 'second-tab)            ; Much more eager
 ;;(setopt completion-auto-select t)                     ; See `C-h v completion-auto-select' for more possible values
 
-;; (require 'corfu)
 (use-package corfu :ensure t
   :hook
   (after-init . global-corfu-mode)
