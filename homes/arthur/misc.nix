@@ -4,16 +4,6 @@
   config,
   ...
 }: {
-  programs.ssh = {
-    enable = true;
-    addKeysToAgent = "yes";
-    matchBlocks = {
-      "github.com" = {
-        identityFile = config.sops.secrets."ssh_keys/github".path;
-      };
-    };
-  };
-    
   gtk = {
     enable = true;
     theme.name = "adw-gtk3-dark";

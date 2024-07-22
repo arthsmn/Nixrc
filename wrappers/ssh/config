@@ -1,0 +1,14 @@
+Host github.com
+  IdentityFile @githubKey@
+
+Host *
+  ForwardAgent no
+  AddKeysToAgent yes
+  Compression no
+  ServerAliveInterval 0
+  ServerAliveCountMax 3
+  HashKnownHosts no
+  UserKnownHostsFile ~/.local/share/ssh/known_hosts
+  ControlMaster no
+  ControlPath ~/.local/share/ssh/master-%r@%n:%p
+  ControlPersist no
