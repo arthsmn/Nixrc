@@ -5,7 +5,22 @@
   inputs,
   outputs,
   ...
-}: {
+}: let
+  listDirs = path: lib.pipe (builtins.readDir path) [
+    (lib.filterAttrs (name: value: value == "directory"))
+    builtins.attrNames
+    (map (n: /${path}/${n}))
+  ];
+
+  wrapper-manager-build = (inputs.wrapper-manager.lib.build {
+    inherit pkgs;
+    modules = listDirs ../../wrappers;
+    specialArgs = {
+      inherit inputs;
+      nixcfg = config;
+    };
+  });
+in {
   users.users.arthur = {
     isNormalUser = true;
     hashedPasswordFile = config.sops.secrets."user_passwords/arthur".path;
@@ -20,8 +35,6 @@
       clang
       clang-tools
       dconf-editor
-      emacs29-pgtk
-      emacs-lsp-booster
       fd
       file
       foliate
@@ -51,20 +64,7 @@
       unzip
       wget
       wl-clipboard
-    ]) ++ [
-      (inputs.wrapper-manager.lib.build {
-        inherit pkgs;
-        modules = lib.pipe (builtins.readDir ../../wrappers) [
-          (lib.filterAttrs (name: value: value == "directory"))
-          builtins.attrNames
-          (map (n: ../../wrappers/${n}))
-        ];
-        specialArgs = {
-          inherit inputs;
-          nixcfg = config;
-        };
-      })
-    ];
+    ]) ++ [wrapper-manager-build];
   };
 
   users.defaultUserShell = pkgs.fish;

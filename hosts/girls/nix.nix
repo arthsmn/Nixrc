@@ -24,7 +24,10 @@
   nixpkgs = {
     overlays =
       (with outputs.overlays; [additions modifications])
-      ++ (with inputs; [nix-your-shell.overlays.default]);
+      ++ (with inputs; [
+        nix-your-shell.overlays.default
+        emacs-overlay.overlays.emacs
+      ]);
   };
 
   system.stateVersion = "24.11";
