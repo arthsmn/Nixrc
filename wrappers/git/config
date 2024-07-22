@@ -1,0 +1,20 @@
+[commit]
+	gpgSign = true
+
+[gpg]
+	format = "ssh"
+	program = "@gpgPath@"
+
+[init]
+	defaultBranch = "master"
+
+[push]
+	autoSetupRemote = true
+
+[tag]
+	gpgSign = true
+
+[user]
+	email = "arthsmn@proton.me"
+	name = "arthsmn"
+	signingKey = "@myKey@"

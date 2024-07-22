@@ -4,29 +4,12 @@
   config,
   ...
 }: {
-  programs = {
-    ssh = {
-      enable = true;
-      addKeysToAgent = "yes";
-      matchBlocks = {
-        "github.com" = {
-          identityFile = config.sops.secrets."ssh_keys/github".path;
-        };
-      };
-    };
-
-    git = {
-      enable = true;
-      userEmail = "arthsmn@proton.me";
-      userName = "arthsmn";
-      signing = {
-        key = config.sops.secrets."ssh_keys/github_pub".path;
-        signByDefault = true;
-      };
-      extraConfig = {
-        gpg.format = "ssh";
-        init.defaultBranch = "master";
-        push.autoSetupRemote = true;
+  programs.ssh = {
+    enable = true;
+    addKeysToAgent = "yes";
+    matchBlocks = {
+      "github.com" = {
+        identityFile = config.sops.secrets."ssh_keys/github".path;
       };
     };
   };
