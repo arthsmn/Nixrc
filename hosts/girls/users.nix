@@ -6,15 +6,11 @@
   outputs,
   ...
 }: let
-  listDirs = path: lib.pipe (builtins.readDir path) [
-    (lib.filterAttrs (name: value: value == "directory"))
-    builtins.attrNames
-    (map (n: /${path}/${n}))
-  ];
+  inherit (outputs.myLib) listOfDirs;
 
   wrapper-manager-build = (inputs.wrapper-manager.lib.build {
     inherit pkgs;
-    modules = listDirs ../../wrappers;
+    modules = listOfDirs ../../wrappers;
     specialArgs = {
       inherit inputs;
       nixcfg = config;
