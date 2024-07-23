@@ -1,4 +1,8 @@
-{pkgs, nixcfg, ...}: {
+{
+  pkgs,
+  nixcfg,
+  ...
+}: {
   wrappers.tiny = {
     basePackage = pkgs.tiny;
     flags = [

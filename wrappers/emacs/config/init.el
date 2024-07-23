@@ -58,7 +58,7 @@
 ;;;
 ;;; Plugins para melhorar a  UI
 ;;;
-(use-package which-key :ensure t :config (which-key-mode))
+(use-package which-key :config (which-key-mode))
 
 (use-package enlight :ensure t
   :preface (autoload 'enlight-menu "enlight-menu" nil t)

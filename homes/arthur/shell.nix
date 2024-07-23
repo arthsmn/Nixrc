@@ -10,7 +10,7 @@ in {
   programs.fish = {
     enable = true;
     functions = {
-      starship_transient_prompt_func =  "starship module character";
+      starship_transient_prompt_func = "starship module character";
       nsh =
         /*
         fish
@@ -120,7 +120,7 @@ in {
       vdir = "vdir --color";
       wget = "wget --hsts-file=\"$XDG_CACHE_HOME/wget-hsts\"";
       sbcl = mkIf (elem pkgs.sbcl osConfig.users.users.arthur.packages) "${getExe pkgs.rlwrap} sbcl";
-   };
+    };
 
     sessionVariables = {
       MANPAGER = "sh -c 'col -bx | bat --paging always -l man -p'";

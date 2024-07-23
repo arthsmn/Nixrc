@@ -3,7 +3,6 @@
 
 [gpg]
 	format = "ssh"
-	program = "@gpgPath@"
 
 [init]
 	defaultBranch = "master"

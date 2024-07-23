@@ -1,7 +1,4 @@
-{
-  outputs,
-  ...
-}: {
+{outputs, ...}: {
   imports =
     [
       ./dconf.nix

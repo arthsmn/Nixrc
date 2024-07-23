@@ -1,8 +1,8 @@
 {
   outputs = {
     self,
-      nixpkgs,
-      ...
+    nixpkgs,
+    ...
   } @ inputs: let
     inherit (self) outputs;
     inherit (outputs.myLib) forAllSystems;
@@ -23,14 +23,13 @@
             lanzaboote.nixosModules.lanzaboote
             sops-nix.nixosModules.sops
             home-manager.nixosModules.home-manager
-            lix-module.nixosModules.default
             nix-index-database.nixosModules.nix-index
           ]
           ++ [./hosts/girls/default.nix];
       };
     };
   };
-  
+
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
@@ -39,10 +38,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    lanzaboote = {
-      url = "github:nix-community/lanzaboote/v0.4.1";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    lanzaboote.url = "github:nix-community/lanzaboote/v0.4.1";
 
     sops-nix = {
       url = "github:Mic92/sops-nix";
@@ -53,14 +49,9 @@
       url = "github:viperML/wrapper-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    
+
     home-manager = {
       url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    lix-module = {
-      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.90.0.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -74,11 +65,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    emacs-overlay = {
-      url = "github:nix-community/emacs-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    
+    emacs-overlay.url = "github:nix-community/emacs-overlay";
+
     ghostty.url = "git+ssh://git@github.com/ghostty-org/ghostty";
   };
 }

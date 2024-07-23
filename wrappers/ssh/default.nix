@@ -1,4 +1,8 @@
-{pkgs, nixcfg, ...}: {
+{
+  pkgs,
+  nixcfg,
+  ...
+}: {
   wrappers.ssh = {
     basePackage = pkgs.openssh;
     flags = [
