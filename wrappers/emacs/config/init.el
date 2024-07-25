@@ -100,6 +100,9 @@
          ("C-h x" . helpful-command)
          ("C-c C-d" . helpful-at-point)))
 
+(use-package ace-window :ensure t
+  :bind ("M-o" . ace-window))
+
 ;;;
 ;;; Edição/Desenvolvimento
 ;;;
