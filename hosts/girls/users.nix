@@ -29,6 +29,8 @@ in {
         bottles
         brave
         chromatic
+        clang-tools
+        clang
         dconf-editor
         fd
         file
@@ -36,7 +38,6 @@ in {
         fragments
         fzf
         gamescope
-        gcc
         gitu
         gnome-graphs
         kryptor
@@ -59,6 +60,16 @@ in {
         unzip
         wget
         wl-clipboard
+
+        cargo-watch
+        (fenix.stable.withComponents [
+          "cargo"
+          "clippy"
+          "rust-analyzer"
+          "rust-src"
+          "rustc"
+          "rustfmt"
+        ])
       ])
       ++ [wrapper-manager-build];
   };

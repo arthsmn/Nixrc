@@ -67,6 +67,11 @@
 
     emacs-overlay.url = "github:nix-community/emacs-overlay";
 
+    fenix = {
+      url = "github:nix-community/fenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    
     ghostty.url = "git+ssh://git@github.com/ghostty-org/ghostty";
   };
 }
