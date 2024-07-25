@@ -54,14 +54,18 @@ in {
         (nerdfonts.override {fonts = ["NerdFontsSymbolsOnly"];})
         carlito
         inter
-        iosevka-bin
         noto-fonts
-        sarasa-gothic
+        iosevka-comfy.comfy
+        iosevka-comfy.comfy-duo
+        iosevka-comfy.comfy-motion
+        iosevka-comfy.comfy-motion-duo
+        iosevka-comfy.comfy-motion-fixed
+        iosevka-comfy.comfy-fixed
       ];
 
       fontconfig = {
         defaultFonts = {
-          monospace = ["Sarasa Mono CL"];
+          monospace = ["Iosevka Comfy"];
           serif = ["Noto Serif"];
           sansSerif = ["Inter"];
         };

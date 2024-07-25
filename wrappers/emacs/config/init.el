@@ -1,108 +1,96 @@
 ;; init.el --- Configuration -*- lexical-binding: t; -*-
 
-(use-package gcmh :ensure t
-  :custom
-  (gcmh-idle-delay 5)
-  (gcmh-high-cons-threshold (* 64 1024 1024)) ;; 64 MB
-  (gcmh-verbose init-file-debug)
-  :hook (after-init . gcmh-mode))
-
 (use-package no-littering :ensure t :demand t
   :config
   (let ((dir (no-littering-expand-etc-file-name "lock-files/")))
     (make-directory dir t)
-    (setopt lock-file-name-transforms `((".*" ,dir t))))
-  (setopt custom-file (no-littering-expand-etc-file-name "custom.el"))
-  (load custom-file 'noerror))
+    (setopt lock-file-name-transforms `((".*" ,dir t)))))
 
-(use-package emacs :ensure nil
+(use-package emacs
   :custom
-  ;; colocar backups e auto-saves no /tmp
   (backup-directory-alist `((".*" . ,temporary-file-directory)))
   (auto-save-list-file-prefix nil)
   (auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
-
-  ;; número das linhas de forma relativa
-  (display-line-numbers-type 'relative)
+  (custom-file (make-temp-file "emacs-custom-"))
 
   ;; padrão arcaico
   (sentence-end-double-space nil)
 
-  ;; opções para o auto-revert
-  (auto-revert-avoid-polling t)
-  (auto-revert-interval 5)
-  (auto-revert-check-vc-info t)
-
-  (cursor-type 'bar)
   :config
-  ;; lê o arquivo do disco automaticamente quando modificado
-  (global-auto-revert-mode)
-
   ;; melhoras na UI
   (blink-cursor-mode -1)
   (pixel-scroll-precision-mode)
   (when (display-graphic-p) (context-menu-mode))
-
-  ;; salvar histórico do minibuffer
-  (savehist-mode)
-  :hook
-  ;; autocompletar pares
-  (prog-mode . electric-pair-mode)
   
-  (prog-mode . display-line-numbers-mode)
-  (text-mode . visual-line-mode)
-  (prog-mode . visual-line-mode)
-  :bind (
-	 ("C-<return>" . toggle-frame-fullscreen)))
+  :bind (("C-<return>" . toggle-frame-fullscreen)))
+
+(use-package auto-revert
+  :custom
+  (auto-revert-avoid-polling t)
+  (auto-revert-interval 5)
+  (auto-revert-check-vc-info t)
+  :hook (after-init . global-auto-revert-mode))
+
+(use-package savehist-mode
+  :custom (history-delete-duplicates t)
+  :hook (after-init . savehist-mode))
 
 ;;;
-;;; Plugins para melhorar a  UI
+;;; UI
 ;;;
-(use-package which-key :config (which-key-mode))
+(set-face-attribute 'default nil :family "Iosevka Comfy")
+(set-face-attribute 'variable-pitch nil :family "Iosevka Comfy Motion")
+
+(use-package which-key
+  :hook (after-init . which-key-mode))
+
+(use-package visual-line-mode
+  :hook ((text-mode prog-mode) . visual-line-mode))
+
+(use-package delsel
+  :hook (after-init . delete-selection-mode))
 
 (use-package enlight :ensure t
   :preface (autoload 'enlight-menu "enlight-menu" nil t)
-  :custom
-  (enlight-content
-   (concat
-    (propertize "    Emacs" 'face '(italic :height 200))
-    "\n\n"
-    (enlight-menu
-     '(
-       ;; ("Org Mode"
-       ;;  ("Org-Agenda (current day)" (org-agenda nil "a") "a"))
-       ("Arquivos"
-	("Projetos" project-switch-project "p")
-	("Arquivos Recentes" recentf-open "r"))
-       ))
-    ))
-  (initial-buffer-choice #'enlight))
+  :config
+  (setopt enlight-content (concat
+                           (propertize "    Emacs" 'face '(italic :height 200))
+                           "\n\n"
+                           (enlight-menu
+                            '(
+                              ("Arquivos"
+	                       ("Projetos" project-switch-project "p")
+	                       ("Arquivos Recentes" recentf-open "r"))
+                              ))
+                           )
+          initial-buffer-choice #'enlight))
 
-(unless (or (daemonp) (display-graphic-p)) (load-theme 'modus-vivendi))
 (use-package auto-dark :ensure t
-  :if (or (display-graphic-p) (daemonp))
   :custom
   (auto-dark-dark-theme 'modus-vivendi)
   (auto-dark-light-theme 'modus-operandi)
   :config (auto-dark-mode))
 
-(use-package mood-line :ensure t
-  :config (mood-line-mode))
+(use-package spacious-padding :ensure t
+  :hook (after-init . spacious-padding-mode)
+  :bind ("<f8>" . spacious-padding-mode))
 
-(use-package textsize :ensure t ;; ajusta o tamanho do texto de acordo com as dimensões da tela
+(use-package mood-line :ensure t
+  :hook (after-init . mood-line-mode))
+
+(use-package textsize :ensure t
   :if (display-graphic-p)
   :config (textsize-mode))
 
 (use-package ligature :ensure t
-  :config
-  (ligature-set-ligatures 'prog-mode '("<---" "<--"  "<<-" "<-" "->" "-->" "--->" "<->" "<-->" "<--->" "<---->" "<!--"
-                                       "<==" "<===" "<=" "=>" "=>>" "==>" "===>" ">=" "<=>" "<==>" "<===>" "<====>" "<!---"
-                                       "<~~" "<~" "~>" "~~>" "::" ":::" "==" "!=" "===" "!=="
-                                       ":=" ":-" ":+" "<*" "<*>" "*>" "<|" "<|>" "|>" "+:" "-:" "=:" "<******>" "++" "+++"))
-  (global-ligature-mode t))
+  :hook (prog-mode . ligature-mode)
+  :config (ligature-set-ligatures 'prog-mode '("<---" "<--"  "<<-" "<-" "->" "-->" "--->" "<->" "<-->" "<--->" "<---->" "<!--"
+                                               "<==" "<===" "<=" "=>" "=>>" "==>" "===>" ">=" "<=>" "<==>" "<===>" "<====>" "<!---"
+                                               "<~~" "<~" "~>" "~~>" "::" ":::" "==" "!=" "===" "!=="
+                                               ":=" ":-" ":+" "<*" "<*>" "*>" "<|" "<|>" "|>" "+:" "-:" "=:" "<******>" "++" "+++")))
 
 (use-package helpful :ensure t
-  :bind (("C-h f" . helpful-callable)   ;; melhor documentação
+  :bind (("C-h f" . helpful-callable)
          ("C-h C-f" . helpful-callable)
          ("C-h F" . helpful-function)
          ("C-h C-F" . helpful-function)
@@ -113,22 +101,25 @@
          ("C-c C-d" . helpful-at-point)))
 
 ;;;
-;;; Plugins de desenvolvimento
+;;; Edição/Desenvolvimento
 ;;;
-(use-package dtrt-indent :ensure t ;; tenta advinhar o estilo de indentação
-  :config (dtrt-indent-global-mode))
+(use-package electric-pair
+  :hook (prog-mode . electric-pair-mode))
+
+(use-package dtrt-indent :ensure t
+  :hook (prog-mode . dtrt-indent-global-mode))
 
 (use-package aggressive-indent :ensure t
-  :config
-  (global-aggressive-indent-mode 1))
+  :hook (prog-mode . aggressive-indent-mode ))
 
 (use-package hungry-delete :ensure t
-  ;; :custom (hungry-delete-join-reluctantly t)
-  :config (global-hungry-delete-mode))
+  :hook (prog-mode . hungry-delete-mode))
 
-(use-package whitespace-cleanup-mode :ensure t :config (global-whitespace-cleanup-mode))
+(use-package whitespace-cleanup-mode :ensure t
+  :hook ((text-mode prog-mode) . whitespace-cleanup-mode))
 
-(use-package magit :ensure t :defer t :bind ("C-x g" . magit-status))
+(use-package magit :ensure t
+  :bind ("C-c g" . magit-status))
 
 (use-package rainbow-delimiters :ensure t
   :hook (prog-mode . rainbow-delimiters-mode))
@@ -136,59 +127,68 @@
 (use-package colorful-mode :ensure t
   :custom
   (colorful-use-prefix t)
+  :config (add-to-list 'colorful-extra-color-keyword-functions '(colorful-add-rgb-colors))
+  :hook (prog-mode . colorful-mode))
+
+(use-package treesit-auto :ensure t
+  :hook (prog-mode . treesit-auto-mode)
   :config
-  (add-to-list 'colorful-extra-color-keyword-functions '(colorful-add-rgb-colors))
-  (global-colorful-mode))
+  (treesit-auto-add-to-auto-mode-alist 'all))
 
 (use-package eat :ensure t
-  :bind ("C-c e" . eat)
-  :custom
-  (eat-term-name "xterm")
-  (eat-kill-buffer-on-exit t)
+  :bind ("C-c e" . eat-other-window)
+  :custom (eat-kill-buffer-on-exit t)
   :config
   (eat-eshell-mode)
   (eat-eshell-visual-command-mode))
 
+(use-package markdown-mode :ensure t
+  :mode "\\.md\\'")
+
+(use-package nix-ts-mode :ensure t
+  :mode "\\.nix\\'")
+
+(use-package fish-mode :ensure t
+  :mode "\\.fish\\'")
+
 (use-package eglot
+  :hook ((c-ts-mode
+          nix-ts-mode
+          rust-ts-mode) . eglot-ensure)
   :custom
   (eglot-send-changes-idle-time 0.1)
   (eglot-extend-to-xref t)
-  :config (fset #'jsonrpc--log-event #'ignore))
-(use-package eglot-booster :after eglot :config (eglot-booster-mode)) ;; fora dos repositórios
-
-(use-package markdown-mode :ensure t)
-
-(use-package nix-mode :ensure t
-  :mode "\\.nix\\'"
-  :hook (nix-mode . eglot-ensure))
-
-(use-package fish-mode :ensure t)
+  :config
+  (fset #'jsonrpc--log-event #'ignore)
+  (add-to-list 'eglot-server-programs
+               '(c-ts-mode . ("clangd")))
+  (add-to-list 'eglot-server-programs
+               '(nix-ts-mode . ("nixd"))))
+(use-package eglot-booster :after eglot
+  :config (eglot-booster-mode))
 
 ;;;
-;;; Completar no ponto
+;;; Autocompletar
 ;;;
-(keymap-set minibuffer-mode-map "TAB" 'minibuffer-complete) ; TAB acts more like how it does in the shell
-(setopt enable-recursive-minibuffers t)                ; Use the minibuffer whilst in the minibuffer
-(setopt completion-cycle-threshold 1)                  ; TAB cycles candidates
-(setopt completions-detailed t)                        ; Show annotations
-(setopt tab-always-indent 'complete)                   ; When I hit TAB, try to complete, otherwise, indent
-;; (setopt completion-styles '(basic initials substring)) ; Different styles to match input to candidates
-(setopt completion-auto-help 'always)                  ; Open completion always; `lazy' another option
-(setopt completions-max-height 20)                     ; This is arbitrary
-(setopt completions-detailed t)
-(setopt completions-format 'one-column)
-(setopt completions-group t)
-(setopt completion-auto-select 'second-tab)            ; Much more eager
-;;(setopt completion-auto-select t)                     ; See `C-h v completion-auto-select' for more possible values
-
 (use-package corfu :ensure t
-  :hook
-  (after-init . global-corfu-mode)
+  :hook (after-init . global-corfu-mode)
   :bind
   (:map corfu-map
         ("SPC" . corfu-insert-separator)
         ("C-n" . corfu-next)
-        ("C-p" . corfu-previous)))
+        ("C-p" . corfu-previous))
+  :custom
+  (enable-recursive-minibuffers t)
+  (completion-cycle-threshold 1)
+  (completions-detailed t)
+  (tab-always-indent 'complete)
+  (completion-auto-help 'always)
+  (completions-max-height 20)
+  (completions-detailed t)
+  (completions-format 'one-column)
+  (completions-group t)
+  (completion-auto-select 'second-tab)
+  :init (keymap-set minibuffer-mode-map "TAB" 'minibuffer-complete))
 
 (use-package corfu-popupinfo :after corfu
   :hook (corfu-mode . corfu-popupinfo-mode)
@@ -217,66 +217,91 @@
   (completion-category-overrides '((file (styles basic partial-completion)))))
 
 ;;;
-;;; Minibuffer + pesquisa
+;;; Minibuffer + Pesquisa
 ;;;
-(use-package vertico :ensure t :hook (after-init . vertico-mode))
+(use-package vertico :ensure t
+  :hook (after-init . vertico-mode))
+
+(use-package vertico-grid :after vertico)
+
+(use-package vertico-multiform :after (vertico-grid)
+  :hook (vertico-mode . vertico-multiform-mode)
+  :config (add-to-list 'vertico-multiform-categories
+                       '(jinx grid (vertico-grid-annotate . 20))))
 
 (use-package vertico-directory :after vertico
   :bind (:map vertico-map
               ("M-DEL" . vertico-directory-delete-word)))
 
 (use-package marginalia :ensure t
-  :config (marginalia-mode))
+  :hook (after-init . marginalia-mode))
 
-(use-package consult
-  :ensure t
+(use-package consult :ensure t
   :custom (consult-narrow-key "<")
   :bind (
          ;; Drop-in replacements
-         ("C-x b" . consult-buffer)     ; orig. switch-to-buffer
-         ("C-x C-b" . consult-buffer)     ; orig. switch-to-buffer
-         ("M-y"   . consult-yank-pop)   ; orig. yank-pop
+         ("C-x b" . consult-buffer)
+         ("C-x C-b" . consult-buffer)
+         ("M-y"   . consult-yank-pop)
          ;; Searching
          ("M-s r" . consult-ripgrep)
 	 ("M-s f" . consult-fd)
-         ("C-s" . consult-line)       ; Alternative: rebind C-s to use
-         ("M-s s" . consult-line)       ; consult-line instead of isearch, bind
-         ("M-s L" . consult-line-multi) ; isearch to M-s s
-         ("M-s o" . consult-outline)
+         ("C-s" . consult-line)
+         ("C-S-s" . consult-outline)
+         ("M-s l" . consult-line-multi)
          ;; Isearch integration
          :map isearch-mode-map
-         ("M-e" . consult-isearch-history)   ; orig. isearch-edit-string
-         ("M-s e" . consult-isearch-history) ; orig. isearch-edit-string
-         ("M-s l" . consult-line)            ; needed by consult-line to detect isearch
-         ("M-s L" . consult-line-multi)      ; needed by consult-line to detect isearch
+         ("M-e" . consult-isearch-history)
+         ("M-s e" . consult-isearch-history)
+         ("M-s l" . consult-line)
+         ("M-s L" . consult-line-multi)
          ))
 
+(use-package embark :ensure t
+  :bind (("C-." . embark-act)
+         ("C-;" . embark-dwim)
+         ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
+  :custom (prefix-help-command #'embark-prefix-help-command)
+  :config (add-to-list 'display-buffer-alist
+                       '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
+                         nil
+                         (window-parameters (mode-line-format . none)))))
+
+(use-package embark-consult :ensure t
+  :hook (embark-collect-mode . consult-preview-at-point-mode))
+
 (use-package eshell
-  :init
-  (defun my/setup-eshell ()
-    ;; Something funny is going on with how Eshell sets up its keymaps; this is
-    ;; a work-around to make C-r bound in the keymap
-    (keymap-set eshell-mode-map "C-r" 'consult-history))
+  :init (defun my/setup-eshell ()
+          ;; Something funny is going on with how Eshell sets up its keymaps; this is
+          ;; a work-around to make C-r bound in the keymap
+          (keymap-set eshell-mode-map "C-r" 'consult-history))
   :hook ((eshell-mode . my/setup-eshell)))
 
-(use-package wgrep
-  :ensure t
-  :config
-  (setq wgrep-auto-save-buffer t))
-
 ;;;
-;;; Plugins gerais
+;;; Geral
 ;;;
-(use-package restart-emacs :ensure t)
+(use-package dired
+  :custom
+  (dired-recursive-copies 'always)
+  (dired-recursive-deletes 'always)
+  (delete-by-moving-to-trash t)
+  (dired-listing-switches
+   "-AGFhl --group-directories-first"))
 
 (use-package empv :ensure t
   :custom (empv-invidious-instance "https://vid.puffyan.us/api/v1")
-  :bind-keymap ("C-c m" . empv-map))
+  :bind-keymap ("C-c p" . empv-map))
+
+(use-package jinx :ensure t
+  :hook (text-mode . jinx-mode)
+  :bind (("M-#" . jinx-correct)
+         ("C-M-#" . jinx-languages))
+  :custom (jinx-languages "pt_BR en_US"))
 
 (use-package org
   :hook
-  (org-mode . flyspell-mode)
-  (org-mode . org-indent-mode))
+  (org-mode . org-indent-mode)
+  (org-mode . variable-pitch-mode))
 
 (use-package pdf-tools :ensure t
   :mode ("\\.pdf\\'" . pdf-view-mode))
@@ -287,8 +312,7 @@
   (nov-text-width t)
   (visual-fill-column-center-text t)
   :hook
-  (nov-mode . visual-line-mode)
-  (nov-mode . visual-fill-column-mode)
+  (nov-mode . visual-line-fill-column-mode)
   :mode ("\\.epub\\'" . nov-mode))
 
 ;;;
@@ -319,6 +343,7 @@
      '("0" . meow-digit-argument)
 
      '(";" . comment-line)
+     
      '("/" . meow-keypad-describe-key)
      '("?" . meow-cheatsheet))
     (meow-normal-define-key
@@ -386,3 +411,11 @@
      ))
   (meow-setup)
   (meow-global-mode 1))
+
+
+(use-package gcmh :ensure t
+  :custom
+  (gcmh-idle-delay 5)
+  (gcmh-high-cons-threshold (* 16 1024 1024))
+  (gcmh-verbose init-file-debug)
+  :hook (after-init . gcmh-mode))

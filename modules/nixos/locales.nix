@@ -15,7 +15,13 @@ in {
       example = "pt_BR";
     };
 
-    spellchecker = mkEnableOption "Enable spellchecker support and install the appropriate locale";
+    spellChecker = mkEnableOption "Enable spellchecker support and install the appropriate locale";
+
+    extraLangs = mkOption {
+      type = with types; listOf nonEmptyStr;
+      default = [];
+      example = ["en_US" "it_IT"];
+    };
   };
 
   config = let
@@ -35,9 +41,11 @@ in {
         LC_TIME = utf8Locale;
       };
 
-      environment.systemPackages = mkIf cfg.spellchecker (with pkgs; [
-        hunspell
-        hunspellDicts.${cfg.locale}
-      ]);
+      environment.systemPackages = mkIf cfg.spellChecker (with pkgs;
+        [
+          hunspell
+          hunspellDicts.${cfg.locale}
+        ]
+        ++ (map (lang: hunspellDicts.${lang}) cfg.extraLangs));
     };
 }

@@ -14,7 +14,8 @@
 
   locales = {
     locale = "pt_BR";
-    spellchecker = true;
+    spellChecker = true;
+    extraLangs = ["en_US"];
   };
 
   hardware.graphics.enable = true;

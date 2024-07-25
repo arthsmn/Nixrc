@@ -12,6 +12,7 @@ in {
   in
     lib.genAttrs systems;
 
+  # Create a list with all the directories in a path
   listOfDirs = path:
     lib.pipe (builtins.readDir path) [
       (lib.filterAttrs (name: value: value == "directory"))
