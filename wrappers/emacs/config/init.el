@@ -12,10 +12,9 @@
   :bind (("C-<return>" . toggle-frame-fullscreen)))
 
 (use-package no-littering :ensure t
-  :config
-  (let ((dir (no-littering-expand-etc-file-name "lock-files/")))
-    (make-directory dir t)
-    (setopt lock-file-name-transforms `((".*" ,dir t)))))
+  :config (let ((dir (no-littering-expand-etc-file-name "lock-files/")))
+            (make-directory dir t)
+            (setopt lock-file-name-transforms `((".*" ,dir t)))))
 
 (use-package auto-revert
   :custom
@@ -77,7 +76,7 @@
 
 (use-package textsize :ensure t
   :if (display-graphic-p)
-  :config (textsize-mode))
+  :hook (after-init . textsize-mode))
 
 (use-package ligature :ensure t
   :hook (prog-mode . ligature-mode)
@@ -120,21 +119,19 @@
   :hook ((text-mode prog-mode) . whitespace-cleanup-mode))
 
 (use-package magit :ensure t
-  :bind ("C-c g" . magit-status))
+  :bind ("C-x g" . magit-status))
 
 (use-package rainbow-delimiters :ensure t
   :hook (prog-mode . rainbow-delimiters-mode))
 
 (use-package colorful-mode :ensure t
-  :custom
-  (colorful-use-prefix t)
+  :custom (colorful-use-prefix t)
   :config (add-to-list 'colorful-extra-color-keyword-functions '(colorful-add-rgb-colors))
   :hook (prog-mode . colorful-mode))
 
 (use-package treesit-auto :ensure t
   :hook (prog-mode . treesit-auto-mode)
-  :config
-  (treesit-auto-add-to-auto-mode-alist 'all))
+  :config (treesit-auto-add-to-auto-mode-alist 'all))
 
 (use-package eat :ensure t
   :bind ("C-c e" . eat-other-window)
@@ -173,11 +170,10 @@
 ;;;
 (use-package corfu :ensure t
   :hook (after-init . global-corfu-mode)
-  :bind
-  (:map corfu-map
-        ("SPC" . corfu-insert-separator)
-        ("C-n" . corfu-next)
-        ("C-p" . corfu-previous))
+  :bind (:map corfu-map
+              ("SPC" . corfu-insert-separator)
+              ("C-n" . corfu-next)
+              ("C-p" . corfu-previous))
   :custom
   (enable-recursive-minibuffers t)
   (completion-cycle-threshold 1)
@@ -206,8 +202,7 @@
 
 (use-package kind-icon  :ensure t  :after corfu
   :if (display-graphic-p)
-  :config
-  (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
+  :config (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
 
 (use-package orderless :ensure t
   :custom
@@ -286,10 +281,6 @@
   (dired-listing-switches
    "-AGFhl --group-directories-first"))
 
-(use-package empv :ensure t
-  :custom (empv-invidious-instance "https://vid.puffyan.us/api/v1")
-  :bind-keymap ("C-c p" . empv-map))
-
 (use-package jinx :ensure t
   :hook (text-mode . jinx-mode)
   :bind (("M-#" . jinx-correct)
@@ -309,8 +300,7 @@
   :custom
   (nov-text-width t)
   (visual-fill-column-center-text t)
-  :hook
-  (nov-mode . visual-line-fill-column-mode)
+  :hook (nov-mode . visual-line-fill-column-mode)
   :mode ("\\.epub\\'" . nov-mode))
 
 ;;;
