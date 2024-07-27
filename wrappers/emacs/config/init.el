@@ -1,11 +1,5 @@
 ;; init.el --- Configuration -*- lexical-binding: t; -*-
 
-(use-package no-littering :ensure t :demand t
-  :config
-  (let ((dir (no-littering-expand-etc-file-name "lock-files/")))
-    (make-directory dir t)
-    (setopt lock-file-name-transforms `((".*" ,dir t)))))
-
 (use-package emacs
   :custom
   (backup-directory-alist `((".*" . ,temporary-file-directory)))
@@ -13,16 +7,15 @@
   (auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
   (custom-file (make-temp-file "emacs-custom-"))
 
-  ;; padrão arcaico
   (sentence-end-double-space nil)
 
-  :config
-  ;; melhoras na UI
-  (blink-cursor-mode -1)
-  (pixel-scroll-precision-mode)
-  (when (display-graphic-p) (context-menu-mode))
-  
   :bind (("C-<return>" . toggle-frame-fullscreen)))
+
+(use-package no-littering :ensure t
+  :config
+  (let ((dir (no-littering-expand-etc-file-name "lock-files/")))
+    (make-directory dir t)
+    (setopt lock-file-name-transforms `((".*" ,dir t)))))
 
 (use-package auto-revert
   :custom
@@ -47,6 +40,13 @@
 (use-package visual-line-mode
   :hook ((text-mode prog-mode) . visual-line-mode))
 
+(use-package context-menu-mode
+  :if (display-graphic-p)
+  :hook (after-init . context-menu-mode))
+
+(use-package pixel-scroll-precision-mode
+  :hook (after-init . pixel-scroll-precision-mode))
+
 (use-package delsel
   :hook (after-init . delete-selection-mode))
 
@@ -57,12 +57,9 @@
                            (propertize "    Emacs" 'face '(italic :height 200))
                            "\n\n"
                            (enlight-menu
-                            '(
-                              ("Arquivos"
+                            '(("Arquivos"
 	                       ("Projetos" project-switch-project "p")
-	                       ("Arquivos Recentes" recentf-open "r"))
-                              ))
-                           )
+	                       ("Arquivos Recentes" recentf-open "r")))))
           initial-buffer-choice #'enlight))
 
 (use-package auto-dark :ensure t
@@ -101,6 +98,7 @@
          ("C-c C-d" . helpful-at-point)))
 
 (use-package ace-window :ensure t
+  :custom (aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
   :bind ("M-o" . ace-window))
 
 ;;;
@@ -187,9 +185,6 @@
   (tab-always-indent 'complete)
   (completion-auto-help 'always)
   (completions-max-height 20)
-  (completions-detailed t)
-  (completions-format 'one-column)
-  (completions-group t)
   (completion-auto-select 'second-tab)
   :init (keymap-set minibuffer-mode-map "TAB" 'minibuffer-complete))
 
@@ -324,7 +319,7 @@
 (use-package meow :ensure t
   :config
   (defun meow-setup ()
-    (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)
+    (setopt meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)
     (meow-motion-overwrite-define-key
      '("j" . meow-next)
      '("k" . meow-prev)
