@@ -51,16 +51,14 @@ in {
 
     fonts = {
       packages = with pkgs; [
-        (nerdfonts.override {fonts = ["NerdFontsSymbolsOnly"];})
         carlito
         inter
-        noto-fonts
         iosevka-comfy.comfy
-        iosevka-comfy.comfy-duo
-        iosevka-comfy.comfy-motion
-        iosevka-comfy.comfy-motion-duo
-        iosevka-comfy.comfy-motion-fixed
         iosevka-comfy.comfy-fixed
+        iosevka-comfy.comfy-motion
+        iosevka-comfy.comfy-motion-fixed
+        (nerdfonts.override {fonts = ["NerdFontsSymbolsOnly"];})
+        noto-fonts
       ];
 
       fontconfig = {

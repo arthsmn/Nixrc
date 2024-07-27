@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  inherit (lib) mkIf elem;
+  inherit (lib) mkIf mkDefault elem;
   cfg = config.desktop.environments;
 in {
   # imports = [];
@@ -42,5 +42,7 @@ in {
     };
 
     hardware.pulseaudio.enable = false;
+
+    desktop.loginManager = mkDefault "GDM";
   };
 }
