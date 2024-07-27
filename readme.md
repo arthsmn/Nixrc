@@ -6,6 +6,18 @@
 
 Esta é minha configuração para o NixOS.
 
+## Meu setup
+- NixOS Unstable + Flakes
+- Disko + Btrfs + LUKS
+- systemd-boot + lanzaboote
+- sops-nix
+- NetworkManager + iwd + systemd-resolved + chrony
+- Gnome + Apps nativos
+- Navegador Brave
+- Fish + starship
+- Emacs + helix
+
+
 ## Como usá-la?
 *Atenção:* Esta não é uma configuração generalizada ou que se adapta ao seu sistema, é apenas disponibilizada para consulta e precisa ser adaptada para ser utilizada por terceiros.
 
@@ -34,4 +46,4 @@ Sou um membro semi-ativo da comunidade Nix em geral, você pode me contatar por 
   * Aqui encontram-se alguns pacotes que eu ainda não tentei levar para o nixpkgs ou que não podem entrar lá por algum motivo.
 * hosts/secrets.yaml, .sops.yaml
   * Meus segredos. São partes da configuração que não podem ser disponibilizadas publicamente.
-  * *Atenção:* Se for utilizar os segredos, não esqueça de adaptar para a sua chave age/pgp e usar o seu arquivo de segredos.
+      * *Atenção:* Se for utilizar os segredos, não esqueça de adaptar para a sua chave age/pgp e usar o seu arquivo de segredos.
