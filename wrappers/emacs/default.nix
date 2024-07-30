@@ -1,7 +1,8 @@
 {pkgs, ...}: {
   wrappers.emacs = {
     basePackage = pkgs.emacsWithPackagesFromUsePackage {
-      config = ./config/init.el;
+      config = ./config.org;
+      alwaysTangle = true;
       package = pkgs.emacs-pgtk;
       extraEmacsPackages = epkgs: [
         pkgs.eglot-booster
@@ -10,7 +11,7 @@
     };
     flags = [
       "--init-directory"
-      ./config
+      ./.config
     ];
     pathAdd = with pkgs; [emacs-lsp-booster];
   };

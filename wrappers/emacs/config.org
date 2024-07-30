@@ -2,11 +2,11 @@
 #+author: Arthur Cerqueira (arthsmn@github)
 
 * Minha configuração de construção do Emacs
-Utilizo o NixOS com o `emacs-overlay` para prover e configurar meu Emacs, instalando todas as dependências necessárias. Atualmente utilizo a última tag do Emacs com suporte ao GTK puro, `pkgs.emacs-pgtk`, tornando-o compatível com Wayland.
+Utilizo o NixOS com o =emacs-overlay= para prover e configurar meu Emacs, instalando todas as dependências necessárias. Atualmente utilizo a última tag do Emacs com suporte ao GTK puro, =pkgs.emacs-pgtk=, tornando-o compatível com Wayland.
 
 * Inicialização antecipada (=early-init.el=)
 :PROPERTIES:
-:header-args: :tangle "config/early-init.el"
+:header-args: :tangle ".config/early-init.el"
 :END:
 
 Essa é a configuração do Emacs que é executada primeiro, antes da inicialização.
@@ -53,7 +53,7 @@ Algumas configurações para ajeitar a interface. Mudando alguns padrões para m
 #+end_src
 
 ** Mudar a estrutura de diretórios
-Nessa configuração eu indico onde guardar os diversos tipos de arquivos, fazendo o Emacs usar o padrão XDG_DIRS. O pacote no-littering será utilizado mais tarde e pegará esses valores para ajudar na configuração. O código abaixo usa uma das variáveis para evitar a criação do diretório `eln-cache/` no lugar errado antes da inicialização.
+Nessa configuração eu indico onde guardar os diversos tipos de arquivos, fazendo o Emacs usar o padrão XDG_DIRS. O pacote no-littering será utilizado mais tarde e pegará esses valores para ajudar na configuração. O código abaixo usa uma das variáveis para evitar a criação do diretório =eln-cache/= no lugar errado antes da inicialização.
 
 #+begin_src elisp
   (setq no-littering-etc-directory (expand-file-name "emacs/" (getenv "XDG_DATA_HOME"))
@@ -83,7 +83,7 @@ Essas duas variáveis tornam o Emacs pesado, então vamos removê-las e reintrod
 
 * Configuração (=init.el=)
 :PROPERTIES:
-:header-args: :tangle "config/init.el"
+:header-args: :tangle ".config/init.el"
 :END:
 
 ** Ajeitando alguns padrões
