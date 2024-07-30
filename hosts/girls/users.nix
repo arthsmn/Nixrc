@@ -29,8 +29,6 @@ in {
         bottles
         brave
         chromatic
-        clang-tools
-        clang
         dconf-editor
         fd
         file
@@ -52,6 +50,7 @@ in {
         nix-your-shell
         ocrmypdf
         ripgrep
+        sbcl
         signal-desktop
         sops
         tesseract
@@ -60,6 +59,13 @@ in {
         unzip
         wget
         wl-clipboard
+
+        clang-tools
+        clang
+
+        luajitPackages.fennel
+        fennel-ls
+        fnlfmt
 
         cargo-watch
         (fenix.stable.withComponents [

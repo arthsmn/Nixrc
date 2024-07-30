@@ -1,6 +1,6 @@
 {pkgs, ...}: {
   wrappers.bat = {
     basePackage = pkgs.bat;
-    flags = ["--theme" "ansi"];
+    env.BAT_THEME.value = "ansi";
   };
 }
