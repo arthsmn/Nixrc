@@ -11,4 +11,7 @@ pkgs: {
   org-modern-indent = pkgs.callPackage ./org-modern-indent {
     inherit (pkgs.emacsPackages) trivialBuild org compat;
   };
+  eglot-x = pkgs.callPackage ./eglot-x {
+    inherit (pkgs.emacsPackages) trivialBuild project xref eglot;
+  };
 }

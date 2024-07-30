@@ -1,5 +1,3 @@
-;; init.el --- Configuration -*- lexical-binding: t; -*-
-
 (use-package emacs
   :custom
   (backup-directory-alist `((".*" . ,temporary-file-directory)))
@@ -9,7 +7,8 @@
 
   (sentence-end-double-space nil)
 
-  :bind (("C-<return>" . toggle-frame-fullscreen)))
+  :bind (("C-<return>" . toggle-frame-fullscreen)
+         ("C-c r" . meow-query-replace-regexp)))
 
 (use-package no-littering :ensure t
   :config (let ((dir (no-littering-expand-etc-file-name "lock-files/")))
@@ -27,9 +26,9 @@
   :custom (history-delete-duplicates t)
   :hook (after-init . savehist-mode))
 
-;;;
-;;; UI
-;;;
+(use-package subword-mode
+  :hook (prog-mode . subword-mode))
+
 (set-face-attribute 'default nil :family "Iosevka Comfy")
 (set-face-attribute 'variable-pitch nil :family "Iosevka Comfy Motion")
 
@@ -100,26 +99,20 @@
   :custom (aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
   :bind ("M-o" . ace-window))
 
-;;;
-;;; Edição/Desenvolvimento
-;;;
 (use-package electric-pair
   :hook (prog-mode . electric-pair-mode))
 
 (use-package dtrt-indent :ensure t
-  :hook (prog-mode . dtrt-indent-global-mode))
+  :hook (prog-mode . dtrt-indent-mode))
 
 (use-package aggressive-indent :ensure t
-  :hook (prog-mode . aggressive-indent-mode ))
+  :hook (prog-mode . aggressive-indent-mode))
 
 (use-package hungry-delete :ensure t
   :hook (prog-mode . hungry-delete-mode))
 
 (use-package whitespace-cleanup-mode :ensure t
   :hook ((text-mode prog-mode) . whitespace-cleanup-mode))
-
-(use-package magit :ensure t
-  :bind ("C-x g" . magit-status))
 
 (use-package rainbow-delimiters :ensure t
   :hook (prog-mode . rainbow-delimiters-mode))
@@ -143,15 +136,29 @@
 (use-package markdown-mode :ensure t
   :mode "\\.md\\'")
 
-(use-package nix-ts-mode :ensure t
+(use-package nix-mode :ensure t
   :mode "\\.nix\\'")
+
+(use-package nix-drv-mode :after nix-mode
+  :mode "\\.drv\\'")
+
+;; WAIT FOR: https://github.com/nix-community/nix-ts-mode/issues/39
+;; (use-package nix-ts-mode
+;;   :ensure t 
+;;   :mode "\\.nix\\'"
+;; )
 
 (use-package fish-mode :ensure t
   :mode "\\.fish\\'")
 
+(use-package fennel-mode :ensure t
+  :mode "\\.fnl\\'")
+
 (use-package eglot
   :hook ((c-ts-mode
           nix-ts-mode
+          fennel-mode
+          nix-mode
           rust-ts-mode) . eglot-ensure)
   :custom
   (eglot-send-changes-idle-time 0.1)
@@ -159,11 +166,15 @@
   :config
   (fset #'jsonrpc--log-event #'ignore)
   (add-to-list 'eglot-server-programs
-               '(c-ts-mode . ("clangd")))
+               '(nix-ts-mode . ("nixd")))
   (add-to-list 'eglot-server-programs
-               '(nix-ts-mode . ("nixd"))))
+               '(fennel-mode . ("fennel-ls")))
+  )
 (use-package eglot-booster :after eglot
   :config (eglot-booster-mode))
+
+(use-package sly :ensure t
+  :custom (inferior-lisp-program "sbcl"))
 
 ;;;
 ;;; Autocompletar
@@ -191,7 +202,7 @@
   (corfu-popupinfo-hide nil)
   :config (corfu-popupinfo-mode))
 
-(use-package corfu-terminal  :ensure t
+(use-package corfu-terminal :ensure t
   :if (not (display-graphic-p))
   :config (corfu-terminal-mode))
 
@@ -281,6 +292,9 @@
   (dired-listing-switches
    "-AGFhl --group-directories-first"))
 
+(use-package magit :ensure t
+  :bind ("C-x g" . magit-status))
+
 (use-package jinx :ensure t
   :hook (text-mode . jinx-mode)
   :bind (("M-#" . jinx-correct)
@@ -295,11 +309,13 @@
 (use-package pdf-tools :ensure t
   :mode ("\\.pdf\\'" . pdf-view-mode))
 
-(use-package visual-fill-column :ensure t)
-(use-package nov :ensure t
+(use-package visual-fill-column :ensure t
   :custom
-  (nov-text-width t)
   (visual-fill-column-center-text t)
+  (visual-fill-column-width 80))
+
+(use-package nov :ensure t
+  :custom (nov-text-width t)
   :hook (nov-mode . visual-line-fill-column-mode)
   :mode ("\\.epub\\'" . nov-mode))
 
@@ -397,13 +413,14 @@
      '("'" . repeat)
      '("<escape>" . ignore)
      ))
-  (meow-setup)
-  (meow-global-mode 1))
+  :hook
+  (after-init . meow-setup)
+  (after-init . meow-global-mode))
 
 
 (use-package gcmh :ensure t
   :custom
   (gcmh-idle-delay 5)
-  (gcmh-high-cons-threshold (* 16 1024 1024))
+  (gcmh-high-cons-threshold (* 256 1024 1024))
   (gcmh-verbose init-file-debug)
   :hook (after-init . gcmh-mode))

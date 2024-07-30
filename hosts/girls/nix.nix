@@ -49,8 +49,7 @@
     overlays =
       (with outputs.overlays; [additions modifications])
       ++ (with inputs; [
-        nix-your-shell.overlays.default
-        emacs-overlay.overlays.emacs
+        emacs-overlay.overlays.default
         (_: super: let pkgs = fenix.inputs.nixpkgs.legacyPackages.${super.system}; in fenix.overlays.default pkgs pkgs)
       ]);
   };
