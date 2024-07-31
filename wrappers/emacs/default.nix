@@ -1,18 +1,20 @@
 {pkgs, ...}: {
   wrappers.emacs = {
     basePackage = pkgs.emacsWithPackagesFromUsePackage {
+      package = pkgs.emacs-pgtk;
       config = ./config.org;
       alwaysTangle = true;
-      package = pkgs.emacs-pgtk;
       extraEmacsPackages = epkgs: [
-        pkgs.eglot-booster
         epkgs.treesit-grammars.with-all-grammars
+        pkgs.eglot-booster
       ];
     };
+
     flags = [
       "--init-directory"
       ./.config
     ];
+
     pathAdd = with pkgs; [emacs-lsp-booster];
   };
 }

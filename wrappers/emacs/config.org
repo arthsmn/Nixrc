@@ -1,10 +1,12 @@
 #+title: Configuração Emacs
 #+author: Arthur Cerqueira (arthsmn@github)
+#+startup: overview
+
 
 * Minha configuração de construção do Emacs
 Utilizo o NixOS com o =emacs-overlay= para prover e configurar meu Emacs, instalando todas as dependências necessárias. Atualmente utilizo a última tag do Emacs com suporte ao GTK puro, =pkgs.emacs-pgtk=, tornando-o compatível com Wayland.
 
-* Inicialização antecipada (=early-init.el=)
+* Inicialização (=early-init.el=)
 :PROPERTIES:
 :header-args: :tangle ".config/early-init.el"
 :END:
@@ -92,6 +94,7 @@ Essas duas variáveis tornam o Emacs pesado, então vamos removê-las e reintrod
   Também há a ativação de alguns modos padrões que vem desativados. Esses modos são colocados em hooks para serem ativados quando necessários e não atrapalharem a inicialização.
 
 #+begin_src elisp
+  ;; -*- lexical-binding: t -*-
   (use-package emacs
     :custom
     (backup-directory-alist `((".*" . ,temporary-file-directory)))
@@ -125,13 +128,23 @@ Essas duas variáveis tornam o Emacs pesado, então vamos removê-las e reintrod
 #+end_src
 
 ** Modificações na UI
+Aqui eu modifico as fontes padrão, e utilizo o plugin ligature para adicionar ligaturas entre caracteres, além de utilizar o plugin textsize para ajeitar o tamanho automaticamente dependendo do tamanho da tela. Ativo alguns modos que melhoram a visibilidade, como o visual-line-mode, que adiciona word wrapping, e o pixel-scroll-precision-mode, que adiciona smooth scrolling. Também ativo o which-key, que abre um menu de sugestão de próximas teclas, e o delsel, que faz com que o Emacs delete quando eu seleciono e começo a digitar.
+Utilizo o enlight para tela inicial, auto-dark para mudar o tema automaticamente, spacious-padding para adicionar espaçamento e alguns outros elementos de UI, e a mood-line que é minha mode-line customizada. O helpful é uma alternativa ao menu de ajuda do Emacs, com várias adições interessantes. O ace-window serve para mudar de split de forma mais eficiente.
 
 #+begin_src elisp
   (set-face-attribute 'default nil :family "Iosevka Comfy")
   (set-face-attribute 'variable-pitch nil :family "Iosevka Comfy Motion")
 
-  (use-package which-key
-    :hook (after-init . which-key-mode))
+  (use-package ligature :ensure t
+    :hook (prog-mode . ligature-mode)
+    :config (ligature-set-ligatures 'prog-mode '("<---" "<--"  "<<-" "<-" "->" "-->" "--->" "<->" "<-->" "<--->" "<---->" "<!--"
+                                                 "<==" "<===" "<=" "=>" "=>>" "==>" "===>" ">=" "<=>" "<==>" "<===>" "<====>" "<!---"
+                                                 "<~~" "<~" "~>" "~~>" "::" ":::" "==" "!=" "===" "!=="
+                                                 ":=" ":-" ":+" "<*" "<*>" "*>" "<|" "<|>" "|>" "+:" "-:" "=:" "<******>" "++" "+++")))
+
+  (use-package textsize :ensure t
+    :if (display-graphic-p)
+    :hook (after-init . textsize-mode))
 
   (use-package visual-line-mode
     :hook ((text-mode prog-mode) . visual-line-mode))
@@ -142,6 +155,9 @@ Essas duas variáveis tornam o Emacs pesado, então vamos removê-las e reintrod
 
   (use-package pixel-scroll-precision-mode
     :hook (after-init . pixel-scroll-precision-mode))
+
+  (use-package which-key
+    :hook (after-init . which-key-mode))
 
   (use-package delsel
     :hook (after-init . delete-selection-mode))
@@ -171,17 +187,6 @@ Essas duas variáveis tornam o Emacs pesado, então vamos removê-las e reintrod
   (use-package mood-line :ensure t
     :hook (after-init . mood-line-mode))
 
-  (use-package textsize :ensure t
-    :if (display-graphic-p)
-    :hook (after-init . textsize-mode))
-
-  (use-package ligature :ensure t
-    :hook (prog-mode . ligature-mode)
-    :config (ligature-set-ligatures 'prog-mode '("<---" "<--"  "<<-" "<-" "->" "-->" "--->" "<->" "<-->" "<--->" "<---->" "<!--"
-                                                 "<==" "<===" "<=" "=>" "=>>" "==>" "===>" ">=" "<=>" "<==>" "<===>" "<====>" "<!---"
-                                                 "<~~" "<~" "~>" "~~>" "::" ":::" "==" "!=" "===" "!=="
-                                                 ":=" ":-" ":+" "<*" "<*>" "*>" "<|" "<|>" "|>" "+:" "-:" "=:" "<******>" "++" "+++")))
-
   (use-package helpful :ensure t
     :bind (("C-h f" . helpful-callable)
            ("C-h C-f" . helpful-callable)
@@ -198,7 +203,7 @@ Essas duas variáveis tornam o Emacs pesado, então vamos removê-las e reintrod
     :bind ("M-o" . ace-window))
 #+end_src
 
-** Resto da config
+** Melhorias na edição
 
 #+begin_src elisp
   (use-package electric-pair
@@ -210,9 +215,6 @@ Essas duas variáveis tornam o Emacs pesado, então vamos removê-las e reintrod
   (use-package aggressive-indent :ensure t
     :hook (prog-mode . aggressive-indent-mode))
 
-  (use-package hungry-delete :ensure t
-    :hook (prog-mode . hungry-delete-mode))
-
   (use-package whitespace-cleanup-mode :ensure t
     :hook ((text-mode prog-mode) . whitespace-cleanup-mode))
 
@@ -223,7 +225,11 @@ Essas duas variáveis tornam o Emacs pesado, então vamos removê-las e reintrod
     :custom (colorful-use-prefix t)
     :config (add-to-list 'colorful-extra-color-keyword-functions '(colorful-add-rgb-colors))
     :hook (prog-mode . colorful-mode))
+#+end_src
 
+** Ferramentas auxiliares
+
+#+begin_src elisp
   (use-package treesit-auto :ensure t
     :hook (prog-mode . treesit-auto-mode)
     :config (treesit-auto-add-to-auto-mode-alist 'all))
@@ -234,7 +240,11 @@ Essas duas variáveis tornam o Emacs pesado, então vamos removê-las e reintrod
     :config
     (eat-eshell-mode)
     (eat-eshell-visual-command-mode))
+#+end_src
 
+** Modos
+
+#+begin_src elisp
   (use-package markdown-mode :ensure t
     :mode "\\.md\\'")
 
@@ -255,7 +265,11 @@ Essas duas variáveis tornam o Emacs pesado, então vamos removê-las e reintrod
 
   (use-package fennel-mode :ensure t
     :mode "\\.fnl\\'")
+#+end_src
 
+** Ferramentas para auxiliar edição
+
+#+begin_src elisp
   (use-package eglot
     :hook ((c-ts-mode
             nix-ts-mode
@@ -276,11 +290,12 @@ Essas duas variáveis tornam o Emacs pesado, então vamos removê-las e reintrod
     :config (eglot-booster-mode))
 
   (use-package sly :ensure t
-    :custom (inferior-lisp-program "sbcl"))
+    :custom (inferior-lisp-program "sbcl"))  
+#+end_src
 
-  ;;;
-  ;;; Autocompletar
-  ;;;
+** Autocompletar
+
+#+begin_src elisp
   (use-package corfu :ensure t
     :hook (after-init . global-corfu-mode)
     :bind (:map corfu-map
@@ -320,11 +335,12 @@ Essas duas variáveis tornam o Emacs pesado, então vamos removê-las e reintrod
   (use-package orderless :ensure t
     :custom
     (completion-styles '(orderless basic))
-    (completion-category-overrides '((file (styles basic partial-completion)))))
+    (completion-category-overrides '((file (styles basic partial-completion)))))  
+#+end_src
 
-  ;;;
-  ;;; Minibuffer + Pesquisa
-  ;;;
+** Minibuffer
+
+#+begin_src elisp
   (use-package vertico :ensure t
     :hook (after-init . vertico-mode))
 
@@ -341,7 +357,11 @@ Essas duas variáveis tornam o Emacs pesado, então vamos removê-las e reintrod
 
   (use-package marginalia :ensure t
     :hook (after-init . marginalia-mode))
+#+end_src
 
+** Pesquisa
+
+#+begin_src elisp
   (use-package consult :ensure t
     :custom (consult-narrow-key "<")
     :bind (
@@ -375,7 +395,11 @@ Essas duas variáveis tornam o Emacs pesado, então vamos removê-las e reintrod
 
   (use-package embark-consult :ensure t
     :hook (embark-collect-mode . consult-preview-at-point-mode))
+#+end_src
 
+** Resto da config
+
+#+begin_src elisp
   (use-package eshell
     :init (defun my/setup-eshell ()
             ;; Something funny is going on with how Eshell sets up its keymaps; this is
@@ -383,9 +407,6 @@ Essas duas variáveis tornam o Emacs pesado, então vamos removê-las e reintrod
             (keymap-set eshell-mode-map "C-r" 'consult-history))
     :hook ((eshell-mode . my/setup-eshell)))
 
-  ;;;
-  ;;; Geral
-  ;;;
   (use-package dired
     :custom
     (dired-recursive-copies 'always)
@@ -518,6 +539,10 @@ Essas duas variáveis tornam o Emacs pesado, então vamos removê-las e reintrod
     :hook
     (after-init . meow-setup)
     (after-init . meow-global-mode))
+
+  (use-package meow-tree-sitter :ensure t
+    :after meow
+    :config (meow-tree-sitter-register-defaults))
 
 
   (use-package gcmh :ensure t

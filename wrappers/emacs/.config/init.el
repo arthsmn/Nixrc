@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t -*-
 (use-package emacs
   :custom
   (backup-directory-alist `((".*" . ,temporary-file-directory)))
@@ -32,8 +33,16 @@
 (set-face-attribute 'default nil :family "Iosevka Comfy")
 (set-face-attribute 'variable-pitch nil :family "Iosevka Comfy Motion")
 
-(use-package which-key
-  :hook (after-init . which-key-mode))
+(use-package ligature :ensure t
+  :hook (prog-mode . ligature-mode)
+  :config (ligature-set-ligatures 'prog-mode '("<---" "<--"  "<<-" "<-" "->" "-->" "--->" "<->" "<-->" "<--->" "<---->" "<!--"
+                                               "<==" "<===" "<=" "=>" "=>>" "==>" "===>" ">=" "<=>" "<==>" "<===>" "<====>" "<!---"
+                                               "<~~" "<~" "~>" "~~>" "::" ":::" "==" "!=" "===" "!=="
+                                               ":=" ":-" ":+" "<*" "<*>" "*>" "<|" "<|>" "|>" "+:" "-:" "=:" "<******>" "++" "+++")))
+
+(use-package textsize :ensure t
+  :if (display-graphic-p)
+  :hook (after-init . textsize-mode))
 
 (use-package visual-line-mode
   :hook ((text-mode prog-mode) . visual-line-mode))
@@ -44,6 +53,9 @@
 
 (use-package pixel-scroll-precision-mode
   :hook (after-init . pixel-scroll-precision-mode))
+
+(use-package which-key
+  :hook (after-init . which-key-mode))
 
 (use-package delsel
   :hook (after-init . delete-selection-mode))
@@ -73,17 +85,6 @@
 (use-package mood-line :ensure t
   :hook (after-init . mood-line-mode))
 
-(use-package textsize :ensure t
-  :if (display-graphic-p)
-  :hook (after-init . textsize-mode))
-
-(use-package ligature :ensure t
-  :hook (prog-mode . ligature-mode)
-  :config (ligature-set-ligatures 'prog-mode '("<---" "<--"  "<<-" "<-" "->" "-->" "--->" "<->" "<-->" "<--->" "<---->" "<!--"
-                                               "<==" "<===" "<=" "=>" "=>>" "==>" "===>" ">=" "<=>" "<==>" "<===>" "<====>" "<!---"
-                                               "<~~" "<~" "~>" "~~>" "::" ":::" "==" "!=" "===" "!=="
-                                               ":=" ":-" ":+" "<*" "<*>" "*>" "<|" "<|>" "|>" "+:" "-:" "=:" "<******>" "++" "+++")))
-
 (use-package helpful :ensure t
   :bind (("C-h f" . helpful-callable)
          ("C-h C-f" . helpful-callable)
@@ -107,9 +108,6 @@
 
 (use-package aggressive-indent :ensure t
   :hook (prog-mode . aggressive-indent-mode))
-
-(use-package hungry-delete :ensure t
-  :hook (prog-mode . hungry-delete-mode))
 
 (use-package whitespace-cleanup-mode :ensure t
   :hook ((text-mode prog-mode) . whitespace-cleanup-mode))
@@ -176,9 +174,6 @@
 (use-package sly :ensure t
   :custom (inferior-lisp-program "sbcl"))
 
-;;;
-;;; Autocompletar
-;;;
 (use-package corfu :ensure t
   :hook (after-init . global-corfu-mode)
   :bind (:map corfu-map
@@ -220,9 +215,6 @@
   (completion-styles '(orderless basic))
   (completion-category-overrides '((file (styles basic partial-completion)))))
 
-;;;
-;;; Minibuffer + Pesquisa
-;;;
 (use-package vertico :ensure t
   :hook (after-init . vertico-mode))
 
@@ -281,9 +273,6 @@
           (keymap-set eshell-mode-map "C-r" 'consult-history))
   :hook ((eshell-mode . my/setup-eshell)))
 
-;;;
-;;; Geral
-;;;
 (use-package dired
   :custom
   (dired-recursive-copies 'always)
@@ -416,6 +405,10 @@
   :hook
   (after-init . meow-setup)
   (after-init . meow-global-mode))
+
+(use-package meow-tree-sitter :ensure t
+  :after meow
+  :config (meow-tree-sitter-register-defaults))
 
 
 (use-package gcmh :ensure t
