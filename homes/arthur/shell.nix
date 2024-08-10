@@ -28,7 +28,7 @@ in {
           end
           nix shell $argv
         '';
-      last_history_item = "echo $history[1]";
+      last_item_from_history = "echo $history[1]";
     };
     shellAbbrs = {
       e = {
@@ -39,7 +39,7 @@ in {
       nxrb = "sudo nixos-rebuild switch";
       "!!" = {
         position = "anywhere";
-        function = "last_history_item";
+        function = "last_item_from_history";
       };
       q = "exit";
       sctl = {

@@ -15,14 +15,20 @@ in {
     services.xserver.desktopManager.gnome.enable = true;
 
     environment = {
-      systemPackages = with pkgs.gnomeExtensions; [
+      systemPackages = with pkgs; [
+        adw-gtk3
+        dconf-editor
+        foliate
+        fragments
+      ] ++ (with gnomeExtensions; [
         appindicator
         blur-my-shell
         forge
+        gnome-bedtime
         just-perfection
         legacy-gtk3-theme-scheme-auto-switcher
         night-theme-switcher
-      ];
+      ]);
 
       gnome.excludePackages =
         (with pkgs; [

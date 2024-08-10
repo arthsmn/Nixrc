@@ -1,5 +1,4 @@
 {
-  lib,
   pkgs,
   config,
   inputs,
@@ -24,20 +23,14 @@ in {
     extraGroups = ["networkmanager" "wheel" "libvirtd" "input" "lp"];
     packages =
       (with pkgs; [
-        adw-gtk3
         alejandra
         bottles
         brave
         chromatic
-        dconf-editor
         fd
         file
-        foliate
-        fragments
         fzf
-        gamescope
         gitu
-        gnome-graphs
         kryptor
         libreoffice
         man-pages
@@ -50,7 +43,6 @@ in {
         nix-your-shell
         ocrmypdf
         ripgrep
-        sbcl
         signal-desktop
         sops
         tesseract
@@ -60,22 +52,27 @@ in {
         wget
         wl-clipboard
 
-        clang-tools
-        clang
+        # clang-tools
+        # clang
 
-        luajitPackages.fennel
-        fennel-ls
-        fnlfmt
+        # sbcl
 
-        cargo-watch
-        (fenix.stable.withComponents [
-          "cargo"
-          "clippy"
-          "rust-analyzer"
-          "rust-src"
-          "rustc"
-          "rustfmt"
-        ])
+        ghc
+        haskell-language-server
+
+        # luajitPackages.fennel
+        # fennel-ls
+        # fnlfmt
+
+        # cargo-watch
+        # (fenix.stable.withComponents [
+        #   "cargo"
+        #   "clippy"
+        #   "rust-analyzer"
+        #   "rust-src"
+        #   "rustc"
+        #   "rustfmt"
+        # ])
       ])
       ++ [wrapper-manager-build];
   };

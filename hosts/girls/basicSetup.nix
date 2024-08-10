@@ -12,6 +12,7 @@
     options = "caps:escape,shift:both_capslock";
   };
 
+  # Custom module
   locales = {
     locale = "pt_BR";
     spellChecker = true;
@@ -41,10 +42,7 @@
     virt-manager.enable = true;
   };
 
-  virtualisation.libvirtd = {
-    enable = true;
-    qemu.swtpm.enable = true;
-  };
+  virtualisation.libvirtd.enable = true;
 
   zramSwap.enable = true;
 }
