@@ -230,7 +230,12 @@
 
 (use-package vertico-directory :after vertico
   :bind (:map vertico-map
-              ("M-DEL" . vertico-directory-delete-word)))
+              ("RET" . vertico-directory-enter)
+              ("DEL" . vertico-directory-delete-char)
+              ("M-DEL" . vertico-directory-delete-word))
+  ;; :hook (rfn-eshadow-update-overlay . vertico-directory-tidy)
+  )
+
 
 (use-package marginalia :ensure t
   :hook (after-init . marginalia-mode))

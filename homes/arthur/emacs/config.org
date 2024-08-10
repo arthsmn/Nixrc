@@ -1,14 +1,15 @@
 #+title: Configuração Emacs
 #+author: Arthur Cerqueira (arthsmn@github)
 #+startup: overview
+#+auto_tangle: t
 
 
 * Minha configuração de construção do Emacs
-Utilizo o NixOS com o =emacs-overlay= para prover e configurar meu Emacs, instalando todas as dependências necessárias. Atualmente utilizo a última tag do Emacs com suporte ao GTK puro, =pkgs.emacs-pgtk=, tornando-o compatível com Wayland.
+Utilizo o NixOS com o =emacs-overlay= para prover e configurar meu Emacs, instalando todas as dependências necessárias. Atualmente utilizo a última tag do Emacs com suporte ao GTK puro, =pkgs.emacs-pgtk=, tornando-o compatível com Wayland. Todas as mudanças nesse arquivo são automaticamente aplicadas ao arquivo de configuração graças ao plugin =org-auto-tangle=.
 
 * Inicialização (=early-init.el=)
 :PROPERTIES:
-:header-args: :tangle ".config/early-init.el"
+:header-args: :tangle "config/early-init.el"
 :END:
 
 Essa é a configuração do Emacs que é executada primeiro, antes da inicialização.
@@ -85,7 +86,7 @@ Essas duas variáveis tornam o Emacs pesado, então vamos removê-las e reintrod
 
 * Configuração (=init.el=)
 :PROPERTIES:
-:header-args: :tangle ".config/init.el"
+:header-args: :tangle "config/init.el"
 :END:
 
 ** Ajeitando alguns padrões
@@ -103,6 +104,8 @@ Essas duas variáveis tornam o Emacs pesado, então vamos removê-las e reintrod
     (custom-file (make-temp-file "emacs-custom-"))
 
     (sentence-end-double-space nil)
+
+    (read-extended-command-predicate #'command-completion-default-include-p)
 
     :bind (("C-<return>" . toggle-frame-fullscreen)
            ("C-c r" . meow-query-replace-regexp)))
@@ -240,6 +243,30 @@ Utilizo o enlight para tela inicial, auto-dark para mudar o tema automaticamente
     :config
     (eat-eshell-mode)
     (eat-eshell-visual-command-mode))
+
+  (use-package eglot
+    :hook ((c-ts-mode
+            nix-ts-mode
+            fennel-mode
+            nix-mode
+            haskell-mode
+            rust-ts-mode) . eglot-ensure)
+    :custom
+    (eglot-autoshutdown t)
+    (eglot-send-changes-idle-time 0.1)
+    (eglot-extend-to-xref t)
+    :config
+    (fset #'jsonrpc--log-event #'ignore)
+    (add-to-list 'eglot-server-programs
+                 '(nix-ts-mode . ("nixd")))
+    (add-to-list 'eglot-server-programs
+                 '(fennel-mode . ("fennel-ls")))
+    )
+  (use-package eglot-booster :after eglot
+    :config (eglot-booster-mode))
+
+  (use-package sly :ensure t
+    :custom (inferior-lisp-program "sbcl"))  
 #+end_src
 
 ** Modos
@@ -260,6 +287,8 @@ Utilizo o enlight para tela inicial, auto-dark para mudar o tema automaticamente
   ;;   :mode "\\.nix\\'"
   ;; )
 
+  (use-package haskell-mode-autoloads :ensure haskell-mode)
+
   (use-package fish-mode :ensure t
     :mode "\\.fish\\'")
 
@@ -267,49 +296,20 @@ Utilizo o enlight para tela inicial, auto-dark para mudar o tema automaticamente
     :mode "\\.fnl\\'")
 #+end_src
 
-** Ferramentas para auxiliar edição
-
-#+begin_src elisp
-  (use-package eglot
-    :hook ((c-ts-mode
-            nix-ts-mode
-            fennel-mode
-            nix-mode
-            rust-ts-mode) . eglot-ensure)
-    :custom
-    (eglot-send-changes-idle-time 0.1)
-    (eglot-extend-to-xref t)
-    :config
-    (fset #'jsonrpc--log-event #'ignore)
-    (add-to-list 'eglot-server-programs
-                 '(nix-ts-mode . ("nixd")))
-    (add-to-list 'eglot-server-programs
-                 '(fennel-mode . ("fennel-ls")))
-    )
-  (use-package eglot-booster :after eglot
-    :config (eglot-booster-mode))
-
-  (use-package sly :ensure t
-    :custom (inferior-lisp-program "sbcl"))  
-#+end_src
-
 ** Autocompletar
 
 #+begin_src elisp
   (use-package corfu :ensure t
     :hook (after-init . global-corfu-mode)
-    :bind (:map corfu-map
-                ("SPC" . corfu-insert-separator)
-                ("C-n" . corfu-next)
-                ("C-p" . corfu-previous))
     :custom
-    (enable-recursive-minibuffers t)
+    (completion-auto-help 'always)
+    (completion-auto-select 'second-tab)
     (completion-cycle-threshold 1)
     (completions-detailed t)
-    (tab-always-indent 'complete)
-    (completion-auto-help 'always)
     (completions-max-height 20)
-    (completion-auto-select 'second-tab)
+    (enable-recursive-minibuffers t)
+    (tab-always-indent 'complete)
+    (text-mode-ispell-word-completion nil)
     :init (keymap-set minibuffer-mode-map "TAB" 'minibuffer-complete))
 
   (use-package corfu-popupinfo :after corfu
@@ -319,7 +319,7 @@ Utilizo o enlight para tela inicial, auto-dark para mudar o tema automaticamente
     (corfu-popupinfo-hide nil)
     :config (corfu-popupinfo-mode))
 
-  (use-package corfu-terminal :ensure t
+  (use-package corfu-terminal :ensure t :after corfu
     :if (not (display-graphic-p))
     :config (corfu-terminal-mode))
 
@@ -353,7 +353,12 @@ Utilizo o enlight para tela inicial, auto-dark para mudar o tema automaticamente
 
   (use-package vertico-directory :after vertico
     :bind (:map vertico-map
-                ("M-DEL" . vertico-directory-delete-word)))
+                ("RET" . vertico-directory-enter)
+                ("DEL" . vertico-directory-delete-char)
+                ("M-DEL" . vertico-directory-delete-word))
+    ;; :hook (rfn-eshadow-update-overlay . vertico-directory-tidy)
+    )
+
 
   (use-package marginalia :ensure t
     :hook (after-init . marginalia-mode))
@@ -363,7 +368,8 @@ Utilizo o enlight para tela inicial, auto-dark para mudar o tema automaticamente
 
 #+begin_src elisp
   (use-package consult :ensure t
-    :custom (consult-narrow-key "<")
+    :custom
+    (consult-narrow-key "<")
     :bind (
            ;; Drop-in replacements
            ("C-x b" . consult-buffer)
@@ -380,8 +386,7 @@ Utilizo o enlight para tela inicial, auto-dark para mudar o tema automaticamente
            ("M-e" . consult-isearch-history)
            ("M-s e" . consult-isearch-history)
            ("M-s l" . consult-line)
-           ("M-s L" . consult-line-multi)
-           ))
+           ("M-s L" . consult-line-multi)))
 
   (use-package embark :ensure t
     :bind (("C-." . embark-act)
@@ -400,13 +405,6 @@ Utilizo o enlight para tela inicial, auto-dark para mudar o tema automaticamente
 ** Resto da config
 
 #+begin_src elisp
-  (use-package eshell
-    :init (defun my/setup-eshell ()
-            ;; Something funny is going on with how Eshell sets up its keymaps; this is
-            ;; a work-around to make C-r bound in the keymap
-            (keymap-set eshell-mode-map "C-r" 'consult-history))
-    :hook ((eshell-mode . my/setup-eshell)))
-
   (use-package dired
     :custom
     (dired-recursive-copies 'always)
@@ -414,6 +412,13 @@ Utilizo o enlight para tela inicial, auto-dark para mudar o tema automaticamente
     (delete-by-moving-to-trash t)
     (dired-listing-switches
      "-AGFhl --group-directories-first"))
+
+  (use-package eshell
+    :init (defun my/setup-eshell ()
+            ;; Something funny is going on with how Eshell sets up its keymaps; this is
+            ;; a work-around to make C-r bound in the keymap
+            (keymap-set eshell-mode-map "C-r" 'consult-history))
+    :hook ((eshell-mode . my/setup-eshell)))
 
   (use-package magit :ensure t
     :bind ("C-x g" . magit-status))
@@ -428,6 +433,10 @@ Utilizo o enlight para tela inicial, auto-dark para mudar o tema automaticamente
     :hook
     (org-mode . org-indent-mode)
     (org-mode . variable-pitch-mode))
+
+  (use-package org-auto-tangle :ensure t
+    :after org
+    :hook (org-mode . org-auto-tangle-mode))
 
   (use-package pdf-tools :ensure t
     :mode ("\\.pdf\\'" . pdf-view-mode))
