@@ -24,15 +24,18 @@ in {
     packages =
       (with pkgs; [
         alejandra
-        bottles
         brave
         chromatic
+        libreoffice
+        melonDS
+        signal-desktop
+        stremio
+        inputs.ghostty.packages.${pkgs.system}.default
+
         fd
         file
         fzf
         gitu
-        kryptor
-        libreoffice
         man-pages
         man-pages-posix
         markdown-oxide
@@ -43,7 +46,7 @@ in {
         nix-your-shell
         ocrmypdf
         ripgrep
-        signal-desktop
+        sbctl
         sops
         tesseract
         trash-cli
@@ -57,8 +60,8 @@ in {
 
         # sbcl
 
-        ghc
-        haskell-language-server
+        # ghc
+        # haskell-language-server
 
         # luajitPackages.fennel
         # fennel-ls

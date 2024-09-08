@@ -11,11 +11,7 @@
   in {
     settings = {
       experimental-features = "nix-command flakes";
-      # Opinionated: disable global registry
       flake-registry = "";
-      # Workaround for https://github.com/NixOS/nix/issues/9574
-      nix-path = config.nix.nixPath;
-
       auto-optimise-store = true;
       allowed-users = ["@wheel"];
       use-xdg-base-directories = true;
@@ -28,14 +24,12 @@
       ];
     };
 
-    # Opinionated: disable channels
     channel.enable = false;
 
-    # Opinionated: make flake registry and nix path match flake inputs
     registry = lib.mapAttrs (_: flake: {inherit flake;}) flakeInputs;
     nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
 
-    package = pkgs.lix;
+    package = pkgs.nixVersions.latest;
   };
 
   programs.nh = {
@@ -46,6 +40,11 @@
   };
 
   nixpkgs = {
+    config.allowUnfreePredicate = pkg:
+      builtins.elem (lib.getName pkg) [
+        "corefonts"
+      ];
+
     overlays =
       (with outputs.overlays; [additions modifications])
       ++ (with inputs; [
