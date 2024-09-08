@@ -4,7 +4,6 @@
     "org/gnome/desktop/wm/preferences" = {
       focus-mode = "sloppy";
       auto-raise = true;
-      num-workspaces = 5;
     };
     "org/gnome/desktop/wm/keybindings" = {
       close = ["<Super>q"];
@@ -20,22 +19,18 @@
       disable-user-extensions = false;
       # TODO: usar filter + hasPrefix para não precisar repetir. (O problema é que a lista de pacotes é de derivações)
       enabled-extensions = map (f: f.extensionUuid) (with pkgs.gnomeExtensions; [
-        appindicator
+        alphabetical-app-grid
         blur-my-shell
-        forge
+        caffeine
         gnome-bedtime
+        hot-edge
         just-perfection
         legacy-gtk3-theme-scheme-auto-switcher
         night-theme-switcher
+        pop-shell
 
         light-style
       ]);
-    };
-
-    "org/gnome/mutter" = {
-      center-new-windows = true;
-      dynamic-workspaces = false;
-      auto-maximize = false;
     };
 
     "org/virt-manager/virt-manager/connections" = {
