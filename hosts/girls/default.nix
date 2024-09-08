@@ -2,8 +2,6 @@
   imports =
     [
       ./basicSetup.nix
-      ./bootloader.nix
-      ./desktop.nix
       ./disko.nix
       ./hardware.nix
       ./networking.nix

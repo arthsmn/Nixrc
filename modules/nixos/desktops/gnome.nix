@@ -15,39 +15,46 @@ in {
     services.xserver.desktopManager.gnome.enable = true;
 
     environment = {
-      systemPackages = with pkgs; [
-        adw-gtk3
-        dconf-editor
-        foliate
-        fragments
-      ] ++ (with gnomeExtensions; [
-        appindicator
-        blur-my-shell
-        forge
-        gnome-bedtime
-        just-perfection
-        legacy-gtk3-theme-scheme-auto-switcher
-        night-theme-switcher
-      ]);
-
-      gnome.excludePackages =
-        (with pkgs; [
-          geary
-          gnome-calendar
-          gnome-connections
-          gnome-tour
-          simple-scan
-          totem
-        ])
-        ++ (with pkgs.gnome; [
-          gnome-contacts
-          gnome-maps
-          gnome-music
-          gnome-weather
+      systemPackages = with pkgs;
+        [
+          adw-gtk3
+          (blackbox-terminal.override {sixelSupport = true;})
+          dconf-editor
+          foliate
+          fragments
+        ]
+        ++ (with gnomeExtensions; [
+          alphabetical-app-grid
+          blur-my-shell
+          caffeine
+          gnome-bedtime
+          hot-edge
+          just-perfection
+          legacy-gtk3-theme-scheme-auto-switcher
+          night-theme-switcher
+          pop-shell
         ]);
+
+      gnome.excludePackages = with pkgs; [
+        geary
+        gnome-calendar
+        gnome-connections
+        gnome-console
+        gnome-contacts
+        gnome-font-viewer
+        gnome-maps
+        gnome-music
+        gnome-tour
+        gnome-weather
+        simple-scan
+        totem
+        yelp
+      ];
     };
 
     hardware.pulseaudio.enable = false;
+
+    services.system76-scheduler.enable = true;
 
     desktop.loginManager = mkDefault "GDM";
   };

@@ -9,13 +9,14 @@
 in {
   imports = [
     ./gnome.nix
+    ./hyprland.nix
     ./gdm.nix
   ];
 
   options.desktop = {
     enable = mkEnableOption "desktop";
     environments = mkOption {
-      type = with types; nullOr (listOf (enum ["Gnome"]));
+      type = with types; nullOr (listOf (enum ["Gnome" "Hyprland"]));
     };
     loginManager = mkOption {
       type = types.enum ["GDM"];
@@ -52,6 +53,7 @@ in {
     fonts = {
       packages = with pkgs; [
         carlito
+        corefonts
         inter
         iosevka-comfy.comfy
         iosevka-comfy.comfy-fixed
