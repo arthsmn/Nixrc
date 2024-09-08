@@ -1,3 +1,4 @@
+
 #+title: Configuração Emacs
 #+author: Arthur Cerqueira (arthsmn@github)
 #+startup: overview
@@ -291,6 +292,9 @@ Utilizo o enlight para tela inicial, auto-dark para mudar o tema automaticamente
 
   (use-package fish-mode :ensure t
     :mode "\\.fish\\'")
+
+  (use-package elvish-mode :ensure t
+    :mode "\\.elv\\'")
 
   (use-package fennel-mode :ensure t
     :mode "\\.fnl\\'")

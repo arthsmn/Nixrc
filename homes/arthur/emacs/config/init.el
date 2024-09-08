@@ -177,6 +177,9 @@
 (use-package fish-mode :ensure t
   :mode "\\.fish\\'")
 
+(use-package elvish-mode :ensure t
+  :mode "\\.elv\\'")
+
 (use-package fennel-mode :ensure t
   :mode "\\.fnl\\'")
 
